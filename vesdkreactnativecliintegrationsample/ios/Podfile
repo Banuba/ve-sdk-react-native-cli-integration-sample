@@ -1,6 +1,9 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+source 'https://github.com/Banuba/specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
 platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
 
@@ -22,6 +25,28 @@ target 'vesdkreactnativecliintegrationsample' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  
+  pod 'BanubaARCloudSDK', '1.23.0' #optional
+  pod 'BanubaVideoEditorSDK', '1.23.0'
+  pod 'BanubaAudioBrowserSDK', '1.23.0' #optional
+  pod 'BanubaMusicEditorSDK', '1.23.0'
+  pod 'BanubaOverlayEditorSDK', '1.23.0'
+  pod 'BanubaEffectPlayer', '1.23.0' #optional
+  pod 'BanubaSDK', '1.23.0' #optional
+  pod 'BanubaSDKSimple', '1.23.0'
+  pod 'BanubaSDKServicing', '1.23.0'
+  pod 'VideoEditor', '1.23.0'
+  pod 'BanubaUtilities', '1.23.0'
+  pod 'BanubaVideoEditorGallerySDK', '1.23.0' #optional
+  pod 'BanubaLicenseServicingSDK', '1.23.0'
+  pod 'BanubaVideoEditorTrimSDK', '1.23.0'
+  # pod 'BanubaTokenStorageSDK', '1.23.0' #optional
+
+  pod 'BNBLicenseUtils', '1.22.1'
+
+  pod 'VEExportSDK', '1.23.0'
+  pod 'VEEffectsSDK', '1.23.0'
+  pod 'VEPlaybackSDK', '1.23.0'
 
   target 'vesdkreactnativecliintegrationsampleTests' do
     inherit! :complete

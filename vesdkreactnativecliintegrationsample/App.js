@@ -1,112 +1,62 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
+import { StyleSheet,
   Text,
-  useColorScheme,
+  Button,
   View,
+  Platform,
+  NativeModules
 } from 'react-native';
+const { VideoEditorModule } = NativeModules;
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+const openEditor = (): Promise<{ videoUri: string } | null> => {
+  return VideoEditorModule.openVideoEditor();
 };
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+export const openVideoEditor = async (): Promise<string | null> => {
+  const response = await openEditor();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  if (!response) {
+    return null;
+  }
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+  return response?.videoUri;
 };
+
+async function getAndroidExportResult() {
+  return await VideoEditorModule.openVideoEditor();
+}
+
+export default function App() {
+  return (
+      <View style={styles.container}>
+        <Text>Sample integration of Banuba Video Editor</Text>
+        <Button
+            title="Open Video Editor"
+            onPress={async () => {
+              if (Platform.OS === 'android') {
+                getAndroidExportResult().then(videoUri => {
+                  console.log(videoUri)
+                }).catch(e => {
+                  console.log(e)
+                })
+              } else {
+                const videoUri = await openVideoEditor();
+                console.log(videoUri)
+              }
+            }
+            }
+        />
+        {/*<StatusBar style="auto" />*/}
+      </View>
+  );
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    marginVertical: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
-
-export default App;

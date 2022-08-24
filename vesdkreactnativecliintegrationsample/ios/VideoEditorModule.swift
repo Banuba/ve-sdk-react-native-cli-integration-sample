@@ -132,11 +132,11 @@ extension VideoEditorModule {
       DispatchQueue.main.async {
         if success {
           // Result urls. You could interact with your own implementation.
-          self?.currentResolve!(["videoUri": firstFileURL.absoluteString])
+          self?.currentResolve?(["videoUri": firstFileURL.absoluteString])
           // remove strong reference to video editor sdk instance
           self?.videoEditorSDK = nil
         } else {
-          self?.currentReject!("", error?.errorMessage, nil)
+          self?.currentReject?("", error?.errorMessage, nil)
           // remove strong reference to video editor sdk instance
           self?.videoEditorSDK = nil
           print("Error: \(String(describing: error))")
@@ -152,7 +152,7 @@ extension VideoEditorModule: BanubaVideoEditorDelegate {
     videoEditor.dismissVideoEditor(animated: true) { [weak self] in
       // remove strong reference to video editor sdk instance
       self?.videoEditorSDK = nil
-      self?.currentResolve!(NSNull())
+      self?.currentResolve?(NSNull())
     }
   }
   

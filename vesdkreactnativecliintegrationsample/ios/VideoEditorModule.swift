@@ -30,8 +30,11 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
     self.currentReject = reject
     
     let config = createVideoEditorConfiguration()
+    
+    let banubaClientToken = <#Place your token here#>
+
     videoEditorSDK = BanubaVideoEditor(
-      token: "Place your video editor token here",
+      token: banubaClientToken,
       configuration: config,
       externalViewControllerFactory: nil
     )

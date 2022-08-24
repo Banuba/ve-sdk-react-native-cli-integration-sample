@@ -533,7 +533,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = vesdkreactnativecliintegrationsample;
-				SWIFT_OBJC_BRIDGING_HEADER = "vesdkreactnativecliintegrationsample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = BridgeHeader.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -559,7 +559,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = vesdkreactnativecliintegrationsample;
-				SWIFT_OBJC_BRIDGING_HEADER = "vesdkreactnativecliintegrationsample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = BridgeHeader.h;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

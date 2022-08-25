@@ -23,10 +23,10 @@ You can configure all data passed from VideoEditorModule depends on your require
 **To set exported video name** just place the desired one into `fileName()` builder method inside [IntegrationAppExportParamsProvider](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/app/src/main/java/com/vesdkreactnativeintegrationsample/videoeditor/export/IntegrationAppExportParamsProvider.kt#L39) class.
 
 # iOS
-1. Install node and cocoapods dependencies using `npm ci && cd ios && pod install`.
+:exclamation: **Important:** Please run the following steps for Apple M-series chip based on ARM architecture :
+`sudo arch -x86_64 gem install ffi`
+
+1. Install Node and Cocoapods dependencies using `npm ci && cd ios && pod install` and `npm ci && cd ios && arch -x86_64 pod install` for Apple M1.
 2. Put [Banuba Face AR token](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/ios/VideoEditorModule.swift#L34).
 3. Run command **npx react-native run-ios** to launch the sample on device.
 
-:exclamation: **Important:** If you are using M-series chip based on ARM architecture - please run following steps:
-1. sudo arch -x86_64 gem install ffi
-2. arch -x86_64 pod install

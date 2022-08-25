@@ -1,20 +1,21 @@
 PODS:
-  - BanubaARCloudSDK (1.23.0)
-  - BanubaAudioBrowserSDK (1.23.0)
-  - BanubaEffectPlayer (1.23.0)
-  - BanubaLicenseServicingSDK (1.23.0)
-  - BanubaMusicEditorSDK (1.23.0)
-  - BanubaOverlayEditorSDK (1.23.0)
-  - BanubaSDK (1.23.0)
-  - BanubaSDKServicing (1.23.0)
-  - BanubaSDKSimple (1.23.0)
-  - BanubaUtilities (1.23.0)
-  - BanubaVideoEditorGallerySDK (1.23.0)
-  - BanubaVideoEditorSDK (1.23.0)
-  - BanubaVideoEditorTrimSDK (1.23.0)
-  - BNBLicenseUtils (1.22.1)
+  - BanubaARCloudSDK (1.24.1)
+  - BanubaAudioBrowserSDK (1.24.1)
+  - BanubaEffectPlayer (1.24.1)
+  - BanubaLicenseServicingSDK (1.24.1)
+  - BanubaMusicEditorSDK (1.24.1)
+  - BanubaOverlayEditorSDK (1.24.1)
+  - BanubaSDK (1.24.1)
+  - BanubaSDKServicing (1.24.1)
+  - BanubaSDKSimple (1.24.1)
+  - BanubaTokenStorageSDK (1.24.1):
+    - Firebase/Database
+  - BanubaUtilities (1.24.1)
+  - BanubaVideoEditorGallerySDK (1.24.1)
+  - BanubaVideoEditorSDK (1.24.1)
+  - BanubaVideoEditorTrimSDK (1.24.1)
+  - BNBLicenseUtils (1.24.1)
   - boost (1.76.0)
-  - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.69.4)
   - FBReactNativeSpec (0.69.4):
@@ -24,71 +25,44 @@ PODS:
     - React-Core (= 0.69.4)
     - React-jsi (= 0.69.4)
     - ReactCommon/turbomodule/core (= 0.69.4)
-  - Flipper (0.125.0):
-    - Flipper-Folly (~> 2.6)
-    - Flipper-RSocket (~> 1.4)
-  - Flipper-Boost-iOSX (1.76.0.1.11)
-  - Flipper-DoubleConversion (3.2.0.1)
-  - Flipper-Fmt (7.1.7)
-  - Flipper-Folly (2.6.10):
-    - Flipper-Boost-iOSX
-    - Flipper-DoubleConversion
-    - Flipper-Fmt (= 7.1.7)
-    - Flipper-Glog
-    - libevent (~> 2.1.12)
-    - OpenSSL-Universal (= 1.1.1100)
-  - Flipper-Glog (0.5.0.5)
-  - Flipper-PeerTalk (0.0.4)
-  - Flipper-RSocket (1.4.3):
-    - Flipper-Folly (~> 2.6)
-  - FlipperKit (0.125.0):
-    - FlipperKit/Core (= 0.125.0)
-  - FlipperKit/Core (0.125.0):
-    - Flipper (~> 0.125.0)
-    - FlipperKit/CppBridge
-    - FlipperKit/FBCxxFollyDynamicConvert
-    - FlipperKit/FBDefines
-    - FlipperKit/FKPortForwarding
-    - SocketRocket (~> 0.6.0)
-  - FlipperKit/CppBridge (0.125.0):
-    - Flipper (~> 0.125.0)
-  - FlipperKit/FBCxxFollyDynamicConvert (0.125.0):
-    - Flipper-Folly (~> 2.6)
-  - FlipperKit/FBDefines (0.125.0)
-  - FlipperKit/FKPortForwarding (0.125.0):
-    - CocoaAsyncSocket (~> 7.6)
-    - Flipper-PeerTalk (~> 0.0.4)
-  - FlipperKit/FlipperKitHighlightOverlay (0.125.0)
-  - FlipperKit/FlipperKitLayoutHelpers (0.125.0):
-    - FlipperKit/Core
-    - FlipperKit/FlipperKitHighlightOverlay
-    - FlipperKit/FlipperKitLayoutTextSearchable
-  - FlipperKit/FlipperKitLayoutIOSDescriptors (0.125.0):
-    - FlipperKit/Core
-    - FlipperKit/FlipperKitHighlightOverlay
-    - FlipperKit/FlipperKitLayoutHelpers
-    - YogaKit (~> 1.18)
-  - FlipperKit/FlipperKitLayoutPlugin (0.125.0):
-    - FlipperKit/Core
-    - FlipperKit/FlipperKitHighlightOverlay
-    - FlipperKit/FlipperKitLayoutHelpers
-    - FlipperKit/FlipperKitLayoutIOSDescriptors
-    - FlipperKit/FlipperKitLayoutTextSearchable
-    - YogaKit (~> 1.18)
-  - FlipperKit/FlipperKitLayoutTextSearchable (0.125.0)
-  - FlipperKit/FlipperKitNetworkPlugin (0.125.0):
-    - FlipperKit/Core
-  - FlipperKit/FlipperKitReactPlugin (0.125.0):
-    - FlipperKit/Core
-  - FlipperKit/FlipperKitUserDefaultsPlugin (0.125.0):
-    - FlipperKit/Core
-  - FlipperKit/SKIOSNetworkPlugin (0.125.0):
-    - FlipperKit/Core
-    - FlipperKit/FlipperKitNetworkPlugin
+  - Firebase/CoreOnly (9.5.0):
+    - FirebaseCore (= 9.5.0)
+  - Firebase/Database (9.5.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 9.5.0)
+  - FirebaseCore (9.5.0):
+    - FirebaseCoreDiagnostics (~> 9.0)
+    - FirebaseCoreInternal (~> 9.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+  - FirebaseCoreDiagnostics (9.5.0):
+    - GoogleDataTransport (< 10.0.0, >= 9.1.4)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseCoreInternal (9.5.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.7)"
+  - FirebaseDatabase (9.5.0):
+    - FirebaseCore (~> 9.0)
+    - leveldb-library (~> 1.22)
   - fmt (6.2.1)
   - glog (0.3.5)
-  - libevent (2.1.12)
-  - OpenSSL-Universal (1.1.1100)
+  - GoogleDataTransport (9.2.0):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Environment (7.7.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.7.0):
+    - GoogleUtilities/Environment
+  - "GoogleUtilities/NSData+zlib (7.7.0)"
+  - leveldb-library (1.22.1)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
+  - PromisesObjC (2.1.1)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
     - DoubleConversion
@@ -364,57 +338,33 @@ PODS:
     - React-jsi (= 0.69.4)
     - React-logger (= 0.69.4)
     - React-perflogger (= 0.69.4)
-  - SocketRocket (0.6.0)
-  - VEEffectsSDK (1.23.0)
-  - VEExportSDK (1.23.0)
-  - VEPlaybackSDK (1.23.0)
-  - VideoEditor (1.23.0)
+  - VEEffectsSDK (1.24.1)
+  - VEExportSDK (1.24.1)
+  - VEPlaybackSDK (1.24.1)
+  - VideoEditor (1.24.1)
   - Yoga (1.14.0)
-  - YogaKit (1.18.1):
-    - Yoga (~> 1.14)
 
 DEPENDENCIES:
-  - BanubaARCloudSDK (= 1.23.0)
-  - BanubaAudioBrowserSDK (= 1.23.0)
-  - BanubaEffectPlayer (= 1.23.0)
-  - BanubaLicenseServicingSDK (= 1.23.0)
-  - BanubaMusicEditorSDK (= 1.23.0)
-  - BanubaOverlayEditorSDK (= 1.23.0)
-  - BanubaSDK (= 1.23.0)
-  - BanubaSDKServicing (= 1.23.0)
-  - BanubaSDKSimple (= 1.23.0)
-  - BanubaUtilities (= 1.23.0)
-  - BanubaVideoEditorGallerySDK (= 1.23.0)
-  - BanubaVideoEditorSDK (= 1.23.0)
-  - BanubaVideoEditorTrimSDK (= 1.23.0)
-  - BNBLicenseUtils (= 1.22.1)
+  - BanubaARCloudSDK (= 1.24.1)
+  - BanubaAudioBrowserSDK (= 1.24.1)
+  - BanubaEffectPlayer (= 1.24.1)
+  - BanubaLicenseServicingSDK (= 1.24.1)
+  - BanubaMusicEditorSDK (= 1.24.1)
+  - BanubaOverlayEditorSDK (= 1.24.1)
+  - BanubaSDK (= 1.24.1)
+  - BanubaSDKServicing (= 1.24.1)
+  - BanubaSDKSimple (= 1.24.1)
+  - BanubaTokenStorageSDK (= 1.24.1)
+  - BanubaUtilities (= 1.24.1)
+  - BanubaVideoEditorGallerySDK (= 1.24.1)
+  - BanubaVideoEditorSDK (= 1.24.1)
+  - BanubaVideoEditorTrimSDK (= 1.24.1)
+  - BNBLicenseUtils (= 1.24.1)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
-  - Flipper (= 0.125.0)
-  - Flipper-Boost-iOSX (= 1.76.0.1.11)
-  - Flipper-DoubleConversion (= 3.2.0.1)
-  - Flipper-Fmt (= 7.1.7)
-  - Flipper-Folly (= 2.6.10)
-  - Flipper-Glog (= 0.5.0.5)
-  - Flipper-PeerTalk (= 0.0.4)
-  - Flipper-RSocket (= 1.4.3)
-  - FlipperKit (= 0.125.0)
-  - FlipperKit/Core (= 0.125.0)
-  - FlipperKit/CppBridge (= 0.125.0)
-  - FlipperKit/FBCxxFollyDynamicConvert (= 0.125.0)
-  - FlipperKit/FBDefines (= 0.125.0)
-  - FlipperKit/FKPortForwarding (= 0.125.0)
-  - FlipperKit/FlipperKitHighlightOverlay (= 0.125.0)
-  - FlipperKit/FlipperKitLayoutPlugin (= 0.125.0)
-  - FlipperKit/FlipperKitLayoutTextSearchable (= 0.125.0)
-  - FlipperKit/FlipperKitNetworkPlugin (= 0.125.0)
-  - FlipperKit/FlipperKitReactPlugin (= 0.125.0)
-  - FlipperKit/FlipperKitUserDefaultsPlugin (= 0.125.0)
-  - FlipperKit/SKIOSNetworkPlugin (= 0.125.0)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - OpenSSL-Universal (= 1.1.1100)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -423,7 +373,6 @@ DEPENDENCIES:
   - React-callinvoker (from `../node_modules/react-native/ReactCommon/callinvoker`)
   - React-Codegen (from `build/generated/ios`)
   - React-Core (from `../node_modules/react-native/`)
-  - React-Core/DevSupport (from `../node_modules/react-native/`)
   - React-Core/RCTWebSocket (from `../node_modules/react-native/`)
   - React-CoreModules (from `../node_modules/react-native/React/CoreModules`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
@@ -443,10 +392,10 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - VEEffectsSDK (= 1.23.0)
-  - VEExportSDK (= 1.23.0)
-  - VEPlaybackSDK (= 1.23.0)
-  - VideoEditor (= 1.23.0)
+  - VEEffectsSDK (= 1.24.1)
+  - VEExportSDK (= 1.24.1)
+  - VEPlaybackSDK (= 1.24.1)
+  - VideoEditor (= 1.24.1)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -460,6 +409,7 @@ SPEC REPOS:
     - BanubaSDK
     - BanubaSDKServicing
     - BanubaSDKSimple
+    - BanubaTokenStorageSDK
     - BanubaUtilities
     - BanubaVideoEditorGallerySDK
     - BanubaVideoEditorSDK
@@ -469,22 +419,18 @@ SPEC REPOS:
     - VEExportSDK
     - VEPlaybackSDK
     - VideoEditor
-  trunk:
-    - CocoaAsyncSocket
-    - Flipper
-    - Flipper-Boost-iOSX
-    - Flipper-DoubleConversion
-    - Flipper-Fmt
-    - Flipper-Folly
-    - Flipper-Glog
-    - Flipper-PeerTalk
-    - Flipper-RSocket
-    - FlipperKit
+  https://github.com/CocoaPods/Specs.git:
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreInternal
+    - FirebaseDatabase
     - fmt
-    - libevent
-    - OpenSSL-Universal
-    - SocketRocket
-    - YogaKit
+    - GoogleDataTransport
+    - GoogleUtilities
+    - leveldb-library
+    - nanopb
+    - PromisesObjC
 
 EXTERNAL SOURCES:
   boost:
@@ -553,38 +499,37 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  BanubaARCloudSDK: 92ae124af6afb83dba7e5357faf797f464f28ea4
-  BanubaAudioBrowserSDK: 796111d29392dd18b8edf1a0d34150e0634b7798
-  BanubaEffectPlayer: ce0e61c65f851d73c053798bbae93f1562c014c3
-  BanubaLicenseServicingSDK: acb7db1228ca9d6c9fcbdde9b2d6938be70b0218
-  BanubaMusicEditorSDK: 7df803b3eec3eb37f5b51c89b9c17a96f7f2035f
-  BanubaOverlayEditorSDK: 753ed03143e3ddc42399e569e1d7ff5c29626280
-  BanubaSDK: 1b705a5ed08501fc7de12c1d95d63801f0ba4edb
-  BanubaSDKServicing: 4f6e8dfafa81641efebf57a2bf48f03e1cd9052e
-  BanubaSDKSimple: c48697d3063512ee13defc9b68c9e95842528c4d
-  BanubaUtilities: dc107f2320657adfa83a726b66c413de6b588e7b
-  BanubaVideoEditorGallerySDK: ad2a17d2052d3e498efbfa22b22a9b3fa65b4f31
-  BanubaVideoEditorSDK: 90616fba9c0fd6c683334c3202ee89b7d99ce8f8
-  BanubaVideoEditorTrimSDK: cb1b70fe762b618aeb2db64d15a29c7ec8e9efca
-  BNBLicenseUtils: 37a32d88e88fbb8c403c9ba94d6f822e0fa622ed
+  BanubaARCloudSDK: 4b672f7f64f5d9367b9d5bf184add54aa4c74537
+  BanubaAudioBrowserSDK: 916e146ac72dcc4e3e7fb99f4b3627bc6aa9b6b1
+  BanubaEffectPlayer: 8d63e1b5e7fdefd28a9c8576ddcac5ee42c04025
+  BanubaLicenseServicingSDK: dc0f99491b772ed5d722da97d0473373b86ded6f
+  BanubaMusicEditorSDK: d5ce6eca2cb7031fbd2cffe1d07be804c340442a
+  BanubaOverlayEditorSDK: 3a0930d95d5ad1b99d3e314e6ad4ebfa8c36492c
+  BanubaSDK: cd2957b09241c72e3747ab8338d4d012a0fe14fa
+  BanubaSDKServicing: c9de5c97c1b8ad266c7fb57d1a6ffd4ebd52a115
+  BanubaSDKSimple: e312ca0b84d1e7553a3e8af33a574d48e4c24724
+  BanubaTokenStorageSDK: 8e44c9468c1686dcbfbf88159fa25c41458fe9b8
+  BanubaUtilities: a314080f86ed82348cb11215d8b91c4dd9f7e851
+  BanubaVideoEditorGallerySDK: d9a4b9373ce9a011845b8c45c142e180148bfd6e
+  BanubaVideoEditorSDK: 3c00a05ad19480074031b12f091bddefb0d55d21
+  BanubaVideoEditorTrimSDK: 5fccbde0d4bbb88482d3ad835b57772bfcb14969
+  BNBLicenseUtils: 64827c2b4c6a0d97aa3dc7e3d508057b02354898
   boost: a7c83b31436843459a1961bfd74b96033dc77234
-  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: c71b8c429a8af2aff1013934a7152e9d9d0c937d
   FBReactNativeSpec: cb0df4f0084281b394f76bb9b4d1d9540f35963f
-  Flipper: 26fc4b7382499f1281eb8cb921e5c3ad6de91fe0
-  Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
-  Flipper-DoubleConversion: 2dc99b02f658daf147069aad9dbd29d8feb06d30
-  Flipper-Fmt: 60cbdd92fc254826e61d669a5d87ef7015396a9b
-  Flipper-Folly: 584845625005ff068a6ebf41f857f468decd26b3
-  Flipper-Glog: 70c50ce58ddaf67dc35180db05f191692570f446
-  Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
-  Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
-  FlipperKit: cbdee19bdd4e7f05472a66ce290f1b729ba3cb86
+  Firebase: 800f16f07af493d98d017446a315c27af0552f41
+  FirebaseCore: 25c0400b670fd1e2f2104349cd3b5dcce8d9418f
+  FirebaseCoreDiagnostics: 17cbf4e72b1dbd64bfdc33d4b1f07bce4f16f1d8
+  FirebaseCoreInternal: 50a8e39cae8abf72d5145d07ea34c3244f70862b
+  FirebaseDatabase: 0e2d3b1c935bb5ae704afc2f5c0adda365102312
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
-  libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
+  GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
+  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   RCT-Folly: b9d9fe1fc70114b751c076104e52f3b1b5e5a95a
   RCTRequired: bd9d2ab0fda10171fcbcf9ba61a7df4dc15a28f4
   RCTTypeSafety: e44e139bf6ec8042db396201834fc2372f6a21cd
@@ -611,14 +556,12 @@ SPEC CHECKSUMS:
   React-RCTVibration: 9adb4a3cbb598d1bbd46a05256f445e4b8c70603
   React-runtimeexecutor: 61ee22a8cdf8b6bb2a7fb7b4ba2cc763e5285196
   ReactCommon: 8f67bd7e0a6afade0f20718f859dc8c2275f2e83
-  SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
-  VEEffectsSDK: 31f600a7f0b46d6780e54a6651ed2896bbc1c3ff
-  VEExportSDK: cbcfaf9af5e3a0539c32b3f2462edc3671a647dc
-  VEPlaybackSDK: 7aba27222a11b8155c4e77c68de7f4db13755c82
-  VideoEditor: d61253a121cdb8780f8dcfd525c9a07faae019ec
+  VEEffectsSDK: 55473673265e3f50062b0988e357abbf39a08a60
+  VEExportSDK: 5dff7cbf92aaf9e848ca341ea7dccf9eca257c68
+  VEPlaybackSDK: ec6dd489c028c05b738327c8841d25ba3675883e
+  VideoEditor: f0380d5ba43be94a9099d520830fbc0ccd83e16d
   Yoga: ff994563b2fd98c982ca58e8cd9db2cdaf4dda74
-  YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e98714e998d1abc0265fb043fa3e6aff5e0d7753
+PODFILE CHECKSUM: d863e086bcc6fe695c87167bc075af574ec6e4d3
 
 COCOAPODS: 1.11.3

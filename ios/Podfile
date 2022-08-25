@@ -3,6 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 source 'https://github.com/Banuba/specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
 
 platform :ios, '12.4'
 install! 'cocoapods', :deterministic_uuids => false
@@ -21,7 +22,7 @@ target 'vesdkreactnativecliintegrationsample' do
     :production => production,
     :hermes_enabled => flags[:hermes_enabled],
     :fabric_enabled => flags[:fabric_enabled],
-    :flipper_configuration => FlipperConfiguration.enabled,
+#     :flipper_configuration => FlipperConfiguration.enabled,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )

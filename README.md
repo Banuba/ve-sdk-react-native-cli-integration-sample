@@ -23,33 +23,19 @@ To get access to your trial, please, get in touch with us by [filling a form](ht
 
 :exclamation: The token **IS REQUIRED** to run sample and an integration in your app.</br>
 <br>
-### Step 1 - Prepare project
+### Prepare project
 1. Complete React Native [Environment setup](https://reactnative.dev/docs/environment-setup)
 2. Complete [Running On Device](https://reactnative.dev/docs/running-on-device)
 3. Run command ```npm install``` in terminal to install dependencies
 <br></br>
 
-### Step 2 - Run sample Android app
-1. Make sure variable ```ANDROID_SDK_ROOT``` is in your environment or configure [sdk.dir](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/local.properties#1).
-2. Put Banuba token in [resources](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/app/src/main/res/values/strings.xml#5).
-3. Run command ```npm run android``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
-4. [Follow further instructions](https://github.com/Banuba/ve-sdk-android-integration-sample) to integrate VE SDK in your app using native Android development.
+### Android
+1. Make sure variable ```ANDROID_SDK_ROOT``` is set in your environment or configure [sdk.dir](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/local.properties#1).
+2. Set Banuba token in the sample app [resources](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/app/src/main/res/values/strings.xml#5).
+3. Run ```npm run android``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
+4. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate the SDK into your React Native CLI project.
 
-__Configure export__</br>
-Set custom export video file name ```ExportParams.Builder.fileName()``` method.<br>
-Please see [full example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/app/src/main/java/com/vesdkreactnativeintegrationsample/videoeditor/export/IntegrationAppExportParamsProvider.kt#L41).
-
-VE SDK is launched within ```VideoCreationActivity```. Exported video is returned from the Activity into ```onActivityResult``` callback
-in [VideoEditorModule](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/app/src/main/java/com/vesdkreactnativeintegrationsample/VideoEditorModule.kt#L25).
-
-[Promises](https://reactnative.dev/docs/native-modules-android#promises) is used to make a bridge between Android and JS.<br>
-Please see [an example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/App.js#L37)
-how to get exported video uri as a String value on JS side.
-
-You can configure all data passed from ```VideoEditorModule``` to JS depends on your requirements.
-<br></br>
-
-### Step 3 - Run sample iOS app
+### iOS
 :exclamation: **Important:** Please run the following steps for Apple M-series chip based on ARM architecture :
 `sudo arch -x86_64 gem install ffi`
 

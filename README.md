@@ -2,7 +2,7 @@
 Banuba [AI Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to quickly add short video functionality and possibly AR filters and effects into your mobile app.
 <br></br>
 
-:exclamation: <ins>Support for React Native plugin is under development at the moment and scheduled for __Q4__. Please, reach out to [support team](https://www.banuba.com/faq/kb-tickets/new) to help you with your own React Native integration.<ins>
+:exclamation: <ins>Support for React Native plugin is under development at the moment and scheduled for __end Q4__. Please, reach out to [support team](https://www.banuba.com/faq/kb-tickets/new) to help you with your own React Native integration.<ins>
 
 <ins>Keep in mind that main part of integration and customization should be implemented in **android**, **ios** directories using Native Android and iOS development.<ins>
 

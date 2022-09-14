@@ -4,7 +4,7 @@ An integration and customization of Banuba VE UI SDK is implemented in **android
 of your React Native CLI project using native Android development process.
 
 ## Basic
-The following steps help to complete basic integration into your project
+The following steps help to complete basic integration into your React Native CLI project.
 
 <ins>All changes are made in **android** directory.</ins>
 1. __Add Banuba SDK dependencies__ </br>
@@ -91,7 +91,7 @@ The following steps help to complete basic integration into your project
 
 8. __Configure export__</br>
    You can set custom export video file name using ```ExportParams.Builder.fileName()``` method.<br>
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/app/src/main/java/com/vesdkreactnativeintegrationsample/videoeditor/export/IntegrationAppExportParamsProvider.kt#L41).<br></br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/BanubaVideoEditorUISDK.kt#L232).<br></br>
 
    Since VE SDK is launched within ```VideoCreationActivity``` exported video is returned from the Activity into ```onActivityResult``` callback
    in [VideoEditorModule](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorReactPackage.kt#L28).</br><br>
@@ -103,5 +103,5 @@ The following steps help to complete basic integration into your project
 
 ## What is next?
 
-We have covered a basic process of integration VE UI SDK into your project.
-More integration details and customizations you can find in [VE UI SDK Android Integration Sample](https://github.com/Banuba/ve-sdk-android-integration-sample).
+We have covered a basic process of integration VE UI SDK into your React Native CLI project.</br>
+More integration details and customizations you will find in [VE UI SDK Android Integration Sample](https://github.com/Banuba/ve-sdk-android-integration-sample).

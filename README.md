@@ -40,7 +40,7 @@ To get access to your trial, please, get in touch with us by [filling a form](ht
 `sudo arch -x86_64 gem install ffi`
 
 1. Install Cocoa Pods dependencies in **ios** directory using ```pod install``` and ```arch -x86_64 pod install``` for Apple M1.
-2. Put Banuba token in [VideoEditorModule initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/ios/VideoEditorModule.swift#L34).
-3. Run command ```npm run ios``` in terminal to launch the sample on device or launch the app in IDE i.e. XCode, Intellij, VC, etc..
+2. Set Banuba token in [VideoEditorModule initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/ios/VideoEditorModule.swift#L34).
+3. Run ```npm run ios``` in terminal to launch the sample on device or launch the app in IDE i.e. XCode, Intellij, VC, etc..
 4. [Follow further instructions](https://github.com/Banuba/ve-sdk-ios-integration-sample) to integrate VE SDK in your app using native iOS development.
 

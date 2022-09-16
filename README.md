@@ -1,23 +1,25 @@
 # Banuba AI Video Editor SDK - React Native CLI integration sample.
-Banuba [AI Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to quickly add short video functionality and possibly AR filters and effects into your mobile app.
+[Banuba Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to quickly add short video functionality and possibly AR filters and effects into your mobile app.
 <br></br>
 
-:exclamation: <ins>Support for React Native plugin is under development at the moment and scheduled for __end Q4__. Please, reach out to [support team](https://www.banuba.com/faq/kb-tickets/new) to help you with your own React Native integration.<ins>
+:exclamation: <ins>Support for React Native plugin is under development at the moment and scheduled for __end Q4__. Please, reach out to [support team](https://www.banuba.com/faq/kb-tickets/new) to help you with your React Native CLI integration.<ins>
 
-<ins>Keep in mind that main part of integration and customization should be implemented in **android**, **ios** directories using Native Android and iOS development.<ins>
+<ins>Keep in mind that main part of integration and customization should be implemented in **android**, **ios** directories using Native Android and iOS development process.<ins>
 
-This sample demonstrates how to run VE SDK with [React Native CLI](https://reactnative.dev/).
+This sample demonstrates how to run Video Editor UI SDK with [React Native CLI](https://reactnative.dev/).
 
 ## Dependencies
 |              | Version | 
 |--------------|:-------:|
 | npm          | 8.18.0  |
 | react native | ~0.69.4 |
+| Android      |  6.0+   |
+| iOS          |  12.0+  |
 
 ## Integration
 
 ### Token
-We offer а free 14-days trial for you could thoroughly test and assess Video Editor SDK functionality in your app.
+We offer а free 14-days trial for you could thoroughly test and assess Video Editor UI SDK functionality in your app.
 
 To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.
 
@@ -26,7 +28,7 @@ To get access to your trial, please, get in touch with us by [filling a form](ht
 ### Prepare project
 1. Complete React Native [Environment setup](https://reactnative.dev/docs/environment-setup)
 2. Complete [Running On Device](https://reactnative.dev/docs/running-on-device)
-3. Run command ```npm install``` in terminal to install dependencies
+3. Run ```npm install``` in terminal to install dependencies
 <br></br>
 
 ### Android
@@ -36,11 +38,11 @@ To get access to your trial, please, get in touch with us by [filling a form](ht
 4. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate the SDK into your React Native CLI project.
 
 ### iOS
-:exclamation: **Important:** Please run the following steps for Apple M-series chip based on ARM architecture :
-`sudo arch -x86_64 gem install ffi`
+:exclamation: **Important:** Please before run ```sudo arch -x86_64 gem install ffi``` in terminal for Apple M-series chip based on ARM architecture.
 
-1. Install Cocoa Pods dependencies in **ios** directory using ```pod install``` and ```arch -x86_64 pod install``` for Apple M1.
-2. Set Banuba token in [VideoEditorModule initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/ios/VideoEditorModule.swift#L34).
-3. Run ```npm run ios``` in terminal to launch the sample on device or launch the app in IDE i.e. XCode, Intellij, VC, etc..
-4. [Follow further instructions](https://github.com/Banuba/ve-sdk-ios-integration-sample) to integrate VE SDK in your app using native iOS development.
+1. Install CocoaPods dependencies. Open **ios** directory and run in terminal ```pod install``` or ```arch -x86_64 pod install``` for Apple M1.
+2. Open Signing & Capabilities tab in Target settings and select your Development Team.
+3. Set Banuba token in the sample app [BanubaVideoEditor initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/VideoEditorModule.swift#L34) .
+4. Run ```npm run ios``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
+5. Follow [iOS Integration Guide](mddocs/ios_integration.md) to integrate the SDK into your Flutter project.
 

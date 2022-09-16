@@ -1,10 +1,3 @@
-//
-//  VideoEditorModule.swift
-//  vesdkreactnativecliintegrationsample
-//
-//  Created by Andrei Karabach on 19.08.22.
-//
-
 import React
 import BanubaVideoEditorSDK
 import BanubaMusicEditorSDK
@@ -31,10 +24,9 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
     
     let config = createVideoEditorConfiguration()
     
-    let banubaClientToken = <#Place your token here#>
 
     videoEditorSDK = BanubaVideoEditor(
-      token: banubaClientToken,
+      token:  /*@START_MENU_TOKEN@*/"SET BANUBA VIDEO EDITOR TOKEN"/*@END_MENU_TOKEN@*/,
       configuration: config,
       externalViewControllerFactory: nil
     )

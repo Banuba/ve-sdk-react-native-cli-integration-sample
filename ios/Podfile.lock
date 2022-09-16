@@ -1,6 +1,6 @@
 PODS:
   - BanubaARCloudSDK (1.24.1)
-  - BanubaAudioBrowserSDK (1.24.1)
+  - BanubaAudioBrowserSDK (1.24.2)
   - BanubaEffectPlayer (1.24.1)
   - BanubaLicenseServicingSDK (1.24.1)
   - BanubaMusicEditorSDK (1.24.1)
@@ -10,7 +10,7 @@ PODS:
   - BanubaSDKSimple (1.24.1)
   - BanubaTokenStorageSDK (1.24.1):
     - Firebase/Database
-  - BanubaUtilities (1.24.1)
+  - BanubaUtilities (1.24.2)
   - BanubaVideoEditorGallerySDK (1.24.1)
   - BanubaVideoEditorSDK (1.24.1)
   - BanubaVideoEditorTrimSDK (1.24.1)
@@ -257,11 +257,6 @@ PODS:
     - glog
     - RCT-Folly (= 2021.06.28.00-v2)
     - React-jsi/Default (= 0.69.4)
-  - React-jsi/Default (0.69.4):
-    - boost (= 1.76.0)
-    - DoubleConversion
-    - glog
-    - RCT-Folly (= 2021.06.28.00-v2)
   - React-jsiexecutor (0.69.4):
     - DoubleConversion
     - glog
@@ -346,7 +341,7 @@ PODS:
 
 DEPENDENCIES:
   - BanubaARCloudSDK (= 1.24.1)
-  - BanubaAudioBrowserSDK (= 1.24.1)
+  - BanubaAudioBrowserSDK (= 1.24.2)
   - BanubaEffectPlayer (= 1.24.1)
   - BanubaLicenseServicingSDK (= 1.24.1)
   - BanubaMusicEditorSDK (= 1.24.1)
@@ -355,7 +350,7 @@ DEPENDENCIES:
   - BanubaSDKServicing (= 1.24.1)
   - BanubaSDKSimple (= 1.24.1)
   - BanubaTokenStorageSDK (= 1.24.1)
-  - BanubaUtilities (= 1.24.1)
+  - BanubaUtilities (= 1.24.2)
   - BanubaVideoEditorGallerySDK (= 1.24.1)
   - BanubaVideoEditorSDK (= 1.24.1)
   - BanubaVideoEditorTrimSDK (= 1.24.1)
@@ -500,7 +495,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BanubaARCloudSDK: 4b672f7f64f5d9367b9d5bf184add54aa4c74537
-  BanubaAudioBrowserSDK: 916e146ac72dcc4e3e7fb99f4b3627bc6aa9b6b1
+  BanubaAudioBrowserSDK: 57c944886ec511ef56ceb62988a2aee283284e56
   BanubaEffectPlayer: 8d63e1b5e7fdefd28a9c8576ddcac5ee42c04025
   BanubaLicenseServicingSDK: dc0f99491b772ed5d722da97d0473373b86ded6f
   BanubaMusicEditorSDK: d5ce6eca2cb7031fbd2cffe1d07be804c340442a
@@ -509,7 +504,7 @@ SPEC CHECKSUMS:
   BanubaSDKServicing: c9de5c97c1b8ad266c7fb57d1a6ffd4ebd52a115
   BanubaSDKSimple: e312ca0b84d1e7553a3e8af33a574d48e4c24724
   BanubaTokenStorageSDK: 8e44c9468c1686dcbfbf88159fa25c41458fe9b8
-  BanubaUtilities: a314080f86ed82348cb11215d8b91c4dd9f7e851
+  BanubaUtilities: c8a57868609ae1f9c9902a6bd33366e680d33a5d
   BanubaVideoEditorGallerySDK: d9a4b9373ce9a011845b8c45c142e180148bfd6e
   BanubaVideoEditorSDK: 3c00a05ad19480074031b12f091bddefb0d55d21
   BanubaVideoEditorTrimSDK: 5fccbde0d4bbb88482d3ad835b57772bfcb14969
@@ -562,6 +557,6 @@ SPEC CHECKSUMS:
   VideoEditor: f0380d5ba43be94a9099d520830fbc0ccd83e16d
   Yoga: ff994563b2fd98c982ca58e8cd9db2cdaf4dda74
 
-PODFILE CHECKSUM: d863e086bcc6fe695c87167bc075af574ec6e4d3
+PODFILE CHECKSUM: 507d9808a32357de63f44d84c49ff43f9e5f3655
 
 COCOAPODS: 1.11.3

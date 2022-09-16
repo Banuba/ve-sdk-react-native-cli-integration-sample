@@ -1,8 +1,4 @@
 //
-//  BridgeHeader.h
-//  vesdkreactnativecliintegrationsample
+//  Use this file to import your target's public headers that you would like to expose to Swift.
 //
-//  Created by Andrei Karabach on 19.08.22.
-//
-
 #import <React/RCTBridgeModule.h>>

@@ -23,12 +23,12 @@ The following steps help to complete basic integration into your React Native CL
    This class helps to initialize and customize Banuba Video Editor UI SDK.</br><br>
 
 4. __Add assets and resources__
-    1. [bundleEffects](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/tree/main/ios/bundleEffects) to use build-in Banuba AR effects. Using Banuba AR requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.
-    2. [luts](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/tree/main/ios/luts) to use Lut effects shown in the Effects tab.</br><br>
+    1. [bundleEffects](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/tree/master/ios/vesdkreactnativecliintegrationsample/bundleEffects) to use build-in Banuba AR effects. Using Banuba AR requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.
+    2. [luts](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/tree/master/ios/vesdkreactnativecliintegrationsample/luts) to use Lut effects shown in the Effects tab.</br><br>
 
 5. __Start the SDK__  
    Use ```startIosVideoEditor()``` method defined in ```App.js``` to start Video Editor from React Native on iOS. Export returns response where you can find ```videoUri``` the path were exported video stored.</br>
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L34).</br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L36).</br>
 
 
 ## What is next?

@@ -88,7 +88,7 @@ The following steps help to complete basic integration into your React Native CL
 7. __Start the SDK__ </br>
    Use ```startAndroidVideoEditor()``` method defined in ```App.js``` to start Video Editor from React Native on iOS.</br>
    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js/App.js#L29)</br><br>
-   Technically it invokes ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor UI SDK from Camera screen.
+   Technically it invokes ```VideoCreationActivity.startFromCamera(...)``` method to start Video Editor UI SDK from Camera screen.</br>
    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#L78)</br><br>
    
    Since Video Editor UI SDK on Android is launched within ```VideoCreationActivity``` exported video is returned from the Activity into ```onActivityResult``` callback

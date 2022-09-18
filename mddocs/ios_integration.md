@@ -11,7 +11,7 @@ The following steps help to complete basic integration into your React Native CL
 
 <ins>All changes are made in **ios** directory.</ins>
 1. __Set Banuba Video Editor SDK token__  
-   Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/VideoEditorModule.swift#L34).<br></br>
+   Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/VideoEditorModule.swift#L29).<br></br>
    To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.<br>
    :exclamation: The token **IS REQUIRED** to run sample and an integration in your app.<br></br>
 
@@ -32,8 +32,31 @@ The following steps help to complete basic integration into your React Native CL
     2. [luts](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/tree/master/ios/vesdkreactnativecliintegrationsample/luts) to use Lut effects shown in the Effects tab.</br><br>
 
 6. __Start the SDK__  
-   Use ```startIosVideoEditor()``` method defined in ```App.js``` to start Video Editor from React Native on iOS. Export returns response where you can find ```videoUri``` the path were exported video stored.</br>
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L36).</br>
+   Use ```startIosVideoEditor()``` method defined in ```App.js``` to start Video Editor from React Native on iOS.</br>
+   ```
+       async function startIosVideoEditor() {
+             return await VideoEditorModule.openVideoEditor();
+      };
+       
+       <Button
+                title = "Open Video Editor"
+                onPress={async () => {
+                    if (Platform.OS === 'ios') {
+                        startIosVideoEditor().then(response => {
+                          const exportedVideoUri = response?.videoUri;
+                          console.log('Banuba iOS Video Editor export video completed successfully. Video uri = ' + exportedVideoUri)
+                        }).catch(e => {
+                          console.log('Banuba iOS Video Editor export video failed = ' + e)
+                        })
+                    } else {
+                       ...
+                    }
+                  }
+                }
+            />
+   ```
+   Export returns response where you can find ```videoUri``` the path were exported video stored.</br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L36)</br>
 
 
 ## What is next?

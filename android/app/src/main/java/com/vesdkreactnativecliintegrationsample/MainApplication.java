@@ -63,7 +63,7 @@ public class MainApplication extends Application implements ReactApplication {
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
 
     // Initialize Banuba VE UI SDK
-    new BanubaVideoEditorUISDK().initialize(this);
+    new BanubaVideoEditorSDK().initialize(this);
   }
 
   /**

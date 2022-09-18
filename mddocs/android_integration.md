@@ -35,27 +35,27 @@ The following steps help to complete basic integration into your React Native CL
     [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/build.gradle#L55)</br><br>
     
    Add Video Editor SDK dependencies in app gradle file. 
-```groovy
-    // Banuba Video Editor SDK dependencies
-    def banubaSdkVersion = '1.24.2'
-    implementation "com.banuba.sdk:ffmpeg:4.4"
-    implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-flow-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-timeline-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-ui-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-effects-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:effect-player-adapter:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ar-cloud:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-audio-browser-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:banuba-token-storage-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-export-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-playback-sdk:${banubaSdkVersion}"
-   ```
+    ```groovy
+        // Banuba Video Editor SDK dependencies
+        def banubaSdkVersion = '1.24.2'
+        implementation "com.banuba.sdk:ffmpeg:4.4"
+        implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-flow-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-timeline-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-ui-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-effects-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:effect-player-adapter:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ar-cloud:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-audio-browser-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:banuba-token-storage-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-export-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-playback-sdk:${banubaSdkVersion}"
+    ```
    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/build.gradle#L310)</br><br>
 
 3. __Add Video Editor SDK Initializer class__ </br>

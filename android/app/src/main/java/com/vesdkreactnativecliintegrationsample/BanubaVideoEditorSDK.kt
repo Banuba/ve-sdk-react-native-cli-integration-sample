@@ -76,7 +76,7 @@ class BanubaVideoEditorSDK {
                 AudioBrowserKoinModule().module,
 
                 // Sample integration module
-                SampleIntegrationVeKoinModule().module,
+                SampleIntegrationVeKoinModule().module
             )
         }
     }
@@ -155,12 +155,6 @@ private class SampleIntegrationVeKoinModule {
             )
         }
 
-        single<ContentFeatureProvider<TrackData, Fragment>>(
-            named("musicTrackProvider")
-        ) {
-            AudioBrowserMusicProvider()
-        }
-
         single<CoverProvider> {
             CoverProvider.EXTENDED
         }
@@ -197,6 +191,17 @@ private class SampleIntegrationVeKoinModule {
             ObjectEditorConfig(
                 objectEffectDefaultDuration = 2000
             )
+        }
+
+        // Audio Browser provider implementation.
+        single<ContentFeatureProvider<TrackData, Fragment>>(
+            named("musicTrackProvider")
+        ) {
+            // Use AudioBrowserMusicProvider to check built-in Video Editor Audio Browser.
+            //AudioBrowserMusicProvider()
+
+            // Use AudioBrowserContentProvider to check custom sample Audio Browser.
+            AudioBrowserContentProvider()
         }
     }
 }

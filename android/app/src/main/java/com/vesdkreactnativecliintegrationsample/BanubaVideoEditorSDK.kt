@@ -201,10 +201,10 @@ private class SampleIntegrationVeKoinModule {
             named("musicTrackProvider")
         ) {
             // Use AudioBrowserMusicProvider to check built-in Video Editor Audio Browser.
-            //AudioBrowserMusicProvider()
+            AudioBrowserMusicProvider()
 
             // Use AudioBrowserContentProvider to check custom sample Audio Browser.
-            AudioBrowserContentProvider()
+            //AudioBrowserContentProvider()
         }
     }
 }

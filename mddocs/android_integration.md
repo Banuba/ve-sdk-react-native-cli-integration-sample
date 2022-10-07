@@ -137,6 +137,31 @@ The following steps help to complete basic integration into your React Native CL
     You can set custom export video file name using ```ExportParams.Builder.fileName()``` method.<br>
     [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/BanubaVideoEditorSDK.kt#L232)<br></br>
 
+11. __Configure custom audio browser__  
+    Video Editor SDK can handle 2 approaches for choosing and applying audio content
+    - **Built-in** - predefined Audio Browser screen where the user can select audio from local storage or [Mubert](https://mubert.com/).
+    - **Custom** - you can create custom screen and use any API for browsing and downloading audio, and follow certain Video Editor API to deliver audio content to Video Editor SDK.<br></br>
+
+    :exclamation:<ins>Video Editor SDK can play only files stored on device.</ins>  
+    
+    Koin dependency is responsible for handling which approach to apply. **built-in** is default.
+    ```kotlin
+        // Audio Browser provider implementation.
+        single<ContentFeatureProvider<TrackData, Fragment>>(
+            named("musicTrackProvider")
+        ) {
+            // Use AudioBrowserMusicProvider to check built-in Video Editor Audio Browser.
+            AudioBrowserMusicProvider()
+
+            // Use AudioBrowserContentProvider to check custom sample Audio Browser.
+            //AudioBrowserContentProvider()
+        }
+    ```    
+    Uncomment ```AudioBrowserContentProvider()``` to apply custom approach implemented in this sample.
+    
+    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/BanubaVideoEditorSDK.kt#L200)<br></br>
+
+
 ## What is next?
 
 We have covered a basic process of integration Banuba Video Editor SDK into your React Native CLI project.</br>

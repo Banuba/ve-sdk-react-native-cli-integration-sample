@@ -75,7 +75,16 @@ The following steps help to complete basic integration into your React Native CL
    Add ```VideoCreationActivity``` in your AndroidManifest.xml file. The Activity is used to bring together a number of screens in a certain flow.</br>
    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/AndroidManifest.xml#L47)</br><br>
 
-7. __Add assets and resources__</br>
+7. __Add Network settings__ </br>
+   Add permissions into [AndroidManifest.xml](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/AndroidManifest.xml)
+     ```xml
+       <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+       <uses-permission android:name="android.permission.INTERNET" />
+     ```
+   and use ```android:usesCleartextTraffic="true"``` to allow network traffic for downloading effects from AR Cloud and stickers from [Giphy](https://giphy.com/).</br>
+   Please set up correctly [network security config](https://developer.android.com/training/articles/security-config) and use of ```android:usesCleartextTraffic``` based on this [doc](https://developer.android.com/guide/topics/manifest/application-element).<br></br>
+
+8. __Add assets and resources__</br>
     1. [bnb-resources](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/tree/master/android/app/src/main/assets/bnb-resources) to use built-in Banuba AR and Lut effects.
        Using Banuba AR ```assets/bnb-resources/effects``` requires [Face AR product](https://docs.banuba.com/face-ar-sdk-v1). Please contact Banuba Sales managers to get more AR effects.<br></br>
 
@@ -90,7 +99,7 @@ The following steps help to complete basic integration into your React Native CL
 
     3. [values](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/tree/master/android/app/src/main/res/values) to use colors and themes. Theme ```VideoCreationTheme``` and its styles use resources in **drawable** and **color** directories.<br></br>
 
-8. __Start Video Editor SDK__ </br>
+9. __Start Video Editor SDK__ </br>
    Use ```startAndroidVideoEditor()``` method defined in ```App.js``` to start Video Editor from React Native on Android.</br>
    ```
    async function startAndroidVideoEditor() {
@@ -124,9 +133,9 @@ The following steps help to complete basic integration into your React Native CL
    Export returns ```videoUri``` path as a String value were exported video stored on JS side.  
    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L29)<br></br>
 
-9. __Configure export__</br>
-   You can set custom export video file name using ```ExportParams.Builder.fileName()``` method.<br>
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/BanubaVideoEditorSDK.kt#L232)<br></br>
+10. __Configure export__</br>
+    You can set custom export video file name using ```ExportParams.Builder.fileName()``` method.<br>
+    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/BanubaVideoEditorSDK.kt#L232)<br></br>
 
 ## What is next?
 

@@ -11,7 +11,7 @@ This sample demonstrates how to run Video Editor SDK with [React Native CLI](htt
 ## Dependencies
 |              | Version | 
 |--------------|:-------:|
-| npm          | 8.18.0  |
+| node         | 8.18.0  |
 | react native | ~0.69.4 |
 | Android      |  6.0+   |
 | iOS          |  12.0+  |

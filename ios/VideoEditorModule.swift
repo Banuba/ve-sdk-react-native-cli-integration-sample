@@ -4,6 +4,7 @@ import BanubaMusicEditorSDK
 import BanubaOverlayEditorSDK
 import VideoEditor
 import VEExportSDK
+import AVKit
 
 @objc(VideoEditorModule)
 class VideoEditorModule: NSObject, RCTBridgeModule {
@@ -54,6 +55,25 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
         withLaunchConfiguration: config,
         completion: nil
       )
+    }
+  }
+  
+  /*
+   NOT REQUIRED FOR INTEGRATION
+   Added for playing exported video file.
+   */
+   func demoPlayExportedVideo(videoURL: URL) {
+    
+    guard let controller = RCTPresentedViewController() else {
+      return
+    }
+    
+    let player = AVPlayer(url: videoURL)
+    let vc = AVPlayerViewController()
+    vc.player = player
+    
+    controller.present(vc, animated: true) {
+      vc.player?.play()
     }
   }
   
@@ -124,9 +144,16 @@ extension VideoEditorModule {
       DispatchQueue.main.async {
         if success {
           // Result urls. You could interact with your own implementation.
+          
           self?.currentResolve?(["videoUri": firstFileURL.absoluteString])
           // remove strong reference to video editor sdk instance
           self?.videoEditorSDK = nil
+          
+          /*
+            NOT REQUIRED FOR INTEGRATION
+            Added for playing exported video file.
+          */
+          self?.demoPlayExportedVideo(videoURL: firstFileURL)
         } else {
           self?.currentReject?("", error?.errorMessage, nil)
           // remove strong reference to video editor sdk instance

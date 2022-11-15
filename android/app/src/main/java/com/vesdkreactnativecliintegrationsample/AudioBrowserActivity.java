@@ -26,6 +26,8 @@ import com.facebook.react.ReactRootView;
  */
 public class AudioBrowserActivity extends ReactActivity {
 
+    private TrackData lastAudioTrack = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +42,9 @@ public class AudioBrowserActivity extends ReactActivity {
      * For example, highlight last used audio in a list.
      */
     private void handleLastUsedAudio() {
-        final TrackData lastAudio = getIntent().getParcelableExtra("EXTRA_LAST_PROVIDED_TRACK");
-        if (lastAudio != null) {
-            final String lastAudioPath = lastAudio.getLocalUri().toString();
+        lastAudioTrack = getIntent().getParcelableExtra("EXTRA_LAST_PROVIDED_TRACK");
+        if (lastAudioTrack != null) {
+            final String lastAudioPath = lastAudioTrack.getLocalUri().toString();
             // Pass lastAudioPath to React Native side to implement custom logic if it is needed.
             Log.d(VideoEditorModule.TAG, "Last used audio = " + lastAudioPath);
         }
@@ -67,6 +69,14 @@ public class AudioBrowserActivity extends ReactActivity {
         }
 
         finish();
+    }
+
+    public void discardAudioTrack() {
+        applyAudioTrack(null);
+    }
+
+    public void close() {
+        applyAudioTrack(lastAudioTrack);
     }
 
 

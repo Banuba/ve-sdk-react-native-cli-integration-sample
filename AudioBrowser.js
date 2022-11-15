@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet,
+import {
+  StyleSheet,
   Text,
   Button,
   View,
   Platform,
-  NativeModules
+  NativeModules,
 } from 'react-native';
 
-const { VideoEditorModule } = NativeModules;
+const {VideoEditorModule} = NativeModules;
 
 async function applyLocalAudio() {
   // Invokes native Android Video Editor integration module that will pass your prepared audio file to Video Editor SDK.
@@ -20,22 +21,23 @@ async function applyLocalAudio() {
 // Audio file MUST BE stored to device storage before using in Video Editor SDK.
 export default function AudioBrowser() {
   return (
-      <View style={styles.container}>
-        <Text style={{padding: 16, textAlign: 'center'}}>
-        Local audio file is used to demonstrate how to play audio in Video Editor SDK
-        </Text>
+    <View style={styles.container}>
+      <Text style={{padding: 16, textAlign: 'center'}}>
+        Local audio file is used to demonstrate how to play audio in Video
+        Editor SDK
+      </Text>
 
-        <Button
-             title = "Use Local Audio"
-             onPress={async () => {
-                            if (Platform.OS === 'android') {
-                               applyLocalAudio()
-                            } else {
-                                console.log('Platform implementation is not supported yet!')
-                            }
-                      }
-             }/>
-      </View>
+      <Button
+        title="Use Local Audio"
+        onPress={async () => {
+          if (Platform.OS === 'android') {
+            applyLocalAudio();
+          } else {
+            console.log('Platform implementation is not supported yet!');
+          }
+        }}
+      />
+    </View>
   );
 }
 
@@ -46,5 +48,5 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 });

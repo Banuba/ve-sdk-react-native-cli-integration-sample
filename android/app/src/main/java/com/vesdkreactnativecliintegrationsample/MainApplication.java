@@ -17,6 +17,13 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
+
+  /**
+   * true - uses custom audio browser implementation in this sample
+   * false - to keep default implementation
+   */
+  public static final boolean USE_CUSTOM_AUDIO_BROWSER = false;
+
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
         @Override

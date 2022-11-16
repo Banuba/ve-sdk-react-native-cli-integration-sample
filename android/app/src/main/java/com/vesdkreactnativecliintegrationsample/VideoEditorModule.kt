@@ -156,6 +156,28 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         }
     }
 
+    @ReactMethod
+    fun discardAudioTrack(inputPromise: Promise) {
+        val hostActivity = currentActivity
+        if (hostActivity is AudioBrowserActivity) {
+            hostActivity.discardAudioTrack()
+            inputPromise.resolve(null)
+        } else {
+            inputPromise.reject(IllegalStateException("Invalid host Activity"))
+        }
+    }
+
+    @ReactMethod
+    fun closeAudioBrowser(inputPromise: Promise) {
+        val hostActivity = currentActivity
+        if (hostActivity is AudioBrowserActivity) {
+            hostActivity.close()
+            inputPromise.resolve(null)
+        } else {
+            inputPromise.reject(IllegalStateException("Invalid host Activity"))
+        }
+    }
+
     /**
      * Utils methods used to prepare sample audio track for playing in Video Editor SDK.
      * NOT REQUIRED IN YOUR APP.

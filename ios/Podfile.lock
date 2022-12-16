@@ -1,19 +1,19 @@
 PODS:
-  - BanubaARCloudSDK (1.25.2)
-  - BanubaAudioBrowserSDK (1.25.2)
+  - BanubaARCloudSDK (1.26.2)
+  - BanubaAudioBrowserSDK (1.26.2)
   - BanubaEffectPlayer (1.25.0)
-  - BanubaLicenseServicingSDK (1.25.2)
-  - BanubaMusicEditorSDK (1.25.2)
-  - BanubaOverlayEditorSDK (1.25.2)
-  - BanubaSDK (1.25.2)
-  - BanubaSDKServicing (1.25.2)
-  - BanubaSDKSimple (1.25.2)
-  - BanubaTokenStorageSDK (1.25.2):
+  - BanubaLicenseServicingSDK (1.26.2)
+  - BanubaMusicEditorSDK (1.26.2)
+  - BanubaOverlayEditorSDK (1.26.2)
+  - BanubaSDK (1.26.2)
+  - BanubaSDKServicing (1.26.2)
+  - BanubaSDKSimple (1.26.2)
+  - BanubaTokenStorageSDK (1.26.2):
     - Firebase/Database
-  - BanubaUtilities (1.25.2)
-  - BanubaVideoEditorGallerySDK (1.25.2)
-  - BanubaVideoEditorSDK (1.25.2)
-  - BanubaVideoEditorTrimSDK (1.25.2)
+  - BanubaUtilities (1.26.2)
+  - BanubaVideoEditorGallerySDK (1.26.2)
+  - BanubaVideoEditorSDK (1.26.2)
+  - BanubaVideoEditorTrimSDK (1.26.2)
   - BNBLicenseUtils (1.24.1)
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
@@ -25,18 +25,18 @@ PODS:
     - React-Core (= 0.69.4)
     - React-jsi (= 0.69.4)
     - ReactCommon/turbomodule/core (= 0.69.4)
-  - Firebase/CoreOnly (10.1.0):
-    - FirebaseCore (= 10.1.0)
-  - Firebase/Database (10.1.0):
+  - Firebase/CoreOnly (10.3.0):
+    - FirebaseCore (= 10.3.0)
+  - Firebase/Database (10.3.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (~> 10.1.0)
-  - FirebaseCore (10.1.0):
+    - FirebaseDatabase (~> 10.3.0)
+  - FirebaseCore (10.3.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
-  - FirebaseCoreInternal (10.1.0):
+  - FirebaseCoreInternal (10.3.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseDatabase (10.1.0):
+  - FirebaseDatabase (10.3.0):
     - FirebaseCore (~> 10.0)
     - leveldb-library (~> 1.22)
   - fmt (6.2.1)
@@ -318,27 +318,27 @@ PODS:
     - React-jsi (= 0.69.4)
     - React-logger (= 0.69.4)
     - React-perflogger (= 0.69.4)
-  - VEEffectsSDK (1.25.2)
-  - VEExportSDK (1.25.2)
-  - VEPlaybackSDK (1.25.2)
-  - VideoEditor (1.25.2)
+  - VEEffectsSDK (1.26.2)
+  - VEExportSDK (1.26.2)
+  - VEPlaybackSDK (1.26.2)
+  - VideoEditor (1.26.2)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - BanubaARCloudSDK (= 1.25.2)
-  - BanubaAudioBrowserSDK (= 1.25.2)
+  - BanubaARCloudSDK (= 1.26.2)
+  - BanubaAudioBrowserSDK (= 1.26.2)
   - BanubaEffectPlayer (= 1.25.0)
-  - BanubaLicenseServicingSDK (= 1.25.2)
-  - BanubaMusicEditorSDK (= 1.25.2)
-  - BanubaOverlayEditorSDK (= 1.25.2)
-  - BanubaSDK (= 1.25.2)
-  - BanubaSDKServicing (= 1.25.2)
-  - BanubaSDKSimple (= 1.25.2)
-  - BanubaTokenStorageSDK (= 1.25.2)
-  - BanubaUtilities (= 1.25.2)
-  - BanubaVideoEditorGallerySDK (= 1.25.2)
-  - BanubaVideoEditorSDK (= 1.25.2)
-  - BanubaVideoEditorTrimSDK (= 1.25.2)
+  - BanubaLicenseServicingSDK (= 1.26.2)
+  - BanubaMusicEditorSDK (= 1.26.2)
+  - BanubaOverlayEditorSDK (= 1.26.2)
+  - BanubaSDK (= 1.26.2)
+  - BanubaSDKServicing (= 1.26.2)
+  - BanubaSDKSimple (= 1.26.2)
+  - BanubaTokenStorageSDK (= 1.26.2)
+  - BanubaUtilities (= 1.26.2)
+  - BanubaVideoEditorGallerySDK (= 1.26.2)
+  - BanubaVideoEditorSDK (= 1.26.2)
+  - BanubaVideoEditorTrimSDK (= 1.26.2)
   - BNBLicenseUtils (= 1.24.1)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -372,10 +372,10 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - VEEffectsSDK (= 1.25.2)
-  - VEExportSDK (= 1.25.2)
-  - VEPlaybackSDK (= 1.25.2)
-  - VideoEditor (= 1.25.2)
+  - VEEffectsSDK (= 1.26.2)
+  - VEExportSDK (= 1.26.2)
+  - VEPlaybackSDK (= 1.26.2)
+  - VideoEditor (= 1.26.2)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -476,29 +476,29 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  BanubaARCloudSDK: 31eb3ef7614d55a345e1499a6f9c3070d8916f27
-  BanubaAudioBrowserSDK: 42aef94a17f766d702767dc8e365d0b0e5952e86
+  BanubaARCloudSDK: f09491eca14e1df03171cd98f94829d00676db77
+  BanubaAudioBrowserSDK: c0088cc8099e4127ddf8fe75ce52cb68a43f661f
   BanubaEffectPlayer: 79fd3d6707cc632213026465df74defdbe097dc5
-  BanubaLicenseServicingSDK: e2a0f13acc6b7c312bd89266ea120df4c3905630
-  BanubaMusicEditorSDK: 154a3feacdb6a11438f086eb7056b61d00aeaba9
-  BanubaOverlayEditorSDK: be3cfb8aa84463de36b4d5f6efc3217d96b204eb
-  BanubaSDK: e7b04f7f9488bce8a69cccf275376c0c90a29d08
-  BanubaSDKServicing: 8127f93111817bbd66b825d0f3a2616f8dac1494
-  BanubaSDKSimple: 39d6743892570d02638a480fcd8a2a5af65b9338
-  BanubaTokenStorageSDK: ee5fecaa228cc3a3f9982456508ff80618c11f02
-  BanubaUtilities: 6397674c885cb406b384291043204e4d0b8f01d9
-  BanubaVideoEditorGallerySDK: 4f100059e37ef1037cdd2ee51e81c356d21a3637
-  BanubaVideoEditorSDK: c528491e36fbb71090227e4b097752a11b6e0b0d
-  BanubaVideoEditorTrimSDK: 99a1fc6aaf6a80a8929f9fa788af1746b777114e
+  BanubaLicenseServicingSDK: 3f44b8bd3cb0b5d88ce0e9a01a0e33b2030e2625
+  BanubaMusicEditorSDK: 9877d5687157cd4385c1639ff0b2b0ca3439c46d
+  BanubaOverlayEditorSDK: ee5160aaad66b4a0c1e7c37f9acbb7b16fd02507
+  BanubaSDK: a9ff5e0c5d36fbfe9627c74ef9db55a965d24b76
+  BanubaSDKServicing: 50b4510f6cf4a68cb6914b2058fb64244bb59ed6
+  BanubaSDKSimple: ee794066d8a1a56a55bd8cc732e85ad4af2f53e2
+  BanubaTokenStorageSDK: 3662223b43db5ae8dba9782bb2d80ecf094581d3
+  BanubaUtilities: 4d9d9eb529c3978c09d30613dc3c2e4565c1ed3b
+  BanubaVideoEditorGallerySDK: 2ea9213601b29fdb11c53738ddbeac19f459d7dc
+  BanubaVideoEditorSDK: efbf288ce1d5ae04a9a9e7140156008674f15e90
+  BanubaVideoEditorTrimSDK: f8f214d8a7ec38b3f6c49d6027a39c94089254b6
   BNBLicenseUtils: 64827c2b4c6a0d97aa3dc7e3d508057b02354898
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: c71b8c429a8af2aff1013934a7152e9d9d0c937d
   FBReactNativeSpec: cb0df4f0084281b394f76bb9b4d1d9540f35963f
-  Firebase: 444b35a9c568a516666213c2f6cccd10cb12559f
-  FirebaseCore: 55e7ae35991ccca4db03ff8d8df6ed5f17a3e4c7
-  FirebaseCoreInternal: 96d75228e10fd369564da51bd898414eb0f54df5
-  FirebaseDatabase: 2dad4f291390ace067f46f7988600d3b46764b4e
+  Firebase: f92fc551ead69c94168d36c2b26188263860acd9
+  FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
+  FirebaseCoreInternal: 29b76f784d607df8b2a1259d73c3f04f1210137b
+  FirebaseDatabase: d0732ba8aece0eccfa0cfb3ef540e7ba6fa1c6a6
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
@@ -530,12 +530,12 @@ SPEC CHECKSUMS:
   React-RCTVibration: 9adb4a3cbb598d1bbd46a05256f445e4b8c70603
   React-runtimeexecutor: 61ee22a8cdf8b6bb2a7fb7b4ba2cc763e5285196
   ReactCommon: 8f67bd7e0a6afade0f20718f859dc8c2275f2e83
-  VEEffectsSDK: dacea9f32c5ceffff0d703b56ba1ac5131f00f95
-  VEExportSDK: 21d28f81570523e8d80ae6b24e2e6c90ac8058b1
-  VEPlaybackSDK: bab463a13dfefea6d847a936eb3684a15ca61244
-  VideoEditor: cf110efbae59ca0d8648e1b579ad392da66866be
+  VEEffectsSDK: 96dad0c92a2ad5db410c9710c934874db5331220
+  VEExportSDK: 3f9465e5740d4456e8683e535c5aa014b7c14c83
+  VEPlaybackSDK: 43e3d02dac8220be7d56eeccf264c2c84b719cdf
+  VideoEditor: 7d38ec083e6efb6fe179e3a10082dad2f514792c
   Yoga: ff994563b2fd98c982ca58e8cd9db2cdaf4dda74
 
-PODFILE CHECKSUM: 390f6bbd85c908d827e1dfb6d593f54fe37cc0a2
+PODFILE CHECKSUM: 86a328ee990315b714079c3743128a7b2f85e049
 
 COCOAPODS: 1.11.3

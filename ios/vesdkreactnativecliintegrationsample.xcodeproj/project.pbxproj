@@ -20,6 +20,12 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C27E9608293B87260024FF44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27E9607293B87260024FF44 /* AppDelegate.swift */; };
 		C27E9609293B87260024FF44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27E9607293B87260024FF44 /* AppDelegate.swift */; };
+		C2A6917D294C9CE6005DFA75 /* AudioBrowserModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */; };
+		C2A6917E294C9CE6005DFA75 /* AudioBrowserModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */; };
+		C2A69180294C9D1C005DFA75 /* CustomViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */; };
+		C2A69181294C9D1C005DFA75 /* CustomViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */; };
+		C2A69183294CA0AB005DFA75 /* sample_audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */; };
+		C2A69184294CA0AB005DFA75 /* sample_audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */; };
 		DE28CE5A675D445287764D36 /* Pods_vesdkreactnativecliintegrationsample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E570D9A4E5E4F47A83657EC1 /* Pods_vesdkreactnativecliintegrationsample.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +62,9 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.release.xcconfig"; path = "Target Support Files/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		C27E9606293B87260024FF44 /* vesdkreactnativecliintegrationsampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vesdkreactnativecliintegrationsampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		C27E9607293B87260024FF44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBrowserModule.swift; sourceTree = "<group>"; };
+		C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewControllerFactory.swift; sourceTree = "<group>"; };
+		C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sample_audio.mp3; path = ../android/app/src/main/assets/sample_audio.mp3; sourceTree = "<group>"; };
 		E570D9A4E5E4F47A83657EC1 /* Pods_vesdkreactnativecliintegrationsample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vesdkreactnativecliintegrationsample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FB49D4162EE077853185C076 /* Pods_vesdkreactnativecliintegrationsample_vesdkreactnativecliintegrationsampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vesdkreactnativecliintegrationsample_vesdkreactnativecliintegrationsampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +110,7 @@
 		13B07FAE1A68108700A75B9A /* vesdkreactnativecliintegrationsample */ = {
 			isa = PBXGroup;
 			children = (
+				C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */,
 				7837EBE228AF925700174DDB /* luts */,
 				7837EBE028AF924600174DDB /* bundleEffects */,
 				7837EBDE28AF921F00174DDB /* SplashScreen.storyboard */,
@@ -113,6 +123,8 @@
 				7837EBD828AF8DCF00174DDB /* VideoEditorModuleBridge.m */,
 				C27E9607293B87260024FF44 /* AppDelegate.swift */,
 				C27E9606293B87260024FF44 /* vesdkreactnativecliintegrationsampleTests-Bridging-Header.h */,
+				C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */,
+				C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */,
 			);
 			name = vesdkreactnativecliintegrationsample;
 			sourceTree = "<group>";
@@ -257,6 +269,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2A69184294CA0AB005DFA75 /* sample_audio.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				C2A69183294CA0AB005DFA75 /* sample_audio.mp3 in Resources */,
 				7837EBDB28AF8E3C00174DDB /* Localizable.strings in Resources */,
 				7837EBDD28AF91FD00174DDB /* Music in Resources */,
 				7837EBDF28AF921F00174DDB /* SplashScreen.storyboard in Resources */,
@@ -397,7 +411,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2A6917E294C9CE6005DFA75 /* AudioBrowserModule.swift in Sources */,
 				C27E9609293B87260024FF44 /* AppDelegate.swift in Sources */,
+				C2A69181294C9D1C005DFA75 /* CustomViewControllerFactory.swift in Sources */,
 				00E356F31AD99517003FC87E /* vesdkreactnativecliintegrationsampleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +425,8 @@
 				7837EBD928AF8DCF00174DDB /* VideoEditorModuleBridge.m in Sources */,
 				C27E9608293B87260024FF44 /* AppDelegate.swift in Sources */,
 				7837EBD728AF8D2700174DDB /* VideoEditorModule.swift in Sources */,
+				C2A6917D294C9CE6005DFA75 /* AudioBrowserModule.swift in Sources */,
+				C2A69180294C9D1C005DFA75 /* CustomViewControllerFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

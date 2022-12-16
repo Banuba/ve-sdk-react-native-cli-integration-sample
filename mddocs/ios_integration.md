@@ -11,7 +11,7 @@ The following steps help to complete basic integration into your React Native CL
 
 <ins>All changes are made in **ios** directory.</ins>
 1. __Set Banuba Video Editor SDK token__  
-   Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/VideoEditorModule.swift#L29).<br></br>
+   Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/VideoEditorModule.swift#L150).<br></br>
    To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.<br>
    :exclamation: The token **IS REQUIRED** to run sample and an integration in your app.<br></br>
 
@@ -56,7 +56,7 @@ The following steps help to complete basic integration into your React Native CL
             />
    ```
    Export returns response where you can find ```videoUri``` the path were exported video stored.</br>
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L36)</br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L46)</br>
 
 
 ## What is next?

@@ -5,9 +5,14 @@ import BanubaOverlayEditorSDK
 import VideoEditor
 import VEExportSDK
 import AVKit
+import BanubaAudioBrowserSDK
+
+typealias TimerOptionConfiguration = TimerConfiguration.TimerOptionConfiguration
 
 @objc(VideoEditorModule)
 class VideoEditorModule: NSObject, RCTBridgeModule {
+  
+  private let customViewControllerFactory = CustomViewControllerFactory()
   
   private var videoEditorSDK: BanubaVideoEditor?
   
@@ -23,17 +28,8 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
     self.currentResolve = resolve
     self.currentReject = reject
     
-    let config = createVideoEditorConfiguration()
-    
-
-    videoEditorSDK = BanubaVideoEditor(
-      token:  /*@START_MENU_TOKEN@*/"SET BANUBA VIDEO EDITOR TOKEN"/*@END_MENU_TOKEN@*/,
-      configuration: config,
-      externalViewControllerFactory: nil
-    )
-    
-    // Set delegate
-    videoEditorSDK?.delegate = self
+    prepareAudioBrowser()
+    initVideoEditor()
     
     DispatchQueue.main.async {
       guard let presentedVC = RCTPresentedViewController() else {
@@ -58,11 +54,124 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
     }
   }
   
+  // Applies audio track from custom audio browser
+  @objc func applyAudioTrack(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    self.currentResolve = resolve
+    self.currentReject = reject
+    
+    // Specify audio track URL. Video Editor SDK can apply tracks stored on the device.
+    // In this sample we use audio file stored in the project.
+    let audioURL = Bundle.main.url(forResource: "sample_audio", withExtension: "mp3")
+    
+    if (audioURL == nil) {
+      let errMessage = "Failed to apply audio track. Unknow file"
+      print(errMessage)
+      self.currentReject!("", errMessage, nil)
+      return
+    }
+    
+    // Specify custom track name and additional data
+    let trackName = "Track Name"
+    let additionTitle = "Awesome artist"
+    
+    DispatchQueue.main.async {
+      let customAudioTrackId: Int32 = 1000
+      let audioBrowserModule = self.getAudioBrowserModule()
+      
+      // Apply audio in Video Editor SDK
+      audioBrowserModule.trackSelectionDelegate?.trackSelectionViewController(viewController: audioBrowserModule, didSelectFile: audioURL!, isEditable: true, title: trackName, additionalTitle: additionTitle, id: customAudioTrackId)
+      
+      print("Audio track is applied")
+      
+      self.currentResolve!(nil)
+    }
+  }
+  
+  // Discards audio track in custom audio browser
+  @objc func discardAudioTrack(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    self.currentResolve = resolve
+    self.currentReject = reject
+    
+    DispatchQueue.main.async {
+      let customAudioTrackId: Int32 = 1000
+      let audioBrowserModule = self.getAudioBrowserModule()
+      
+      // Use the same audio track id i.e. customAudioTrackId to discard previously used audio
+      audioBrowserModule.trackSelectionDelegate?.trackSelectionViewController(viewController: audioBrowserModule, didStopUsingTrackWithId:customAudioTrackId)
+      
+      print("Audio track is discarded")
+      
+      // Closes audio browser once track is discared. You can comment this line and avoid closing audio browser screen after discard.
+      audioBrowserModule.trackSelectionDelegate?.trackSelectionViewControllerDidCancel(viewController: audioBrowserModule)
+      
+      self.currentResolve!(nil)
+    }
+  }
+  
+  // Closes audio browser
+  @objc func closeAudioBrowser(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    self.currentResolve = resolve
+    self.currentReject = reject
+    
+    DispatchQueue.main.async {
+      let audioBrowserModule = self.getAudioBrowserModule()
+      audioBrowserModule.trackSelectionDelegate?.trackSelectionViewControllerDidCancel(viewController: audioBrowserModule)
+      
+      self.currentResolve!(nil)
+    }
+  }
+  
+  private func initVideoEditor() {
+      var config = createVideoEditorConfiguration()
+      // Show mute audio button on Camera screen
+      config.featureConfiguration.isMuteCameraAudioEnabled = true
+      
+      // Sets 3, 10 seconds timer for recording on Camera
+      config.recorderConfiguration.timerConfiguration.options = [
+        TimerOptionConfiguration(
+          button: ImageButtonConfiguration(
+            imageConfiguration: ImageConfiguration(imageName: "camera.time_effects_on")
+          ),
+          startingTimerSeconds: 3,
+          stoppingTimerSeconds: .zero,
+          description: String(format: NSLocalizedString("hands.free.seconds", comment: ""), "3")
+        ),
+        TimerOptionConfiguration(
+          button: ImageButtonConfiguration(
+            imageConfiguration: ImageConfiguration(imageName: "camera.time_effects_on")
+          ),
+          startingTimerSeconds: 10,
+          stoppingTimerSeconds: .zero,
+          description: String(format: NSLocalizedString("hands.free.seconds", comment: ""), "10")
+        )
+      ]
+      
+      videoEditorSDK = BanubaVideoEditor(
+        token: /*@START_MENU_TOKEN@*/"SET BANUBA VIDEO EDITOR TOKEN"/*@END_MENU_TOKEN@*/,
+        configuration: config,
+        externalViewControllerFactory: customViewControllerFactory
+      )
+      
+      // Set delegate
+      videoEditorSDK?.delegate = self
+    }
+  
+  // Prepares Audio Browser
+  private func prepareAudioBrowser() {
+    if (!AppDelegate.useCustomAudioBrowser) {
+      BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
+    }
+  }
+  
+  private func getAudioBrowserModule() -> AudioBrowserModule {
+    return (customViewControllerFactory.musicEditorFactory as! CustomAudioBrowserViewControllerFactory).audioBrowserModule!
+  }
+  
   /*
    NOT REQUIRED FOR INTEGRATION
    Added for playing exported video file.
    */
-   func demoPlayExportedVideo(videoURL: URL) {
+  func demoPlayExportedVideo(videoURL: URL) {
     
     guard let controller = RCTPresentedViewController() else {
       return
@@ -151,9 +260,9 @@ extension VideoEditorModule {
           self?.videoEditorSDK = nil
           
           /*
-            NOT REQUIRED FOR INTEGRATION
-            Added for playing exported video file.
-          */
+           NOT REQUIRED FOR INTEGRATION
+           Added for playing exported video file.
+           */
           self?.demoPlayExportedVideo(videoURL: firstFileURL)
         } else {
           self?.currentReject?("", error?.errorMessage, nil)

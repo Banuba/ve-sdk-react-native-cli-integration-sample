@@ -86,7 +86,7 @@ public class AudioBrowserActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "vesdkreactnativecliintegrationsample.audio_browser";
+        return "audio_browser";
     }
 
     /**

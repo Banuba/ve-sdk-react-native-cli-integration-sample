@@ -19,8 +19,8 @@ public class MainApplication extends Application implements ReactApplication {
 
 
   /**
-   * true - uses custom audio browser implementation in this sample
-   * false - to keep default implementation
+   * true - use custom audio browser implementation in this sample
+   * false - use default implementation
    */
   public static final boolean USE_CUSTOM_AUDIO_BROWSER = false;
 
@@ -36,10 +36,6 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           packages.add(new VideoEditorReactPackage());
-//          packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
-
-          // Packages that cannot be autolinked yet can be added manually here, for example:
-          // packages.add(new MyReactNativePackage());
           return packages;
         }
 

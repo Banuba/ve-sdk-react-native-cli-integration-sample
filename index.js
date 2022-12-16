@@ -12,7 +12,4 @@ import AudioBrowser from './AudioBrowser';
 AppRegistry.registerComponent(appName, () => App);
 
 // Register AudioBrowser component.
-AppRegistry.registerComponent(
-  'vesdkreactnativecliintegrationsample.audio_browser',
-  () => AudioBrowser,
-);
+AppRegistry.registerComponent('audio_browser', () => AudioBrowser);

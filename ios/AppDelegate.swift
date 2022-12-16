@@ -8,6 +8,12 @@ import Foundation
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
+  /*
+   true - use custom audio browser implementation in this sample.
+   false - use default default implementation.
+   */
+  static let useCustomAudioBrowser = false
+  
   // Specify name of your project module
   private let moduleName = "vesdkreactnativecliintegrationsample"
   private let rootPath = "index"

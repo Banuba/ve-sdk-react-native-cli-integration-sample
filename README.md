@@ -40,7 +40,7 @@ To get access to your trial, please, get in touch with us by [filling a form](ht
 
 1. Install CocoaPods dependencies. Open **ios** directory and run in terminal ```pod install``` or ```arch -x86_64 pod install``` for Apple M1.
 2. Open **Signing & Capabilities** tab in Target settings and select your Development Team.
-3. Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/VideoEditorModule.swift#L29).
+3. Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/VideoEditorModule.swift#L150).
 4. Run ```npm run ios``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
 5. Follow [iOS Integration Guide](mddocs/ios_integration.md) to integrate the Video Editor SDK into your React Native CLI project.
 

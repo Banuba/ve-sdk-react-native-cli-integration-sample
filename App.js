@@ -13,8 +13,16 @@ async function startIosVideoEditor() {
   return await VideoEditorModule.openVideoEditor();
 }
 
+async function startIosVideoEditorPIP() {
+  return await VideoEditorModule.openVideoEditorPIP();
+}
+
 async function startAndroidVideoEditor() {
   return await VideoEditorModule.openVideoEditor();
+}
+
+async function startAndroidVideoEditorPIP() {
+  return await VideoEditorModule.openVideoEditorPIP();
 }
 
 export default function App() {
@@ -24,39 +32,78 @@ export default function App() {
         Sample integration of Banuba Video Editor into React Native CLI project
       </Text>
 
-      <Button
-        title="Open Video Editor"
-        onPress={async () => {
-          if (Platform.OS === 'android') {
-            startAndroidVideoEditor()
-              .then(videoUri => {
-                console.log(
-                  'Banuba Android Video Editor export video completed successfully. Video uri = ' +
-                    videoUri,
-                );
-              })
-              .catch(e => {
-                console.log(
-                  'Banuba Android Video Editor export video failed = ' + e,
-                );
-              });
-          } else {
-            startIosVideoEditor()
-              .then(response => {
-                const exportedVideoUri = response?.videoUri;
-                console.log(
-                  'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
-                    exportedVideoUri,
-                );
-              })
-              .catch(e => {
-                console.log(
-                  'Banuba iOS Video Editor export video failed = ' + e,
-                );
-              });
-          }
-        }}
-      />
+      <View style={{marginVertical: 8}}>
+        <Button
+          title="Open Video Editor - Default"
+          onPress={async () => {
+            if (Platform.OS === 'android') {
+              startAndroidVideoEditor()
+                .then(videoUri => {
+                  console.log(
+                    'Banuba Android Video Editor export video completed successfully. Video uri = ' +
+                      videoUri,
+                  );
+                })
+                .catch(e => {
+                  console.log(
+                    'Banuba Android Video Editor export video failed = ' + e,
+                  );
+                });
+            } else {
+              startIosVideoEditor()
+                .then(response => {
+                  const exportedVideoUri = response?.videoUri;
+                  console.log(
+                    'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
+                      exportedVideoUri,
+                  );
+                })
+                .catch(e => {
+                  console.log(
+                    'Banuba iOS Video Editor export video failed = ' + e,
+                  );
+                });
+            }
+          }}
+        />
+      </View>
+
+      <View style={{marginVertical: 8}}>
+        <Button
+          title="Open Video Editor - PIP"
+          color="#00ab41"
+          onPress={async () => {
+            if (Platform.OS === 'android') {
+              startAndroidVideoEditorPIP()
+                .then(videoUri => {
+                  console.log(
+                    'Banuba Android Video Editor export video completed successfully. Video uri = ' +
+                      videoUri,
+                  );
+                })
+                .catch(e => {
+                  console.log(
+                    'Banuba Android Video Editor export video failed = ' + e,
+                  );
+                });
+            } else {
+              startIosVideoEditorPIP()
+                .then(response => {
+                  const exportedVideoUri = response?.videoUri;
+                  console.log(
+                    'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
+                      exportedVideoUri,
+                  );
+                })
+                .catch(e => {
+                  console.log(
+                    'Banuba iOS Video Editor export video failed = ' + e,
+                  );
+                });
+            }
+          }}
+        />
+      </View>
     </View>
   );
 }

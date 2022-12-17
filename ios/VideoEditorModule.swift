@@ -54,6 +54,37 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
     }
   }
   
+  @objc func openVideoEditorPIP(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    self.currentResolve = resolve
+    self.currentReject = reject
+    
+    prepareAudioBrowser()
+    initVideoEditor()
+    
+    DispatchQueue.main.async {
+      guard let presentedVC = RCTPresentedViewController() else {
+        return
+      }
+      
+      // sample_pip_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
+      // Please provide valid video URL to open Video Editor in PIP.
+      let pipVideoURL = Bundle.main.url(forResource: "sample_pip_video", withExtension: "mp4")
+      
+      let pipLaunchConfig = VideoEditorLaunchConfig(
+        entryPoint: .pip,
+        hostController: presentedVC,
+        pipVideoItem: pipVideoURL,
+        musicTrack: nil,
+        animated: true
+      )
+      
+      self.videoEditorSDK?.presentVideoEditor(
+        withLaunchConfiguration: pipLaunchConfig,
+        completion: nil
+      )
+    }
+  }
+  
   // Applies audio track from custom audio browser
   @objc func applyAudioTrack(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
     self.currentResolve = resolve

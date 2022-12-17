@@ -36,7 +36,7 @@ The following steps help to complete basic integration into your React Native CL
    ```
        async function startIosVideoEditor() {
              return await VideoEditorModule.openVideoEditor();
-      };
+       };
        
        <Button
                 title = "Open Video Editor"
@@ -56,7 +56,7 @@ The following steps help to complete basic integration into your React Native CL
             />
    ```
    Export returns response where you can find ```videoUri``` the path were exported video stored.</br>
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L46)</br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L53)</br>
 
 
 ## What is next?

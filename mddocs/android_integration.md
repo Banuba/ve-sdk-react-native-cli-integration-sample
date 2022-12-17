@@ -122,7 +122,7 @@ The following steps help to complete basic integration into your React Native CL
             }
         />
    ```
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L31)</br><br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L40)</br><br>
    Technically it invokes ```VideoCreationActivity.startAndroidVideoEditor(...)``` method to start Video Editor SDK from Camera screen.</br>
    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#L88)</br><br>
    
@@ -131,7 +131,7 @@ The following steps help to complete basic integration into your React Native CL
 
    [Promises](https://reactnative.dev/docs/native-modules-android#promises) is used to make a bridge between Android and JS.<br>
    Export returns ```videoUri``` path as a String value were exported video stored on JS side.  
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L29)<br></br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L41)<br></br>
 
 10. __Configure export__</br>
     You can set custom export video file name using ```ExportParams.Builder.fileName()``` method.<br>

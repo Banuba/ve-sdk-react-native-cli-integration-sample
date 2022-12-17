@@ -6,6 +6,7 @@ import android.content.res.AssetManager
 import android.net.Uri
 import android.util.Log
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.export.data.ExportResult
@@ -111,6 +112,40 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         }
     }
 
+    @ReactMethod
+    fun openVideoEditorPIP(inputPromise: Promise) {
+        val hostActivity = currentActivity
+        if (hostActivity == null) {
+            inputPromise.reject(
+                E_ACTIVITY_DOES_NOT_EXIST,
+                "Host activity to open Video Editor does not exist!"
+            )
+            return
+        } else {
+            // sample_pip_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
+            // Please provide valid video URL to open Video Editor in PIP.
+            val sampleVideoFileName = "sample_pip_video.mp4"
+            val filesStorage: File = hostActivity.applicationContext.filesDir
+            val assets: AssetManager = hostActivity.applicationContext.assets
+            val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
+
+            this.exportResultPromise = inputPromise
+            val intent = VideoCreationActivity.startFromCamera(
+                hostActivity,
+                // set PiP video configuration
+                PipConfig(
+                    video = sampleVideoFile.toUri(),
+                    openPipSettings = false
+                ),
+                // setup data that will be acceptable during export flow
+                null,
+                // set TrackData object if you open VideoCreationActivity with preselected music track
+                null
+            )
+            hostActivity.startActivityForResult(intent, EXPORT_REQUEST_CODE)
+        }
+    }
+
     /**
      * Applies selected audio on custom Audio Browser in Video Editor SDK.
      *
@@ -136,7 +171,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
             val audioTrack: TrackData? = try {
                 // Video Editor SDK can play ONLY audio file stored on device.
                 // Make sure that you store audio file on a device before trying to play it.
-                val sampleAudioFile = prepareAudioFile(assets, filesStorage, sampleAudioFileName)
+                val sampleAudioFile = prepareMediaFile(assets, filesStorage, sampleAudioFileName)
 
                 // TrackData is required in Video Editor SDK for playing audio.
                 TrackData(
@@ -183,19 +218,19 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
      * NOT REQUIRED IN YOUR APP.
      */
     @Throws(IOException::class)
-    private fun prepareAudioFile(
+    private fun prepareMediaFile(
         assets: AssetManager,
         filesStorage: File,
-        audioFileName: String
+        mediaFileName: String
     ): File {
-        val sampleAudioFile = File(filesStorage, audioFileName)
+        val sampleAudioFile = File(filesStorage, mediaFileName)
 
         var outputStream: OutputStream? = null
         try {
-            assets.open(audioFileName).use { inputStream ->
+            assets.open(mediaFileName).use { inputStream ->
                 outputStream = FileOutputStream(sampleAudioFile)
                 val size = copyStream(inputStream, requireNotNull(outputStream))
-                Log.d(TAG, "Audio file has been copied. Size = $size")
+                Log.d(TAG, "Media file has been copied. Size = $size")
             }
         } catch (e: IOException) {
             throw e

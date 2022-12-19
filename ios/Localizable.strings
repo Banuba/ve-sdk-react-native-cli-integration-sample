@@ -817,7 +817,3 @@
 
 /* Error if sharing application is not installed */
 "sharing.app.not.installed" = "Sorry the application is not installed";
-
-// MARK: - Expired license screen
-"com.banuba.expiredLicense.infoLabel" = "Video content creation is temporarily unavailable";
-"com.banuba.expiredLicense.cancelButtonTitle" = "Close";

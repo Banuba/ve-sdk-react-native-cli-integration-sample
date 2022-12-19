@@ -14,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    */
   static let useCustomAudioBrowser = false
   
+  // Banuba client token
+  static let banubaClientToken: String = <#Please set your Banuba Video Editor SDK token here#>
+  
   // Specify name of your project module
   private let moduleName = "vesdkreactnativecliintegrationsample"
   private let rootPath = "index"

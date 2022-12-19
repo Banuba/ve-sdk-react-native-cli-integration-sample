@@ -178,7 +178,7 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
       ]
       
       videoEditorSDK = BanubaVideoEditor(
-        token: AppDelegate.banubaClientToken,
+        token: AppDelegate.licenseToken,
         configuration: config,
         externalViewControllerFactory: customViewControllerFactory
       )

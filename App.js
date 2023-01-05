@@ -21,6 +21,10 @@ async function startIosVideoEditorTrimmer() {
   return await VideoEditorModule.openVideoEditorTrimmer();
 }
 
+async function startAndroidVideoEditorTrimmer() {
+  return await VideoEditorModule.openVideoEditorTrimmer();
+}
+
 async function startAndroidVideoEditor() {
   return await VideoEditorModule.openVideoEditor();
 }
@@ -115,7 +119,7 @@ export default function App() {
           color="#ff0000"
           onPress={async () => {
             if (Platform.OS === 'android') {
-              startAndroidVideoEditorPIP()
+              startAndroidVideoEditorTrimmer()
                 .then(videoUri => {
                   console.log(
                     'Banuba Android Video Editor export video completed successfully. Video uri = ' +

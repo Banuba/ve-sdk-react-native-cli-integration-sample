@@ -15,6 +15,10 @@ import com.vesdkreactnativecliintegrationsample.newarchitecture.MainApplicationR
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+
+import com.banuba.sdk.token.storage.license.BanubaVideoEditor;
+
+
 public class MainApplication extends Application implements ReactApplication {
 
 
@@ -64,6 +68,8 @@ public class MainApplication extends Application implements ReactApplication {
     ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+
+    BanubaVideoEditor.INSTANCE.initialize(getString(R.string.banuba_token));
 
     // Initialize Banuba VE UI SDK
     new BanubaVideoEditorSDK().initialize(this);

@@ -32,7 +32,7 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 
 ### Android
 1. Make sure variable ```ANDROID_SDK_ROOT``` is set in your environment or configure [sdk.dir](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/local.properties#1).
-2. Set Banuba token in the sample app [resources](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/res/values/strings.xml#L6).
+2. Set Banuba token in the sample app [BanubaVideoEditor.Companion.initialize](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L72).
 3. Run ```npm run android``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
 4. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate Video Editor SDK into your React Native CLI project.
 

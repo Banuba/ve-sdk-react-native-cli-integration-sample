@@ -69,7 +69,7 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
 
-    BanubaVideoEditor videoEditorSDK = BanubaVideoEditor.Companion.initialize(getString(R.string.banuba_token));
+    BanubaVideoEditor videoEditorSDK = BanubaVideoEditor.Companion.initialize("SET BANUBA VE SDK TOKEN");
 
     if (videoEditorSDK == null) {
       Log.e("BanubaVideoEditor", "BanubaVideoEditor initialization error");

@@ -15,9 +15,9 @@ import com.vesdkreactnativecliintegrationsample.newarchitecture.MainApplicationR
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-
+import android.util.Log;
 import com.banuba.sdk.token.storage.license.BanubaVideoEditor;
-
+import com.banuba.sdk.token.storage.license.LicenseStateCallback;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -69,10 +69,25 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
 
-    BanubaVideoEditor.INSTANCE.initialize(getString(R.string.banuba_token));
+    BanubaVideoEditor videoEditorSDK = BanubaVideoEditor.Companion.initialize(getString(R.string.banuba_token));
+
+    if (videoEditorSDK == null) {
+      Log.e("BanubaVideoEditor", "BanubaVideoEditor initialization error");
+    } else {
+      new BanubaVideoEditorSDK().initialize(this);
+      videoEditorSDK.getLicenseState(new LicenseStateCallback() {
+        public void onLicenseState(boolean isValid) {
+          if (isValid) {
+            Log.d("BanubaVideoEditor", "BanubaVideoEditor token is valid");
+          } else {
+            Log.d("BanubaVideoEditor", "BanubaVideoEditor token is not valid");
+          }
+        }
+      });
+    }
 
     // Initialize Banuba VE UI SDK
-    new BanubaVideoEditorSDK().initialize(this);
+
   }
 
   /**

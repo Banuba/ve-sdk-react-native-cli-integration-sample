@@ -122,9 +122,9 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
             )
             return
         } else {
-            // sample_pip_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
+            // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
             // Please provide valid video URL to open Video Editor in PIP.
-            val sampleVideoFileName = "sample_pip_video.mp4"
+            val sampleVideoFileName = "sample_video.mp4"
             val filesStorage: File = hostActivity.applicationContext.filesDir
             val assets: AssetManager = hostActivity.applicationContext.assets
             val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
@@ -141,6 +141,37 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                 null,
                 // set TrackData object if you open VideoCreationActivity with preselected music track
                 null
+            )
+            hostActivity.startActivityForResult(intent, EXPORT_REQUEST_CODE)
+        }
+    }
+
+    @ReactMethod
+    fun openVideoEditorTrimmer(inputPromise: Promise) {
+        val hostActivity = currentActivity
+        if (hostActivity == null) {
+            inputPromise.reject(
+                    E_ACTIVITY_DOES_NOT_EXIST,
+                    "Host activity to open Video Editor does not exist!"
+            )
+            return
+        } else {
+            // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
+            // Please provide valid video URL to open Video Editor in trimmer.
+            val sampleVideoFileName = "sample_video.mp4"
+            val filesStorage: File = hostActivity.applicationContext.filesDir
+            val assets: AssetManager = hostActivity.applicationContext.assets
+            val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
+
+            this.exportResultPromise = inputPromise
+            val intent = VideoCreationActivity.startFromTrimmer(
+                    hostActivity,
+                    // set trimmer video configuration
+                    arrayOf(sampleVideoFile.toUri()),
+                    // setup data that will be acceptable during export flow
+                    null,
+                    // set TrackData object if you open VideoCreationActivity with preselected music track
+                    null
             )
             hostActivity.startActivityForResult(intent, EXPORT_REQUEST_CODE)
         }

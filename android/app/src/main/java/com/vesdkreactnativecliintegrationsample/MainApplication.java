@@ -20,13 +20,13 @@ import com.banuba.sdk.token.storage.license.BanubaVideoEditor;
 import com.banuba.sdk.token.storage.license.LicenseStateCallback;
 
 public class MainApplication extends Application implements ReactApplication {
-
-
   /**
    * true - use custom audio browser implementation in this sample
    * false - use default implementation
    */
   public static final boolean USE_CUSTOM_AUDIO_BROWSER = false;
+
+  private static final String LICENSE_TOKEN = YOUR LICENSE TOKEN
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -69,25 +69,15 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
 
-    BanubaVideoEditor videoEditorSDK = BanubaVideoEditor.Companion.initialize("SET BANUBA VE SDK TOKEN");
+    BanubaVideoEditor videoEditorSDK = BanubaVideoEditor.Companion.initialize(LICENSE_TOKEN);
 
     if (videoEditorSDK == null) {
-      Log.e("BanubaVideoEditor", "BanubaVideoEditor initialization error");
+      // Token you provided is not correct - empty or truncated
+      Log.e(VideoEditorModule.TAG, "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\\nPlease check your license token or contact Banuba");
     } else {
+      // Initialize Banuba VE UI SDK
       new BanubaVideoEditorSDK().initialize(this);
-      videoEditorSDK.getLicenseState(new LicenseStateCallback() {
-        public void onLicenseState(boolean isValid) {
-          if (isValid) {
-            Log.d("BanubaVideoEditor", "BanubaVideoEditor token is valid");
-          } else {
-            Log.d("BanubaVideoEditor", "BanubaVideoEditor token is not valid");
-          }
-        }
-      });
     }
-
-    // Initialize Banuba VE UI SDK
-
   }
 
   /**

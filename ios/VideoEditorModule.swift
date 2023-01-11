@@ -12,6 +12,9 @@ typealias TimerOptionConfiguration = TimerConfiguration.TimerOptionConfiguration
 @objc(VideoEditorModule)
 class VideoEditorModule: NSObject, RCTBridgeModule {
   
+  static let errEditorNotInitialized = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
+  static let errEditorLicenseRevoked = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
+  
   private let customViewControllerFactory = CustomViewControllerFactory()
   
   private var videoEditorSDK: BanubaVideoEditor?
@@ -33,27 +36,23 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
     prepareAudioBrowser()
     initVideoEditor()
     
-    DispatchQueue.main.async {
-      guard let presentedVC = RCTPresentedViewController() else {
-        return
-      }
-      var musicTrackPreset: MediaTrack?
-      
-      // uncomment this if you want to set the music track
-      
-      //musicTrackPreset = self.setupMusicTrackPresent()
-      
-      let config = VideoEditorLaunchConfig(
-        entryPoint: .camera,
-        hostController: presentedVC,
-        musicTrack: musicTrackPreset,
-        animated: true
-      )
-      self.videoEditorSDK?.presentVideoEditor(
-        withLaunchConfiguration: config,
-        completion: nil
-      )
+    guard let presentedVC = RCTPresentedViewController() else {
+      return
     }
+    var musicTrackPreset: MediaTrack?
+    
+    // uncomment this if you want to set the music track
+    
+    //musicTrackPreset = self.setupMusicTrackPresent()
+    
+    let config = VideoEditorLaunchConfig(
+      entryPoint: .camera,
+      hostController: presentedVC,
+      musicTrack: musicTrackPreset,
+      animated: true
+    )
+    
+    checkLicenseAndStartVideoEditor(with: config, rejecter: reject)
   }
   
   @objc func openVideoEditorPIP(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
@@ -63,28 +62,23 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
     prepareAudioBrowser()
     initVideoEditor()
     
-    DispatchQueue.main.async {
-      guard let presentedVC = RCTPresentedViewController() else {
-        return
-      }
-      
-      // sample_pip_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-      // Please provide valid video URL to open Video Editor in PIP.
-      let pipVideoURL = Bundle.main.url(forResource: "sample_video", withExtension: "mp4")
-      
-      let pipLaunchConfig = VideoEditorLaunchConfig(
-        entryPoint: .pip,
-        hostController: presentedVC,
-        pipVideoItem: pipVideoURL,
-        musicTrack: nil,
-        animated: true
-      )
-      
-      self.videoEditorSDK?.presentVideoEditor(
-        withLaunchConfiguration: pipLaunchConfig,
-        completion: nil
-      )
+    guard let presentedVC = RCTPresentedViewController() else {
+      return
     }
+    
+    // sample_pip_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
+    // Please provide valid video URL to open Video Editor in PIP.
+    let pipVideoURL = Bundle.main.url(forResource: "sample_video", withExtension: "mp4")
+    
+    let pipLaunchConfig = VideoEditorLaunchConfig(
+      entryPoint: .pip,
+      hostController: presentedVC,
+      pipVideoItem: pipVideoURL,
+      musicTrack: nil,
+      animated: true
+    )
+    
+    checkLicenseAndStartVideoEditor(with: pipLaunchConfig, rejecter: reject)
   }
   
   @objc func openVideoEditorTrimmer(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
@@ -94,28 +88,48 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
     prepareAudioBrowser()
     initVideoEditor()
     
-    DispatchQueue.main.async {
-      guard let presentedVC = RCTPresentedViewController() else {
-        return
-      }
-      
-      // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-      // Please provide valid video URL to open Video Editor in Trimmer.
-      let trimmerVideoURL = Bundle.main.url(forResource: "sample_video", withExtension: "mp4")!
-      
-      let pipLaunchConfig = VideoEditorLaunchConfig(
-        entryPoint: .trimmer,
-        hostController: presentedVC,
-        videoItems: [trimmerVideoURL],
-        musicTrack: nil,
-        animated: true
-      )
-      
-      self.videoEditorSDK?.presentVideoEditor(
-        withLaunchConfiguration: pipLaunchConfig,
-        completion: nil
-      )
+    guard let presentedVC = RCTPresentedViewController() else {
+      return
     }
+    
+    // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
+    // Please provide valid video URL to open Video Editor in Trimmer.
+    let trimmerVideoURL = Bundle.main.url(forResource: "sample_video", withExtension: "mp4")!
+    
+    let trimmerLaunchConfig = VideoEditorLaunchConfig(
+      entryPoint: .trimmer,
+      hostController: presentedVC,
+      videoItems: [trimmerVideoURL],
+      musicTrack: nil,
+      animated: true
+    )
+    
+    checkLicenseAndStartVideoEditor(with: trimmerLaunchConfig, rejecter: reject)
+  }
+  
+  func checkLicenseAndStartVideoEditor(with config: VideoEditorLaunchConfig, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    if videoEditorSDK == nil {
+      reject(Self.errEditorNotInitialized, nil, nil)
+      return
+    }
+    
+    // The an example of checking license status
+    videoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
+      guard let self else { return }
+      if isValid {
+        print("✅ License is active, all good")
+        DispatchQueue.main.async {
+          self.videoEditorSDK?.presentVideoEditor(
+            withLaunchConfiguration: config,
+            completion: nil
+          )
+        }
+      } else {
+        self.videoEditorSDK = nil
+        print("❌ License is either revoked or expired")
+        reject(Self.errEditorLicenseRevoked, nil, nil)
+      }
+    })
   }
   
   // Applies audio track from custom audio browser
@@ -197,39 +211,39 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
   }
   
   private func initVideoEditor() {
-      var config = createVideoEditorConfiguration()
-      // Show mute audio button on Camera screen
-      config.featureConfiguration.isMuteCameraAudioEnabled = true
-      
-      // Sets 3, 10 seconds timer for recording on Camera
-      config.recorderConfiguration.timerConfiguration.options = [
-        TimerOptionConfiguration(
-          button: ImageButtonConfiguration(
-            imageConfiguration: ImageConfiguration(imageName: "camera.time_effects_on")
-          ),
-          startingTimerSeconds: 3,
-          stoppingTimerSeconds: .zero,
-          description: String(format: NSLocalizedString("hands.free.seconds", comment: ""), "3")
+    var config = createVideoEditorConfiguration()
+    // Show mute audio button on Camera screen
+    config.featureConfiguration.isMuteCameraAudioEnabled = true
+    
+    // Sets 3, 10 seconds timer for recording on Camera
+    config.recorderConfiguration.timerConfiguration.options = [
+      TimerOptionConfiguration(
+        button: ImageButtonConfiguration(
+          imageConfiguration: ImageConfiguration(imageName: "camera.time_effects_on")
         ),
-        TimerOptionConfiguration(
-          button: ImageButtonConfiguration(
-            imageConfiguration: ImageConfiguration(imageName: "camera.time_effects_on")
-          ),
-          startingTimerSeconds: 10,
-          stoppingTimerSeconds: .zero,
-          description: String(format: NSLocalizedString("hands.free.seconds", comment: ""), "10")
-        )
-      ]
-      
-      videoEditorSDK = BanubaVideoEditor(
-        token: AppDelegate.licenseToken,
-        configuration: config,
-        externalViewControllerFactory: customViewControllerFactory
+        startingTimerSeconds: 3,
+        stoppingTimerSeconds: .zero,
+        description: String(format: NSLocalizedString("hands.free.seconds", comment: ""), "3")
+      ),
+      TimerOptionConfiguration(
+        button: ImageButtonConfiguration(
+          imageConfiguration: ImageConfiguration(imageName: "camera.time_effects_on")
+        ),
+        startingTimerSeconds: 10,
+        stoppingTimerSeconds: .zero,
+        description: String(format: NSLocalizedString("hands.free.seconds", comment: ""), "10")
       )
-      
-      // Set delegate
-      videoEditorSDK?.delegate = self
-    }
+    ]
+    
+    videoEditorSDK = BanubaVideoEditor(
+      token: AppDelegate.licenseToken,
+      configuration: config,
+      externalViewControllerFactory: customViewControllerFactory
+    )
+    
+    // Set delegate
+    videoEditorSDK?.delegate = self
+  }
   
   // Prepares Audio Browser
   private func prepareAudioBrowser() {

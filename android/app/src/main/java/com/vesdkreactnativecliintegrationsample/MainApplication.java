@@ -26,7 +26,12 @@ public class MainApplication extends Application implements ReactApplication {
    */
   public static final boolean USE_CUSTOM_AUDIO_BROWSER = false;
 
-  private static final String LICENSE_TOKEN = YOUR LICENSE TOKEN
+  private final String TAG = "ReactnativeVideoEditor";
+
+  private final String LICENSE_TOKEN = SET YOUR LICENSE TOKEN HERE
+  static final String ERR_SDK_NOT_INITIALIZED
+          = "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba";
+  static final String ERR_LICENSE_REVOKED = "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new";
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -61,6 +66,8 @@ public class MainApplication extends Application implements ReactApplication {
     }
   }
 
+  BanubaVideoEditor videoEditorSDK;
+
   @Override
   public void onCreate() {
     super.onCreate();
@@ -69,11 +76,11 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
 
-    BanubaVideoEditor videoEditorSDK = BanubaVideoEditor.Companion.initialize(LICENSE_TOKEN);
+    videoEditorSDK = BanubaVideoEditor.Companion.initialize(LICENSE_TOKEN);
 
     if (videoEditorSDK == null) {
       // Token you provided is not correct - empty or truncated
-      Log.e(VideoEditorModule.TAG, "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\\nPlease check your license token or contact Banuba");
+      Log.e(TAG, ERR_SDK_NOT_INITIALIZED);
     } else {
       // Initialize Banuba VE UI SDK
       new BanubaVideoEditorSDK().initialize(this);

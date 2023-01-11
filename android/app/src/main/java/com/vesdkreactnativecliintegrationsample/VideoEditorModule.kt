@@ -16,6 +16,7 @@ import com.facebook.react.bridge.*
 import com.google.android.exoplayer2.upstream.cache.CacheDataSink
 import java.io.*
 import java.util.*
+import com.banuba.sdk.token.storage.license.LicenseStateCallback
 
 class VideoEditorModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
@@ -27,6 +28,8 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         private const val E_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST"
         private const val E_VIDEO_EDITOR_CANCELLED = "E_VIDEO_EDITOR_CANCELLED"
         private const val E_EXPORTED_VIDEO_NOT_FOUND = "E_EXPORTED_VIDEO_NOT_FOUND"
+        private const val ERR_VIDEO_EDITOR_NOT_INITIALIZED = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
+        private const val ERR_VIDEO_EDITOR_LICENSE_REVOKED = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
     }
 
     private var exportResultPromise: Promise? = null
@@ -87,26 +90,45 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
      */
     @ReactMethod
     fun openVideoEditor(inputPromise: Promise) {
+        checkVideoEditorLicense(
+                licenseStateCallback = { isValid ->
+                    if (isValid) {
+                        // ✅ License is active, all good
+                        // You can show button that opens Video Editor or
+                        // Start Video Editor right away
+                        openVideEditorInternal(inputPromise)
+                    } else {
+                        // ❌ Use of Video Editor is restricted. License is revoked or expired.
+                        inputPromise.reject(ERR_VIDEO_EDITOR_LICENSE_REVOKED, MainApplication.ERR_LICENSE_REVOKED)
+                    }
+                },
+                notInitializedError = {
+                    inputPromise.reject(ERR_VIDEO_EDITOR_NOT_INITIALIZED, MainApplication.ERR_SDK_NOT_INITIALIZED)
+                }
+        )
+    }
+
+    private fun openVideEditorInternal(inputPromise: Promise) {
         val hostActivity = currentActivity
         if (hostActivity == null) {
             inputPromise.reject(
-                E_ACTIVITY_DOES_NOT_EXIST,
-                "Host activity to open Video Editor does not exist!"
+                    E_ACTIVITY_DOES_NOT_EXIST,
+                    "Host activity to open Video Editor does not exist!"
             )
             return
         } else {
             this.exportResultPromise = inputPromise
             val intent = VideoCreationActivity.startFromCamera(
-                hostActivity,
-                // set PiP video configuration
-                PipConfig(
-                    video = Uri.EMPTY,
-                    openPipSettings = false
-                ),
-                // setup data that will be acceptable during export flow
-                null,
-                // set TrackData object if you open VideoCreationActivity with preselected music track
-                null
+                    hostActivity,
+                    // set PiP video configuration
+                    PipConfig(
+                            video = Uri.EMPTY,
+                            openPipSettings = false
+                    ),
+                    // setup data that will be acceptable during export flow
+                    null,
+                    // set TrackData object if you open VideoCreationActivity with preselected music track
+                    null
             )
             hostActivity.startActivityForResult(intent, EXPORT_REQUEST_CODE)
         }
@@ -114,11 +136,30 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
 
     @ReactMethod
     fun openVideoEditorPIP(inputPromise: Promise) {
+        checkVideoEditorLicense(
+                licenseStateCallback = { isValid ->
+                    if (isValid) {
+                        // ✅ License is active, all good
+                        // You can show button that opens Video Editor or
+                        // Start Video Editor right away
+                        openVideoEditorPIPInteranl(inputPromise)
+                    } else {
+                        // ❌ Use of Video Editor is restricted. License is revoked or expired.
+                        inputPromise.reject(ERR_VIDEO_EDITOR_LICENSE_REVOKED, MainApplication.ERR_LICENSE_REVOKED)
+                    }
+                },
+                notInitializedError = {
+                    inputPromise.reject(ERR_VIDEO_EDITOR_NOT_INITIALIZED, MainApplication.ERR_SDK_NOT_INITIALIZED)
+                }
+        )
+    }
+
+    private fun openVideoEditorPIPInteranl(inputPromise: Promise) {
         val hostActivity = currentActivity
         if (hostActivity == null) {
             inputPromise.reject(
-                E_ACTIVITY_DOES_NOT_EXIST,
-                "Host activity to open Video Editor does not exist!"
+                    E_ACTIVITY_DOES_NOT_EXIST,
+                    "Host activity to open Video Editor does not exist!"
             )
             return
         } else {
@@ -131,16 +172,16 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
 
             this.exportResultPromise = inputPromise
             val intent = VideoCreationActivity.startFromCamera(
-                hostActivity,
-                // set PiP video configuration
-                PipConfig(
-                    video = sampleVideoFile.toUri(),
-                    openPipSettings = false
-                ),
-                // setup data that will be acceptable during export flow
-                null,
-                // set TrackData object if you open VideoCreationActivity with preselected music track
-                null
+                    hostActivity,
+                    // set PiP video configuration
+                    PipConfig(
+                            video = sampleVideoFile.toUri(),
+                            openPipSettings = false
+                    ),
+                    // setup data that will be acceptable during export flow
+                    null,
+                    // set TrackData object if you open VideoCreationActivity with preselected music track
+                    null
             )
             hostActivity.startActivityForResult(intent, EXPORT_REQUEST_CODE)
         }
@@ -148,6 +189,25 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
 
     @ReactMethod
     fun openVideoEditorTrimmer(inputPromise: Promise) {
+        checkVideoEditorLicense(
+                licenseStateCallback = { isValid ->
+                    if (isValid) {
+                        // ✅ License is active, all good
+                        // You can show button that opens Video Editor or
+                        // Start Video Editor right away
+                        openVideoEditorTrimmerInternal(inputPromise)
+                    } else {
+                        // ❌ Use of Video Editor is restricted. License is revoked or expired.
+                        inputPromise.reject(ERR_VIDEO_EDITOR_LICENSE_REVOKED, MainApplication.ERR_LICENSE_REVOKED)
+                    }
+                },
+                notInitializedError = {
+                    inputPromise.reject(ERR_VIDEO_EDITOR_NOT_INITIALIZED, MainApplication.ERR_SDK_NOT_INITIALIZED)
+                }
+        )
+    }
+
+    fun openVideoEditorTrimmerInternal(inputPromise: Promise) {
         val hostActivity = currentActivity
         if (hostActivity == null) {
             inputPromise.reject(
@@ -307,5 +367,23 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
             setDataAndType(uri, "video/mp4")
         }
         activity.startActivity(intent)
+    }
+
+    private fun checkVideoEditorLicense(
+            licenseStateCallback: LicenseStateCallback,
+            notInitializedError: () -> Unit
+    ) {
+        val videoEditor = (currentActivity?.getApplication() as MainApplication).videoEditorSDK
+        if (videoEditor == null) {
+            Log.e(
+                    "BanubaVideoEditor",
+                    "Cannot check license state. Please initialize Video Editor SDK"
+            )
+            notInitializedError()
+        } else {
+            // Checking the license might take around 1 sec in the worst case.
+            // Please optimize use if this method in your application for the best user experience
+            videoEditor.getLicenseState(licenseStateCallback)
+        }
     }
 }

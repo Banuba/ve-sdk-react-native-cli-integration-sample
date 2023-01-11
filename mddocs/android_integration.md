@@ -7,9 +7,8 @@ of your React Native CLI project using native Android development process.
 The following steps help to complete basic integration into your React Native CLI project.
 
 <ins>All changes are made in **android** directory.</ins>
-1. __Set Banuba Video Editor SDK token__  
-   Set Banuba token in the sample app [resources](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/res/values/strings.xml#L6).<br></br>
-   To get access to your trial, please, get in touch with us by [filling a form](https://www.banuba.com/video-editor-sdk) on our website. Our sales managers will send you the trial token.<br>
+1. __Use your license token__  
+   Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L31).<br></br>
    :exclamation: The token **IS REQUIRED** to run sample and an integration in your app.<br></br>
 
 2. __Add Banuba Video Editor SDK dependencies__ </br>
@@ -37,7 +36,7 @@ The following steps help to complete basic integration into your React Native CL
    Add Video Editor SDK dependencies in app gradle file. 
     ```groovy
         // Banuba Video Editor SDK dependencies
-        def banubaSdkVersion = '1.26.2'
+        def banubaSdkVersion = '1.26.3'
         implementation "com.banuba.sdk:ffmpeg:4.4"
         implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -56,19 +55,19 @@ The following steps help to complete basic integration into your React Native CL
         implementation "com.banuba.sdk:ve-export-sdk:${banubaSdkVersion}"
         implementation "com.banuba.sdk:ve-playback-sdk:${banubaSdkVersion}"
     ```
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/build.gradle#L312)</br><br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/build.gradle#L313)</br><br>
 
-3. __Add Video Editor SDK Initializer class__ </br>
+3. __Add Video Editor SDK dependencies initializer class__ </br>
    Add [BanubaVideoEditorSDK.kt](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/BanubaVideoEditorSDK.kt) file.</br>
-   This class helps to initialize and customize Video Editor SDK.</br><br>
+   This class helps to initialize dependencies and customize Video Editor SDK.</br><br>
 
 4. __Initialize Video Editor SDK in your application__ </br>
-   Use ```new BanubaVideoEditorSDK().initialize()``` in your ```Application.onCreate()``` method to initialize Video Editor SDK.</br>
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L69)</br><br>
+   Use ```val videoEditor = BanubaVideoEditor.initialize(LICENSE_TOKEN)``` in your ```Application.onCreate()``` method to initialize Video Editor SDK with license token.</br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L80)</br><br>
 
 5. __Add Video Editor React Package__ </br>
    Add [VideoEditorModule](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt) and
-   create new ReactPackage for Video Editor and add it in ```List<ReactPackage> getPackages()``` method in your [Application](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L38).<br>
+   create new ReactPackage for Video Editor and add it in ```List<ReactPackage> getPackages()``` method in your [Application](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L50).<br>
    [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorReactPackage.kt)</br><br>
 
 6. __Update AndroidManifest.xml__ </br>
@@ -122,16 +121,16 @@ The following steps help to complete basic integration into your React Native CL
             }
         />
    ```
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L40)</br><br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#28)</br><br>
    Technically it invokes ```VideoCreationActivity.startAndroidVideoEditor(...)``` method to start Video Editor SDK from Camera screen.</br>
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#L88)</br><br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#82)</br><br>
    
    Since Video Editor SDK on Android is launched within ```VideoCreationActivity``` exported video is returned from the Activity into ```onActivityResult``` callback
-   in [VideoEditorModule](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#34).</br><br>
+   in [VideoEditorModule](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#38).</br><br>
 
    [Promises](https://reactnative.dev/docs/native-modules-android#promises) is used to make a bridge between Android and JS.<br>
    Export returns ```videoUri``` path as a String value were exported video stored on JS side.  
-   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L41)<br></br>
+   [See example](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L83)<br></br>
 
 10. __Configure export__</br>
     You can set custom export video file name using ```ExportParams.Builder.fileName()``` method.<br>
@@ -139,7 +138,7 @@ The following steps help to complete basic integration into your React Native CL
 
 11. __Custom Audio Browser experience__ </br>
     Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
-    To check out the simplest experience on Flutter you can set ```true``` to [USE_CUSTOM_AUDIO_BROWSER](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L25)  
+    To check out the simplest experience on Flutter you can set ```true``` to [USE_CUSTOM_AUDIO_BROWSER](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L27)  
     :exclamation:<ins>Video Editor SDK can play only files stored on device.</ins>
 
 

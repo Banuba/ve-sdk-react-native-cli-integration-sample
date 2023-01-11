@@ -52,7 +52,7 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
       animated: true
     )
     
-    checkLicenseAndStartVideoEditor(with: config, rejecter: reject)
+    checkLicenseStateAndStart(with: config, rejecter: reject)
   }
   
   @objc func openVideoEditorPIP(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
@@ -78,7 +78,7 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
       animated: true
     )
     
-    checkLicenseAndStartVideoEditor(with: pipLaunchConfig, rejecter: reject)
+    checkLicenseStateAndStart(with: pipLaunchConfig, rejecter: reject)
   }
   
   @objc func openVideoEditorTrimmer(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
@@ -104,16 +104,17 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
       animated: true
     )
     
-    checkLicenseAndStartVideoEditor(with: trimmerLaunchConfig, rejecter: reject)
+    checkLicenseStateAndStart(with: trimmerLaunchConfig, rejecter: reject)
   }
   
-  func checkLicenseAndStartVideoEditor(with config: VideoEditorLaunchConfig, rejecter reject: @escaping RCTPromiseRejectBlock) {
+  func checkLicenseStateAndStart(with config: VideoEditorLaunchConfig, rejecter reject: @escaping RCTPromiseRejectBlock) {
     if videoEditorSDK == nil {
       reject(Self.errEditorNotInitialized, nil, nil)
       return
     }
     
-    // The an example of checking license status
+    // Checking the license might take around 1 sec in the worst case.
+    // Please optimize use if this method in your application for the best user experience
     videoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
       guard let self else { return }
       if isValid {
@@ -248,7 +249,7 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
   // Prepares Audio Browser
   private func prepareAudioBrowser() {
     if (!AppDelegate.useCustomAudioBrowser) {
-      BanubaAudioBrowser.setMubertPat("SET MUBERT API KEY")
+      BanubaAudioBrowser.setMubertPat(AppDelegate.mubertApiKey)
     }
   }
   

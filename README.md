@@ -32,7 +32,7 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 
 ### Android
 1. Make sure variable ```ANDROID_SDK_ROOT``` is set in your environment or configure [sdk.dir](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/local.properties#1).
-2. Set Banuba token in the sample app [SET YOUR LICENSE TOKEN HERE](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L31).
+2. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L31).
 3. Run ```npm run android``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
 4. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate Video Editor SDK into your React Native CLI project.
 
@@ -41,7 +41,7 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 
 1. Install CocoaPods dependencies. Open **ios** directory and run in terminal ```pod install``` or ```arch -x86_64 pod install``` for Apple M1.
 2. Open **Signing & Capabilities** tab in Target settings and select your Development Team.
-3. Set Banuba token in the sample app [VideoEditor initializer](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/VideoEditorModule.swift#L150).
+3. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/ios/AppDelegate.swift#18).
 4. Run ```npm run ios``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
 5. Follow [iOS Integration Guide](mddocs/ios_integration.md) to integrate the Video Editor SDK into your React Native CLI project.
 

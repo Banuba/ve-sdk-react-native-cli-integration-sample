@@ -26,12 +26,15 @@ public class MainApplication extends Application implements ReactApplication {
    */
   public static final boolean USE_CUSTOM_AUDIO_BROWSER = false;
 
-  private final String TAG = "ReactnativeVideoEditor";
+  private final String TAG = "BanubaVideoEditor";
 
-  private final String LICENSE_TOKEN = SET YOUR LICENSE TOKEN HERE
-  static final String ERR_SDK_NOT_INITIALIZED
+  private final String LICENSE_TOKEN = SET YOUR LICENSE TOKEN;
+
+  /* package */ static final String ERR_SDK_NOT_INITIALIZED
           = "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba";
-  static final String ERR_LICENSE_REVOKED = "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new";
+  /* package */ static final String ERR_LICENSE_REVOKED = "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new";
+
+  /* package */ BanubaVideoEditor videoEditorSDK;
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -65,8 +68,6 @@ public class MainApplication extends Application implements ReactApplication {
       return mReactNativeHost;
     }
   }
-
-  BanubaVideoEditor videoEditorSDK;
 
   @Override
   public void onCreate() {

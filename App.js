@@ -33,12 +33,17 @@ async function startAndroidVideoEditorPIP() {
   return await VideoEditorModule.openVideoEditorPIP();
 }
 
+function initLicenseManager() {
+    VideoEditorModule.initLicenseManager(SET YOUR LICENSE TOKEN);
+}
+
 export default class App extends Component {
   static errEditorNotInitialized = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
   static errEditorLicenseRevoked = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
 
   constructor() {
     super()
+    initLicenseManager()
     this.state = {
       errorText: ''
     }

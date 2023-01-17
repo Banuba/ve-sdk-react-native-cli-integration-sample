@@ -43,7 +43,9 @@ export default class App extends Component {
 
   constructor() {
     super()
-    initVideoEditor()
+    if (Platform.OS === 'android') {
+      initVideoEditor()
+    }
     this.state = {
       errorText: ''
     }
@@ -95,6 +97,7 @@ export default class App extends Component {
                     this.handleExportException(e);
                   });
               } else {
+                initVideoEditor()
                 startIosVideoEditor()
                   .then((response) => {
                     const exportedVideoUri = response?.videoUri;
@@ -127,6 +130,7 @@ export default class App extends Component {
                     this.handleExportException(e);
                   });
               } else {
+                initVideoEditor()
                 startIosVideoEditorPIP()
                   .then(response => {
                     const exportedVideoUri = response?.videoUri;
@@ -159,6 +163,7 @@ export default class App extends Component {
                     this.handleExportException(e);
                   });
               } else {
+                initVideoEditor()
                 startIosVideoEditorTrimmer()
                   .then(response => {
                     const exportedVideoUri = response?.videoUri;

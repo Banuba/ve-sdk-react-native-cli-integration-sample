@@ -16,8 +16,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import android.util.Log;
-import com.banuba.sdk.token.storage.license.BanubaVideoEditor;
-import com.banuba.sdk.token.storage.license.LicenseStateCallback;
 
 public class MainApplication extends Application implements ReactApplication {
   /**
@@ -25,8 +23,6 @@ public class MainApplication extends Application implements ReactApplication {
    * false - use default implementation
    */
   public static final boolean USE_CUSTOM_AUDIO_BROWSER = false;
-
-  private final String TAG = "BanubaVideoEditor";
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {

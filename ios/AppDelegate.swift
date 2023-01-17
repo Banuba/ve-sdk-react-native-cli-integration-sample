@@ -14,9 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    */
   static let useCustomAudioBrowser = false
   
-  // License token is required to start Video Editor SDK
-  static let licenseToken: String = SET YOUR LICENSE TOKEN
-  
   // Set your Mubert Api key here
   static let mubertApiKey = ""
   

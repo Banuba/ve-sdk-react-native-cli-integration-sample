@@ -55,9 +55,9 @@ import org.koin.dsl.module
 
 class BanubaVideoEditorSDK {
 
-    fun initialize(application: Application) {
+    fun initialize(applicationContext: Context) {
         startKoin {
-            androidContext(application)
+            androidContext(applicationContext)
             allowOverride(true)
 
             // IMPORTANT! order of modules is required

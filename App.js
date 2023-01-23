@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,105 +7,134 @@ import {
   Platform,
   NativeModules,
 } from 'react-native';
-const { VideoEditorModule } = NativeModules;
+const {VideoEditorModule} = NativeModules;
+
+// Set Banuba license token for Video Editor SDK
+const LICENSE_TOKEN = SET LICENSE TOKEN
+
+const ERR_SDK_NOT_INITIALIZED_CODE = 'ERR_VIDEO_EDITOR_NOT_INITIALIZED';
+const ERR_SDK_NOT_INITIALIZED_MESSAGE = 'Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba';
+
+const ERR_LICENSE_REVOKED_CODE = 'ERR_VIDEO_EDITOR_LICENSE_REVOKED';
+const ERR_LICENSE_REVOKED_MESSAGE = 'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
+
+function initVideoEditor() {
+  VideoEditorModule.initVideoEditor(LICENSE_TOKEN);
+}
 
 async function startIosVideoEditor() {
+  initVideoEditor();
   return await VideoEditorModule.openVideoEditor();
 }
 
 async function startIosVideoEditorPIP() {
+  initVideoEditor();
   return await VideoEditorModule.openVideoEditorPIP();
 }
 
 async function startIosVideoEditorTrimmer() {
+  initVideoEditor();
   return await VideoEditorModule.openVideoEditorTrimmer();
 }
 
 async function startAndroidVideoEditorTrimmer() {
+  initVideoEditor();
   return await VideoEditorModule.openVideoEditorTrimmer();
 }
 
 async function startAndroidVideoEditor() {
+  initVideoEditor();
   return await VideoEditorModule.openVideoEditor();
 }
 
 async function startAndroidVideoEditorPIP() {
+  initVideoEditor();
   return await VideoEditorModule.openVideoEditorPIP();
 }
 
 export default class App extends Component {
-  static errEditorNotInitialized = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
-  static errEditorLicenseRevoked = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
-
+  
   constructor() {
-    super()
+    super();
     this.state = {
-      errorText: ''
-    }
+      errorText: '',
+    };
   }
 
   handleExportException(e) {
     var message = '';
     switch (e.code) {
-      case App.errEditorNotInitialized:
-        message = 'Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba';
+      case ERR_SDK_NOT_INITIALIZED_CODE:
+        message = ERR_SDK_NOT_INITIALIZED_MESSAGE;
         break;
-      case App.errEditorLicenseRevoked:
-        message = 'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
+      case ERR_LICENSE_REVOKED_CODE:
+        message = ERR_LICENSE_REVOKED_MESSAGE;
         break;
       default:
         message = '';
         console.log(
-          "Banuba " + Platform.OS.toUpperCase() + " Video Editor export video failed = " + e
+          'Banuba ' +
+            Platform.OS.toUpperCase() +
+            ' Video Editor export video failed = ' +
+            e,
         );
         break;
     }
-    this.setState({ errorText: message });
+    this.setState({errorText: message});
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ padding: 16, textAlign: 'center' }}>
-          Sample integration of Banuba Video Editor into React Native CLI project
+        <Text style={{padding: 16, textAlign: 'center'}}>
+          Sample integration of Banuba Video Editor into React Native CLI
+          project
         </Text>
 
-        <Text style={{ padding: 16, textAlign: 'center', color: '#ff0000', fontSize: 16, fontWeight: "800" }}>
+        <Text
+          style={{
+            padding: 16,
+            textAlign: 'center',
+            color: '#ff0000',
+            fontSize: 16,
+            fontWeight: '800',
+          }}>
           {this.state.errorText}
         </Text>
 
-        <View style={{ marginVertical: 8 }}>
+        <View style={{marginVertical: 8}}>
           <Button
             title="Open Video Editor - Default"
             onPress={async () => {
               if (Platform.OS === 'android') {
                 startAndroidVideoEditor()
-                  .then((videoUri) => {
+                  .then(videoUri => {
                     console.log(
-                      "Banuba Android Video Editor export video completed successfully. Video uri = " +
-                      videoUri
+                      'Banuba Android Video Editor export video completed successfully. Video uri = ' +
+                        videoUri,
                     );
                   })
-                  .catch((e) => {
+                  .catch(e => {
                     this.handleExportException(e);
                   });
               } else {
                 startIosVideoEditor()
-                  .then((response) => {
+                  .then(response => {
                     const exportedVideoUri = response?.videoUri;
                     console.log(
-                      "Banuba iOS Video Editor export video completed successfully. Video uri = " +
-                      exportedVideoUri
+                      'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
+                        exportedVideoUri,
                     );
                   })
-                  .catch((e) => {
+                  .catch(e => {
                     this.handleExportException(e);
                   });
               }
-            }} />
+            }}
+          />
         </View>
 
-        <View style={{ marginVertical: 8 }}>
+        <View style={{marginVertical: 8}}>
           <Button
             title="Open Video Editor - PIP"
             color="#00ab41"
@@ -115,7 +144,7 @@ export default class App extends Component {
                   .then(videoUri => {
                     console.log(
                       'Banuba Android Video Editor export video completed successfully. Video uri = ' +
-                      videoUri
+                        videoUri,
                     );
                   })
                   .catch(e => {
@@ -127,17 +156,18 @@ export default class App extends Component {
                     const exportedVideoUri = response?.videoUri;
                     console.log(
                       'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
-                      exportedVideoUri
+                        exportedVideoUri,
                     );
                   })
                   .catch(e => {
                     this.handleExportException(e);
                   });
               }
-            }} />
+            }}
+          />
         </View>
 
-        <View style={{ marginVertical: 8 }}>
+        <View style={{marginVertical: 8}}>
           <Button
             title="Open Video Editor - Trimmer"
             color="#ff0000"
@@ -147,7 +177,7 @@ export default class App extends Component {
                   .then(videoUri => {
                     console.log(
                       'Banuba Android Video Editor export video completed successfully. Video uri = ' +
-                      videoUri
+                        videoUri,
                     );
                   })
                   .catch(e => {
@@ -159,14 +189,15 @@ export default class App extends Component {
                     const exportedVideoUri = response?.videoUri;
                     console.log(
                       'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
-                      exportedVideoUri
+                        exportedVideoUri,
                     );
                   })
                   .catch(e => {
                     this.handleExportException(e);
                   });
               }
-            }} />
+            }}
+          />
         </View>
       </View>
     );

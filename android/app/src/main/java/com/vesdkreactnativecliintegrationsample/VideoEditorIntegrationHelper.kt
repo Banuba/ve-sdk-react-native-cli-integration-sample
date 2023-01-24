@@ -1,7 +1,6 @@
 package com.vesdkreactnativecliintegrationsample
 
 import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -53,7 +52,15 @@ import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-class BanubaVideoEditorSDK {
+class VideoEditorIntegrationHelper {
+
+    companion object {
+        /**
+         * true - enables custom audio browser implementation in this sample
+         * false - default implementation
+         */
+        const val CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER = false
+    }
 
     fun initialize(applicationContext: Context) {
         startKoin {
@@ -200,7 +207,7 @@ private class SampleIntegrationVeKoinModule {
         single<ContentFeatureProvider<TrackData, Fragment>>(
             named("musicTrackProvider")
         ) {
-            if (MainApplication.USE_CUSTOM_AUDIO_BROWSER) {
+            if (VideoEditorIntegrationHelper.CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER) {
                 AudioBrowserContentProvider()
             } else {
                 // Default implementation that supports Mubert and Local audio stored on the device

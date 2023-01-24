@@ -1,25 +1,15 @@
 # Banuba Video Editor SDK - React Native CLI integration sample.
+
+## Overview
 [Banuba Video Editor SDK](https://www.banuba.com/video-editor-sdk) allows you to quickly add short video functionality and possibly AR filters and effects into your mobile app.
-<br></br>
-
-This sample demonstrates how to run Video Editor SDK with [React Native CLI](https://reactnative.dev/).  
-
-<ins>The main part of integration and customization is implemented in **android**, **ios** directories using native Android and iOS development process.<ins>
-
-## Dependencies
-|              | Version | 
-|--------------|:-------:|
-| node         | 8.18.0  |
-| react native | ~0.69.4 |
-| Android      |  6.0+   |
-| iOS          |  12.0+  |
+<br>  
+The sample demonstrates how to run Video Editor SDK with [React Native](https://reactnative.dev/) and [React Native CLI](https://reactnative.dev/).
 
 ## Usage
-### Token
+### License
 Before you commit to a license, you are free to test all the features of the SDK for free.  
-The trial period lasts 14 days. To start it, [send us a message](https://www.banuba.com/video-editor-sdk#form).    
+The trial period lasts 14 days. To start it, [send us a message](https://www.banuba.com/video-editor-sdk#form).  
 We will get back to you with the trial token.
-You can store the token within the app.
 
 Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have any questions.
 
@@ -42,3 +32,10 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 3. Run ```npm run ios``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
 4. Follow [iOS Integration Guide](mddocs/ios_integration.md) to integrate the Video Editor SDK into your React Native CLI project.
 
+## Dependencies
+|              | Version | 
+|--------------|:-------:|
+| node         | 8.18.0  |
+| react native | ~0.69.4 |
+| Android      |  6.0+   |
+| iOS          |  12.0+  |

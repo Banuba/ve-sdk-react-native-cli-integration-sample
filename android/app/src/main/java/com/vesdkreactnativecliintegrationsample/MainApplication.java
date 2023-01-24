@@ -15,14 +15,7 @@ import com.vesdkreactnativecliintegrationsample.newarchitecture.MainApplicationR
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import android.util.Log;
-
 public class MainApplication extends Application implements ReactApplication {
-  /**
-   * true - use custom audio browser implementation in this sample
-   * false - use default implementation
-   */
-  public static final boolean USE_CUSTOM_AUDIO_BROWSER = false;
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {

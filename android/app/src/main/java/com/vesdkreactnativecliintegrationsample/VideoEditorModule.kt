@@ -26,9 +26,9 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         const val TAG = "BanubaVideoEditor"
 
         private const val EXPORT_REQUEST_CODE = 1111
-        private const val E_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST"
-        private const val E_VIDEO_EDITOR_CANCELLED = "E_VIDEO_EDITOR_CANCELLED"
-        private const val E_EXPORTED_VIDEO_NOT_FOUND = "E_EXPORTED_VIDEO_NOT_FOUND"
+        private const val ERR_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST"
+        private const val ERR_VIDEO_EDITOR_CANCELLED = "E_VIDEO_EDITOR_CANCELLED"
+        private const val ERR_EXPORTED_VIDEO_NOT_FOUND = "E_EXPORTED_VIDEO_NOT_FOUND"
 
         private const val ERR_SDK_NOT_INITIALIZED_CODE = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
         private const val ERR_LICENSE_REVOKED_CODE = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
@@ -39,7 +39,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
 
     private var exportResultPromise: Promise? = null
     private var videoEditorSDK: BanubaVideoEditor? = null
-    private var videoEditorSdkDependencies: BanubaVideoEditorSDK? = null
+    private var videoEditorIntegrationHelper: VideoEditorIntegrationHelper? = null
 
     private val videoEditorResultListener = object : ActivityEventListener {
         override fun onActivityResult(
@@ -59,7 +59,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
 
                         if (resultUri == null) {
                             exportResultPromise?.reject(
-                                E_EXPORTED_VIDEO_NOT_FOUND,
+                                ERR_EXPORTED_VIDEO_NOT_FOUND,
                                 "Exported video is null"
                             )
                         } else {
@@ -73,7 +73,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                     }
                     requestCode == Activity.RESULT_CANCELED -> {
                         exportResultPromise?.reject(
-                            E_VIDEO_EDITOR_CANCELLED,
+                            ERR_VIDEO_EDITOR_CANCELLED,
                             "Video editor export was cancelled"
                         )
                     }
@@ -101,9 +101,9 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
             Log.e(TAG, ERR_SDK_NOT_INITIALIZED_MESSAGE)
             inputPromise.reject(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE)
         } else {
-            if (videoEditorSdkDependencies == null) {
+            if (videoEditorIntegrationHelper == null) {
                 // Initialize video editor sdk dependencies
-                videoEditorSdkDependencies = BanubaVideoEditorSDK().apply {
+                videoEditorIntegrationHelper = VideoEditorIntegrationHelper().apply {
                     initialize(reactApplicationContext.applicationContext)
                 }
             }
@@ -138,7 +138,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         val hostActivity = currentActivity
         if (hostActivity == null) {
             inputPromise.reject(
-                    E_ACTIVITY_DOES_NOT_EXIST,
+                    ERR_ACTIVITY_DOES_NOT_EXIST,
                     "Host activity to open Video Editor does not exist!"
             )
             return
@@ -184,7 +184,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         val hostActivity = currentActivity
         if (hostActivity == null) {
             inputPromise.reject(
-                    E_ACTIVITY_DOES_NOT_EXIST,
+                    ERR_ACTIVITY_DOES_NOT_EXIST,
                     "Host activity to open Video Editor does not exist!"
             )
             return
@@ -237,7 +237,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         val hostActivity = currentActivity
         if (hostActivity == null) {
             inputPromise.reject(
-                    E_ACTIVITY_DOES_NOT_EXIST,
+                    ERR_ACTIVITY_DOES_NOT_EXIST,
                     "Host activity to open Video Editor does not exist!"
             )
             return

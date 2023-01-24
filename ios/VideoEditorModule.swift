@@ -31,8 +31,7 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
   @objc (initVideoEditor:resolver:rejecter:)
   func initVideoEditor(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
     let config = createVideoEditorConfiguration()
-    
-    
+
     videoEditorSDK = BanubaVideoEditor(
       token: token,
       configuration: config,
@@ -235,7 +234,7 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
   
   // Prepares Audio Browser
   private func prepareAudioBrowser() {
-    if (!AppDelegate.useCustomAudioBrowser) {
+    if (!AppDelegate.configEnableCustomAudioBrowser) {
       BanubaAudioBrowser.setMubertPat(AppDelegate.mubertApiKey)
     }
   }

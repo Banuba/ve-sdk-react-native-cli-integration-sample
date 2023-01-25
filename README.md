@@ -17,10 +17,10 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 1. Complete React Native [Environment setup](https://reactnative.dev/docs/environment-setup)
 2. Complete [Running On Device](https://reactnative.dev/docs/running-on-device)
 3. Run ```npm install``` or ```yarn install``` in terminal to install dependencies.
-4. Set Banuba license token [within the app](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/master/App.js#L12).
+4. Set Banuba license token [within the app](App.js#L12).
 
 ### Run on Android
-1. Make sure variable ```ANDROID_SDK_ROOT``` is set in your environment or configure [sdk.dir](https://github.com/Banuba/ve-sdk-react-native-cli-integration-sample/blob/main/android/local.properties#1).
+1. Make sure variable ```ANDROID_SDK_ROOT``` is set in your environment or configure [sdk.dir](android/local.properties#1).
 2. Run ```npm run android``` in terminal to launch the sample app on a device or launch the app in IDE i.e. Intellij, VC, etc.
 3. Follow [Android Integration Guide](mddocs/android_integration.md) to integrate Video Editor SDK into your React Native CLI project.
 

@@ -6,7 +6,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 inhibit_all_warnings!
 
-platform :ios, '12.0'
+platform :ios, '13.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 production = ENV["PRODUCTION"] == "1"
@@ -28,7 +28,7 @@ target 'vesdkreactnativecliintegrationsample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-    sdk_version = '1.26.3'
+    sdk_version = '1.26.4'
   	pod 'BanubaARCloudSDK', sdk_version #optional
     pod 'BanubaVideoEditorSDK', sdk_version
     pod 'BanubaAudioBrowserSDK', sdk_version #optional
@@ -44,7 +44,7 @@ target 'vesdkreactnativecliintegrationsample' do
     pod 'BanubaVideoEditorTrimSDK', sdk_version
     pod 'BanubaLicenseServicingSDK', sdk_version
 
-    pod 'BNBLicenseUtils', '1.26.3'
+    pod 'BNBLicenseUtils', '1.26.4'
 
     pod 'VEExportSDK', sdk_version
     pod 'VEEffectsSDK', sdk_version

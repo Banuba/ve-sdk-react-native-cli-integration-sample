@@ -52,7 +52,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-class VideoEditorIntegrationHelper {
+class VideoEditorIntegrationModule {
 
     companion object {
         /**
@@ -86,35 +86,10 @@ class VideoEditorIntegrationHelper {
                 GalleryKoinModule().module,
 
                 // Sample integration module
-                SampleIntegrationVeKoinModule().module,
+                SampleModule().module,
             )
         }
     }
-}
-
-/**
- * This class represents parsing result from VideoCreationActivity
- *
- * ExportResult is an object that holds all necessary data related
- * to the video created in VideoCreationActivity
- */
-
-class SampleExportVideoContract: ActivityResultContract<Intent?, ExportResult?>() {
-
-    override fun createIntent(context: Context, input: Intent?): Intent {
-        check(input != null) {
-            "Can not create Intent to create video"
-        }
-        return input
-    }
-
-    override fun parseResult(resultCode: Int, intent: Intent?): ExportResult? {
-        if (resultCode == Activity.RESULT_OK) {
-            return intent?.getParcelableExtra(EXTRA_EXPORTED_SUCCESS) as? ExportResult.Success
-        }
-        return ExportResult.Inactive
-    }
-
 }
 
 /**
@@ -123,7 +98,7 @@ class SampleExportVideoContract: ActivityResultContract<Intent?, ExportResult?>(
  * Some dependencies has no default implementations. It means that
  * these classes fully depends on your requirements
  */
-private class SampleIntegrationVeKoinModule {
+private class SampleModule {
 
     val module = module {
         single<ExportFlowManager> {
@@ -144,7 +119,7 @@ private class SampleIntegrationVeKoinModule {
          * Provides params for export
          * */
         factory<ExportParamsProvider> {
-            SampleExportParamsProvider(
+            CustomExportParamsProvider(
                 exportDir = get(named("exportDir")),
                 watermarkBuilder = get()
             )
@@ -173,14 +148,6 @@ private class SampleIntegrationVeKoinModule {
             HandsFreeTimerActionProvider()
         }
 
-        single<OrderProvider>(named("colorFilterOrderProvider")) {
-            SampleColorFilterOrderProvider()
-        }
-
-        single<OrderProvider>(named("maskOrderProvider")) {
-            SampleMaskOrderProvider()
-        }
-
         factory<DraftConfig> {
             DraftConfig.ENABLED_ASK_TO_SAVE
         }
@@ -191,23 +158,10 @@ private class SampleIntegrationVeKoinModule {
             }
         }
 
-        single<EditorConfig> {
-            EditorConfig(
-                minTotalVideoDurationMs = 1500
-            )
-        }
-
-        single<ObjectEditorConfig> {
-            ObjectEditorConfig(
-                objectEffectDefaultDuration = 2000
-            )
-        }
-
         // Audio Browser provider implementation.
         single<ContentFeatureProvider<TrackData, Fragment>>(
-            named("musicTrackProvider")
-        ) {
-            if (VideoEditorIntegrationHelper.CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER) {
+            named("musicTrackProvider")) {
+            if (VideoEditorIntegrationModule.CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER) {
                 AudioBrowserContentProvider()
             } else {
                 // Default implementation that supports Mubert and Local audio stored on the device
@@ -217,7 +171,7 @@ private class SampleIntegrationVeKoinModule {
     }
 }
 
-private class SampleExportParamsProvider(
+private class CustomExportParamsProvider(
     private val exportDir: Uri,
     private val watermarkBuilder: WatermarkBuilder
 ) : ExportParamsProvider {
@@ -278,41 +232,3 @@ private class SampleWatermarkProvider : WatermarkProvider {
     }
 }
 
-class SampleMaskOrderProvider : OrderProvider {
-    override fun provide(): List<String> =
-        listOf(
-            ScannerActionDataProvider.EFFECT_NAME,
-            BackgroundSeparationActionDataProvider.EFFECT_NAME
-        )
-}
-
-class SampleColorFilterOrderProvider : OrderProvider {
-
-    override fun provide() = listOf(
-        "egypt",
-        "byers",
-        "chile",
-        "hyla",
-        "new_zeland",
-        "korben",
-        "canada",
-        "remy",
-        "england",
-        "retro",
-        "norway",
-        "neon",
-        "japan",
-        "instant",
-        "lux",
-        "sunset",
-        "bubblegum",
-        "chroma",
-        "lilac",
-        "pinkvine",
-        "spark",
-        "sunny",
-        "vinyl",
-        "glitch",
-        "grunge"
-    )
-}

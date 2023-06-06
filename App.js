@@ -121,9 +121,12 @@ export default class App extends Component {
                 startIosVideoEditor()
                   .then(response => {
                     const exportedVideoUri = response?.videoUri;
+                    const exportedVideoCoverUri = response?.coverImageUri
                     console.log(
                       'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
-                        exportedVideoUri,
+                      exportedVideoUri +
+                      ' cover uri = ' +
+                      exportedVideoCoverUri
                     );
                   })
                   .catch(e => {

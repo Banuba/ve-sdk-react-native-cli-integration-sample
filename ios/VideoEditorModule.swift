@@ -358,7 +358,16 @@ extension VideoEditorModule {
         if success {
           // Result urls. You could interact with your own implementation.
           
-          self?.currentResolve?(["videoUri": firstFileURL.absoluteString])
+          let coverImageURL = FileManager.default.temporaryDirectory.appendingPathComponent("coverImage.png")
+          if FileManager.default.fileExists(atPath: coverImageURL.path) {
+            try? FileManager.default.removeItem(at: coverImageURL)
+          }
+          try? coverImage?.coverImage?.pngData()?.write(to: coverImageURL)
+          
+          self?.currentResolve?([
+            "videoUri": firstFileURL.absoluteString,
+            "coverImageUri": FileManager.default.fileExists(atPath: coverImageURL.path) ? coverImageURL.absoluteString : nil
+          ])
           // remove strong reference to video editor sdk instance
           self?.videoEditorSDK = nil
           

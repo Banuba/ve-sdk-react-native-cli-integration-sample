@@ -28,11 +28,10 @@ target 'vesdkreactnativecliintegrationsample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-    sdk_version = '1.26.9'
+    sdk_version = '1.27.0'
     pod 'BanubaARCloudSDK', sdk_version #optional
     pod 'BanubaVideoEditorSDK', sdk_version
     pod 'BanubaAudioBrowserSDK', sdk_version #optional
-    pod 'BanubaMusicEditorSDK', sdk_version
     pod 'BanubaSDKSimple', sdk_version
     pod 'BanubaEffectPlayer', sdk_version
     pod 'BanubaSDK', sdk_version
@@ -40,7 +39,6 @@ target 'vesdkreactnativecliintegrationsample' do
     pod 'VideoEditor', sdk_version
     pod 'BanubaUtilities', sdk_version
     pod 'BanubaVideoEditorGallerySDK', sdk_version #optional
-    pod 'BanubaVideoEditorTrimSDK', sdk_version
     pod 'BanubaLicenseServicingSDK', sdk_version
 
     pod 'BNBLicenseUtils', sdk_version

@@ -305,6 +305,7 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
       uuid: UUID(),
       id: nil,
       url: wavFile,
+      coverURL: nil,
       timeRange: mediaTrackTimeRange,
       isEditable: true,
       title: "test"

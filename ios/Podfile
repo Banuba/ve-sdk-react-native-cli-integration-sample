@@ -28,7 +28,7 @@ target 'vesdkreactnativecliintegrationsample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-    sdk_version = '1.29.1'
+    sdk_version = '1.29.2'
 
     pod 'BanubaARCloudSDK', sdk_version #optional
     pod 'BanubaVideoEditorSDK', sdk_version
@@ -55,6 +55,11 @@ target 'vesdkreactnativecliintegrationsample' do
 
   post_install do |installer|
     react_native_post_install(installer)
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      end
+    end
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end

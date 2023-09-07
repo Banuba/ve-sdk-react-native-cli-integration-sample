@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:en.lproj/Localizable.strings">
-   </FileRef>
-   <FileRef
       location = "group:vesdkreactnativecliintegrationsample.xcodeproj">
    </FileRef>
    <FileRef

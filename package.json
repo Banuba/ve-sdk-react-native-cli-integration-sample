@@ -10,8 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "react": "18.0.0",
-    "react-native": "0.69.4"
+    "react": "18.2.0",
+    "react-native": "0.72.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -23,7 +23,7 @@
     "metro-react-native-babel-preset": "^0.70.3",
     "react-test-renderer": "18.0.0"
   },
-  "jest": {
-    "preset": "react-native"
+  "engines": {
+    "node": ">=16"
   }
 }

@@ -1,5 +1,9 @@
-require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+# Resolve react_native_pods.rb with node to allow for hoisting
+require Pod::Executable.execute_command('node', ['-p',
+  'require.resolve(
+    "react-native/scripts/react_native_pods.rb",
+    {paths: [process.argv[1]]},
+  )', __dir__]).strip
 
 source 'https://github.com/Banuba/specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
@@ -7,7 +11,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 platform :ios, '13.0'
-install! 'cocoapods', :deterministic_uuids => false
+prepare_react_native_project!
 
 production = ENV["PRODUCTION"] == "1"
 
@@ -23,7 +27,6 @@ target 'vesdkreactnativecliintegrationsample' do
     :production => production,
     :hermes_enabled => flags[:hermes_enabled],
     :fabric_enabled => flags[:fabric_enabled],
-#     :flipper_configuration => FlipperConfiguration.enabled,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -54,7 +57,11 @@ target 'vesdkreactnativecliintegrationsample' do
   end
 
   post_install do |installer|
-    react_native_post_install(installer)
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false
+    )
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
         config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'

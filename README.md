@@ -35,7 +35,6 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 ## Dependencies
 |              | Version | 
 |--------------|:-------:|
-| node         | 8.18.0  |
-| react native | ~0.69.4 |
+| react native | 0.72.4  |
 | Android      |  6.0+   |
-| iOS          |  12.0+  |
+| iOS          | 13.0+   |

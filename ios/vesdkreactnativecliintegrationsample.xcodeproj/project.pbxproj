@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* vesdkreactnativecliintegrationsampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* vesdkreactnativecliintegrationsampleTests.m */; };
+		0DE78F6790A5AC036E8B5834 /* libPods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3D506A8DB72071BDDDE58E8 /* libPods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		3965DA31A779678F0E4C382B /* Pods_vesdkreactnativecliintegrationsample_vesdkreactnativecliintegrationsampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB49D4162EE077853185C076 /* Pods_vesdkreactnativecliintegrationsample_vesdkreactnativecliintegrationsampleTests.framework */; };
 		7837EBD728AF8D2700174DDB /* VideoEditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7837EBD628AF8D2700174DDB /* VideoEditorModule.swift */; };
 		7837EBD928AF8DCF00174DDB /* VideoEditorModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7837EBD828AF8DCF00174DDB /* VideoEditorModuleBridge.m */; };
 		7837EBDB28AF8E3C00174DDB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7837EBDA28AF8E3C00174DDB /* Localizable.strings */; };
@@ -18,6 +18,7 @@
 		7837EBE128AF924600174DDB /* bundleEffects in Resources */ = {isa = PBXBuildFile; fileRef = 7837EBE028AF924600174DDB /* bundleEffects */; };
 		7837EBE328AF925700174DDB /* luts in Resources */ = {isa = PBXBuildFile; fileRef = 7837EBE228AF925700174DDB /* luts */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B2E30F420BAFCD0366E7BCB8 /* libPods-vesdkreactnativecliintegrationsample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28C33B3642EB89C5E505CCA5 /* libPods-vesdkreactnativecliintegrationsample.a */; };
 		C27E9608293B87260024FF44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27E9607293B87260024FF44 /* AppDelegate.swift */; };
 		C27E9609293B87260024FF44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27E9607293B87260024FF44 /* AppDelegate.swift */; };
 		C2A6917D294C9CE6005DFA75 /* AudioBrowserModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */; };
@@ -28,7 +29,6 @@
 		C2A69184294CA0AB005DFA75 /* sample_audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */; };
 		C2B80BDF294DFBFA006D11FA /* sample_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C2B80BDE294DFBFA006D11FA /* sample_video.mp4 */; };
 		C2B80BE0294DFBFA006D11FA /* sample_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C2B80BDE294DFBFA006D11FA /* sample_video.mp4 */; };
-		DE28CE5A675D445287764D36 /* Pods_vesdkreactnativecliintegrationsample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E570D9A4E5E4F47A83657EC1 /* Pods_vesdkreactnativecliintegrationsample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +48,7 @@
 		13B07F961A680F5B00A75B9A /* vesdkreactnativecliintegrationsample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vesdkreactnativecliintegrationsample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = vesdkreactnativecliintegrationsample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = vesdkreactnativecliintegrationsample/Info.plist; sourceTree = "<group>"; };
+		28C33B3642EB89C5E505CCA5 /* libPods-vesdkreactnativecliintegrationsample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vesdkreactnativecliintegrationsample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-vesdkreactnativecliintegrationsample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vesdkreactnativecliintegrationsample.debug.xcconfig"; path = "Target Support Files/Pods-vesdkreactnativecliintegrationsample/Pods-vesdkreactnativecliintegrationsample.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-vesdkreactnativecliintegrationsample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vesdkreactnativecliintegrationsample.release.xcconfig"; path = "Target Support Files/Pods-vesdkreactnativecliintegrationsample/Pods-vesdkreactnativecliintegrationsample.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.debug.xcconfig"; path = "Target Support Files/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -67,9 +68,8 @@
 		C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewControllerFactory.swift; sourceTree = "<group>"; };
 		C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sample_audio.mp3; path = ../android/app/src/main/assets/sample_audio.mp3; sourceTree = "<group>"; };
 		C2B80BDE294DFBFA006D11FA /* sample_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = sample_video.mp4; path = ../android/app/src/main/assets/sample_video.mp4; sourceTree = "<group>"; };
-		E570D9A4E5E4F47A83657EC1 /* Pods_vesdkreactnativecliintegrationsample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vesdkreactnativecliintegrationsample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FB49D4162EE077853185C076 /* Pods_vesdkreactnativecliintegrationsample_vesdkreactnativecliintegrationsampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vesdkreactnativecliintegrationsample_vesdkreactnativecliintegrationsampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3D506A8DB72071BDDDE58E8 /* libPods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3965DA31A779678F0E4C382B /* Pods_vesdkreactnativecliintegrationsample_vesdkreactnativecliintegrationsampleTests.framework in Frameworks */,
+				0DE78F6790A5AC036E8B5834 /* libPods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE28CE5A675D445287764D36 /* Pods_vesdkreactnativecliintegrationsample.framework in Frameworks */,
+				B2E30F420BAFCD0366E7BCB8 /* libPods-vesdkreactnativecliintegrationsample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,8 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				E570D9A4E5E4F47A83657EC1 /* Pods_vesdkreactnativecliintegrationsample.framework */,
-				FB49D4162EE077853185C076 /* Pods_vesdkreactnativecliintegrationsample_vesdkreactnativecliintegrationsampleTests.framework */,
+				28C33B3642EB89C5E505CCA5 /* libPods-vesdkreactnativecliintegrationsample.a */,
+				F3D506A8DB72071BDDDE58E8 /* libPods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -197,6 +197,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
+				20DC257FB6CC2CFEFBAF13A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -219,6 +220,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
+				78F2F530F7CECF2717F1D12B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -327,6 +329,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-vesdkreactnativecliintegrationsample/Pods-vesdkreactnativecliintegrationsample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		20DC257FB6CC2CFEFBAF13A3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78F2F530F7CECF2717F1D12B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-vesdkreactnativecliintegrationsample/Pods-vesdkreactnativecliintegrationsample-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-vesdkreactnativecliintegrationsample/Pods-vesdkreactnativecliintegrationsample-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-vesdkreactnativecliintegrationsample/Pods-vesdkreactnativecliintegrationsample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {

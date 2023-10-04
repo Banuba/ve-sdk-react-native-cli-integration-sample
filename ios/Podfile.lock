@@ -1,15 +1,15 @@
 PODS:
-  - BanubaARCloudSDK (1.29.2)
-  - BanubaAudioBrowserSDK (1.29.2)
-  - BanubaEffectPlayer (1.29.2)
-  - BanubaLicenseServicingSDK (1.29.2)
-  - BanubaSDK (1.29.2)
-  - BanubaSDKServicing (1.29.2)
-  - BanubaSDKSimple (1.29.2)
-  - BanubaUtilities (1.29.2)
-  - BanubaVideoEditorGallerySDK (1.29.2)
-  - BanubaVideoEditorSDK (1.29.2)
-  - BNBLicenseUtils (1.29.2)
+  - BanubaARCloudSDK (1.31.0)
+  - BanubaAudioBrowserSDK (1.31.0)
+  - BanubaEffectPlayer (1.31.0)
+  - BanubaLicenseServicingSDK (1.31.0)
+  - BanubaSDK (1.31.0)
+  - BanubaSDKServicing (1.31.0)
+  - BanubaSDKSimple (1.31.0)
+  - BanubaUtilities (1.31.0)
+  - BanubaVideoEditorGallerySDK (1.31.0)
+  - BanubaVideoEditorSDK (1.31.0)
+  - BNBLicenseUtils (1.31.0)
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.72.4)
@@ -437,24 +437,24 @@ PODS:
     - React-logger (= 0.72.4)
     - React-perflogger (= 0.72.4)
   - SocketRocket (0.6.1)
-  - VEEffectsSDK (1.29.2)
-  - VEExportSDK (1.29.2)
-  - VEPlaybackSDK (1.29.2)
-  - VideoEditor (1.29.2)
+  - VEEffectsSDK (1.31.0)
+  - VEExportSDK (1.31.0)
+  - VEPlaybackSDK (1.31.0)
+  - VideoEditor (1.31.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - BanubaARCloudSDK (= 1.29.2)
-  - BanubaAudioBrowserSDK (= 1.29.2)
-  - BanubaEffectPlayer (= 1.29.2)
-  - BanubaLicenseServicingSDK (= 1.29.2)
-  - BanubaSDK (= 1.29.2)
-  - BanubaSDKServicing (= 1.29.2)
-  - BanubaSDKSimple (= 1.29.2)
-  - BanubaUtilities (= 1.29.2)
-  - BanubaVideoEditorGallerySDK (= 1.29.2)
-  - BanubaVideoEditorSDK (= 1.29.2)
-  - BNBLicenseUtils (= 1.29.2)
+  - BanubaARCloudSDK (= 1.31.0)
+  - BanubaAudioBrowserSDK (= 1.31.0)
+  - BanubaEffectPlayer (= 1.31.0)
+  - BanubaLicenseServicingSDK (= 1.31.0)
+  - BanubaSDK (= 1.31.0)
+  - BanubaSDKServicing (= 1.31.0)
+  - BanubaSDKSimple (= 1.31.0)
+  - BanubaUtilities (= 1.31.0)
+  - BanubaVideoEditorGallerySDK (= 1.31.0)
+  - BanubaVideoEditorSDK (= 1.31.0)
+  - BNBLicenseUtils (= 1.31.0)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -495,10 +495,10 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - VEEffectsSDK (= 1.29.2)
-  - VEExportSDK (= 1.29.2)
-  - VEPlaybackSDK (= 1.29.2)
-  - VideoEditor (= 1.29.2)
+  - VEEffectsSDK (= 1.31.0)
+  - VEExportSDK (= 1.31.0)
+  - VEPlaybackSDK (= 1.31.0)
+  - VideoEditor (= 1.31.0)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -605,17 +605,17 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  BanubaARCloudSDK: 42fa1739895023adb13bf8bf5f6a6200112c964b
-  BanubaAudioBrowserSDK: 851e7a7291e716927d56e7bbb9caaed59c316a65
-  BanubaEffectPlayer: 9fed42242e29df27439ce4e3cb5cb767de299a77
-  BanubaLicenseServicingSDK: 1f6e9596b1783c23940cac9bbba7f9e6ccdfeca6
-  BanubaSDK: 84c6d33bb349de5c5796fd7a2697c0242c46ee84
-  BanubaSDKServicing: 38f3339ad96ca474893aa13f734c5e5dfca67e1c
-  BanubaSDKSimple: f29bf0201fd840cf86d72bcdd0774d1886096cb1
-  BanubaUtilities: 2cb1845ff4e847bd38b653613ce4624353431e36
-  BanubaVideoEditorGallerySDK: 1b3feb88c47c1cfd9046e84819ecd851c1d1024c
-  BanubaVideoEditorSDK: 9aa6acc39765d7899687b17488a3b06bd87f9326
-  BNBLicenseUtils: 2793c3bec278f3f47302dfaaa7794ec6381d29b8
+  BanubaARCloudSDK: 52d56decbb489bb32f8f208084d29ededd2ecaf5
+  BanubaAudioBrowserSDK: 312eab64964501af4779d37d147a5b050cd303b6
+  BanubaEffectPlayer: 0cc6bdcdf83583123bdc9bac8de5fa0bce2c079f
+  BanubaLicenseServicingSDK: 6c07bd3c90c212f66a843df68e88bff121a2a191
+  BanubaSDK: 35bb9495db729e990483b8160321c9dc5499e52c
+  BanubaSDKServicing: 63051b1d8d3f953a840de936a7b35944cd9383e3
+  BanubaSDKSimple: f89b5859061bee2627406d5a5f694867998204f0
+  BanubaUtilities: e84d946e1bc1de5e5937ea02c31bbcdf183b6665
+  BanubaVideoEditorGallerySDK: 0e9f78ee387d9d22e430fe9ee9b09ed821cdda82
+  BanubaVideoEditorSDK: 9e4afa69533778aa58a83c71f7c6d940abda7fec
+  BNBLicenseUtils: bca2f3f55c2dcee825d78a02cf177849e1b72506
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 5d4a3b7f411219a45a6d952f77d2c0a6c9989da5
@@ -629,40 +629,40 @@ SPEC CHECKSUMS:
   RCTTypeSafety: e90354072c21236e0bcf1699011e39acd25fea2f
   React: a1be3c6dc0a6e949ccd3e659781aa47bbae1868f
   React-callinvoker: 1020b33f6cb1a1824f9ca2a86609fbce2a73c6ed
-  React-Codegen: d3cabb5a8b9de7b0fc5928c0cf478e73a178d728
-  React-Core: 34da8c952844e21f5a69bf46438fb6bf063900d0
-  React-CoreModules: 621243df8863055ff30f3bb2ff71573ffa7b16c8
+  React-Codegen: a0a26badf098d4a779acda922caf74f6ecabed28
+  React-Core: 52075b80f10c26f62219d7b5d13d7d8089f027b3
+  React-CoreModules: 21abab85d7ad9038ce2b1c33d39e3baaf7dc9244
   React-cxxreact: 4ad1cc861e32fb533dad6ff7a4ea25680fa1c994
-  React-debug: 3246cd83cff6e63bd084bdeaf9d506e8bd768a2c
+  React-debug: 17366a3d5c5d2f5fc04f09101a4af38cb42b54ae
   React-hermes: 37377d0a56aa0cf55c65248271866ce3268cde3f
   React-jsi: 6de8b0ccc6b765b58e4eee9ee38049dbeaf5c221
   React-jsiexecutor: c7f826e40fa9cab5d37cab6130b1af237332b594
   React-jsinspector: aaed4cf551c4a1c98092436518c2d267b13a673f
   React-logger: da1ebe05ae06eb6db4b162202faeafac4b435e77
-  React-NativeModulesApple: 6f25aba11f5c9aaec6ceee0ed88c5dcbb98fa908
+  React-NativeModulesApple: edb5ace14f73f4969df6e7b1f3e41bef0012740f
   React-perflogger: 496a1a3dc6737f964107cb3ddae7f9e265ddda58
   React-RCTActionSheet: 02904b932b50e680f4e26e7a686b33ebf7ef3c00
-  React-RCTAnimation: e44fe5053708c5be762943087c78dc5a6a3c645c
-  React-RCTAppDelegate: 75566e142d0c325f603790943a38f0e297bcbab3
-  React-RCTBlob: 5577c3542fafbd9241f505bda541f6762996b0eb
-  React-RCTImage: f48859ae6a1e5c2c8659f860efdfcb8b0cb60cde
-  React-RCTLinking: 9b145f380c6b5910e3219bef73e1d7024381ad54
-  React-RCTNetwork: 179f50a80c01fa7d6a515552a24ad2e294f341a1
-  React-RCTSettings: cdc9f538f0f8e72e6f3de7c971fb4fb2f49caff9
+  React-RCTAnimation: 88feaf0a85648fb8fd497ce749829774910276d6
+  React-RCTAppDelegate: 5792ac0f0feccb584765fdd7aa81ea320c4d9b0b
+  React-RCTBlob: 0dbc9e2a13d241b37d46b53e54630cbad1f0e141
+  React-RCTImage: b111645ab901f8e59fc68fbe31f5731bdbeef087
+  React-RCTLinking: 3d719727b4c098aad3588aa3559361ee0579f5de
+  React-RCTNetwork: b44d3580be05d74556ba4efbf53570f17e38f734
+  React-RCTSettings: c0c54b330442c29874cd4dae6e94190dc11a6f6f
   React-RCTText: 9b9f5589d9b649d7246c3f336e116496df28cfe6
-  React-RCTVibration: 35eec7201c8ffdaccdd908a5ec874b7055f975f3
-  React-rncore: 46133d523155fc84572338bd6a7c461c1d873efc
+  React-RCTVibration: 691c67f3beaf1d084ceed5eb5c1dddd9afa8591e
+  React-rncore: 142268f6c92e296dc079aadda3fade778562f9e4
   React-runtimeexecutor: d465ba0c47ef3ed8281143f59605cacc2244d5c7
-  React-runtimescheduler: 8800d1dac0ee56a4ffc525c42635014e4bbdea41
-  React-utils: dce3c8df945e2a95c53762476a1c96cb69a67f68
-  ReactCommon: 9342a8d89b898aa6e656d7738c1d76ab549052c1
+  React-runtimescheduler: 4941cc1b3cf08b792fbf666342c9fc95f1969035
+  React-utils: b79f2411931f9d3ea5781404dcbb2fa8a837e13a
+  ReactCommon: 4b2bdcb50a3543e1c2b2849ad44533686610826d
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  VEEffectsSDK: 53cc78412792914a7524b52cd68db4ea17c5b0e0
-  VEExportSDK: 66d67b55b59ae08ab2f2204ec48ca27c55aa5805
-  VEPlaybackSDK: 50d739d1af9d762fb13c9c8857ccf7adf70ca9e3
-  VideoEditor: 2f574ce1297650adcdb0ee3b0115a3235f444b7b
+  VEEffectsSDK: 99041e8eb598d73409b08a889d5f49b85d03f280
+  VEExportSDK: f7192575ec01173d57b4fa4f0996d36a3646cfa7
+  VEPlaybackSDK: 082cb5d7cd28fdfdfb117eeef0a237607e3bca9a
+  VideoEditor: 6b23e5d6da4ccc073b6fad52f3bbe5e53ebfd50e
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
 
-PODFILE CHECKSUM: bbcc3a65d596acf8913b9f4e4c5c4a82d86164f6
+PODFILE CHECKSUM: fb8af33729d0802ff55ec8860af998ffe1aca7c6
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.13.0

@@ -10,7 +10,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 inhibit_all_warnings!
 
-platform :ios, '13.0'
+platform :ios, '14.0'
 prepare_react_native_project!
 
 production = ENV["PRODUCTION"] == "1"
@@ -31,7 +31,7 @@ target 'vesdkreactnativecliintegrationsample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-    sdk_version = '1.30.0'
+    sdk_version = '1.31.0'
 
     pod 'BanubaARCloudSDK', sdk_version #optional
     pod 'BanubaVideoEditorSDK', sdk_version
@@ -64,7 +64,7 @@ target 'vesdkreactnativecliintegrationsample' do
     )
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
       end
     end
     __apply_Xcode_12_5_M1_post_install_workaround(installer)

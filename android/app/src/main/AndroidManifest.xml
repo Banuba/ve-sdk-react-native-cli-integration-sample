@@ -55,7 +55,7 @@
 
         <!-- DELETE this activity if you do not use custom audio browser. -->
         <activity
-            android:name=".AudioBrowserActivity" />
+            android:name="com.vesdkreactnativecliintegrationsample.AudioBrowserActivity" />
 
         <!--
        NOT REQUIRED FOR INTEGRATION

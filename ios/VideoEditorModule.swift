@@ -26,8 +26,8 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
   
   private var customAudioTrackUUID: UUID?
   
-  // Determines if video editor should store session data. Default is false
-  private let storeVideoEditorSessionData: Bool = false
+  // Use “true” if you want users could restore the last video editing session.
+  private let restoreLastVideoEditingSession: Bool = false
   
   @objc (initVideoEditor:resolver:rejecter:)
   func initVideoEditor(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
@@ -151,7 +151,7 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
         }
       } else {
         // clear video editor session data and remove strong reference to video editor sdk instance
-        if storeVideoEditorSessionData == false {
+        if restoreLastVideoEditingSession == false {
           self.videoEditorSDK?.clearSessionData()
         }
         self.videoEditorSDK = nil
@@ -367,7 +367,7 @@ extension VideoEditorModule {
           
           self?.currentResolve?(["videoUri": firstFileURL.absoluteString])
           // clear video editor session data and remove strong reference to video editor sdk instance
-          if self?.storeVideoEditorSessionData == false {
+          if self?.restoreLastVideoEditingSession == false {
             self?.videoEditorSDK?.clearSessionData()
           }
           self?.videoEditorSDK = nil
@@ -380,7 +380,7 @@ extension VideoEditorModule {
         } else {
           self?.currentReject?("", error?.errorMessage, nil)
           // clear video editor session data and remove strong reference to video editor sdk instance
-          if self?.storeVideoEditorSessionData == false {
+          if self?.restoreLastVideoEditingSession == false {
             self?.videoEditorSDK?.clearSessionData()
           }
           self?.videoEditorSDK = nil
@@ -396,7 +396,7 @@ extension VideoEditorModule: BanubaVideoEditorDelegate {
   func videoEditorDidCancel(_ videoEditor: BanubaVideoEditor) {
     videoEditor.dismissVideoEditor(animated: true) { [weak self] in
       // clear video editor session data and remove strong reference to video editor sdk instance
-      if self?.storeVideoEditorSessionData == false {
+      if self?.restoreLastVideoEditingSession == false {
         self?.videoEditorSDK?.clearSessionData()
       }
       self?.videoEditorSDK = nil

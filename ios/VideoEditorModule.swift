@@ -147,6 +147,8 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
           )
         }
       } else {
+        // clear video editor session data and remove strong reference to video editor sdk instance
+        self.videoEditorSDK?.clearSessionData()
         self.videoEditorSDK = nil
         print("❌ License is either revoked or expired")
         reject(Self.errEditorLicenseRevoked, nil, nil)
@@ -359,7 +361,8 @@ extension VideoEditorModule {
           // Result urls. You could interact with your own implementation.
           
           self?.currentResolve?(["videoUri": firstFileURL.absoluteString])
-          // remove strong reference to video editor sdk instance
+          // clear video editor session data and remove strong reference to video editor sdk instance
+          self?.videoEditorSDK?.clearSessionData()
           self?.videoEditorSDK = nil
           
           /*
@@ -369,7 +372,8 @@ extension VideoEditorModule {
           self?.demoPlayExportedVideo(videoURL: firstFileURL)
         } else {
           self?.currentReject?("", error?.errorMessage, nil)
-          // remove strong reference to video editor sdk instance
+          // clear video editor session data and remove strong reference to video editor sdk instance
+          self?.videoEditorSDK?.clearSessionData()
           self?.videoEditorSDK = nil
           print("Error: \(String(describing: error))")
         }
@@ -382,7 +386,8 @@ extension VideoEditorModule {
 extension VideoEditorModule: BanubaVideoEditorDelegate {
   func videoEditorDidCancel(_ videoEditor: BanubaVideoEditor) {
     videoEditor.dismissVideoEditor(animated: true) { [weak self] in
-      // remove strong reference to video editor sdk instance
+      // clear video editor session data and remove strong reference to video editor sdk instance
+      self?.videoEditorSDK?.clearSessionData()
       self?.videoEditorSDK = nil
       self?.currentResolve?(NSNull())
     }

@@ -7,6 +7,7 @@ require Pod::Executable.execute_command('node', ['-p',
 
 source 'https://github.com/Banuba/specs.git'
 source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/sdk-banuba/banuba-sdk-podspecs.git'
 inhibit_all_warnings!
 
 platform :ios, '14.0'
@@ -30,13 +31,12 @@ target 'vesdkreactnativecliintegrationsample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-    sdk_version = '1.31.0'
+    sdk_version = '1.32.0'
 
     pod 'BanubaARCloudSDK', sdk_version #optional
     pod 'BanubaVideoEditorSDK', sdk_version
     pod 'BanubaAudioBrowserSDK', sdk_version #optional
     pod 'BanubaSDKSimple', sdk_version
-    pod 'BanubaEffectPlayer', sdk_version
     pod 'BanubaSDK', sdk_version
     pod 'BanubaSDKServicing', sdk_version
     pod 'VideoEditor', sdk_version

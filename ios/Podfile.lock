@@ -1,15 +1,57 @@
 PODS:
-  - BanubaARCloudSDK (1.31.0)
-  - BanubaAudioBrowserSDK (1.31.0)
-  - BanubaEffectPlayer (1.31.0)
-  - BanubaLicenseServicingSDK (1.31.0)
-  - BanubaSDK (1.31.0)
-  - BanubaSDKServicing (1.31.0)
-  - BanubaSDKSimple (1.31.0)
-  - BanubaUtilities (1.31.0)
-  - BanubaVideoEditorGallerySDK (1.31.0)
-  - BanubaVideoEditorSDK (1.31.0)
-  - BNBLicenseUtils (1.31.0)
+  - BanubaARCloudSDK (1.32.0)
+  - BanubaAudioBrowserSDK (1.32.0)
+  - BanubaLicenseServicingSDK (1.32.0)
+  - BanubaSDK (1.32.0):
+    - BNBBackground (= 1.9.1)
+    - BNBEffectPlayer (= 1.9.1)
+    - BNBEyes (= 1.9.1)
+    - BNBHair (= 1.9.1)
+    - BNBLips (= 1.9.1)
+    - BNBScripting (= 1.9.1)
+    - BNBSdkApi (= 1.9.1)
+    - BNBSdkCore (= 1.9.1)
+    - BNBSkin (= 1.9.1)
+    - BNBVisualClip (= 1.9.1)
+  - BanubaSDKServicing (1.32.0)
+  - BanubaSDKSimple (1.32.0)
+  - BanubaUtilities (1.32.0)
+  - BanubaVideoEditorGallerySDK (1.32.0)
+  - BanubaVideoEditorSDK (1.32.0)
+  - BNBBackground (1.9.1):
+    - BNBEffectPlayer (= 1.9.1)
+    - BNBScripting (= 1.9.1)
+    - BNBSdkCore (= 1.9.1)
+  - BNBEffectPlayer (1.9.1)
+  - BNBEyes (1.9.1):
+    - BNBEffectPlayer (= 1.9.1)
+    - BNBFaceTracker (= 1.9.1)
+    - BNBScripting (= 1.9.1)
+    - BNBSdkCore (= 1.9.1)
+  - BNBFaceTracker (1.9.1):
+    - BNBEffectPlayer (= 1.9.1)
+    - BNBScripting (= 1.9.1)
+    - BNBSdkCore (= 1.9.1)
+  - BNBHair (1.9.1):
+    - BNBEffectPlayer (= 1.9.1)
+    - BNBScripting (= 1.9.1)
+    - BNBSdkCore (= 1.9.1)
+  - BNBLicenseUtils (1.32.0)
+  - BNBLips (1.9.1):
+    - BNBEffectPlayer (= 1.9.1)
+    - BNBFaceTracker (= 1.9.1)
+    - BNBScripting (= 1.9.1)
+    - BNBSdkCore (= 1.9.1)
+  - BNBScripting (1.9.1)
+  - BNBSdkApi (1.9.1):
+    - BNBSdkCore (= 1.9.1)
+  - BNBSdkCore (1.9.1)
+  - BNBSkin (1.9.1):
+    - BNBEffectPlayer (= 1.9.1)
+    - BNBScripting (= 1.9.1)
+    - BNBSdkCore (= 1.9.1)
+  - BNBVisualClip (1.9.1):
+    - BNBSdkCore (= 1.9.1)
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.72.4)
@@ -437,24 +479,23 @@ PODS:
     - React-logger (= 0.72.4)
     - React-perflogger (= 0.72.4)
   - SocketRocket (0.6.1)
-  - VEEffectsSDK (1.31.0)
-  - VEExportSDK (1.31.0)
-  - VEPlaybackSDK (1.31.0)
-  - VideoEditor (1.31.0)
+  - VEEffectsSDK (1.32.0)
+  - VEExportSDK (1.32.0)
+  - VEPlaybackSDK (1.32.0)
+  - VideoEditor (1.32.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
-  - BanubaARCloudSDK (= 1.31.0)
-  - BanubaAudioBrowserSDK (= 1.31.0)
-  - BanubaEffectPlayer (= 1.31.0)
-  - BanubaLicenseServicingSDK (= 1.31.0)
-  - BanubaSDK (= 1.31.0)
-  - BanubaSDKServicing (= 1.31.0)
-  - BanubaSDKSimple (= 1.31.0)
-  - BanubaUtilities (= 1.31.0)
-  - BanubaVideoEditorGallerySDK (= 1.31.0)
-  - BanubaVideoEditorSDK (= 1.31.0)
-  - BNBLicenseUtils (= 1.31.0)
+  - BanubaARCloudSDK (= 1.32.0)
+  - BanubaAudioBrowserSDK (= 1.32.0)
+  - BanubaLicenseServicingSDK (= 1.32.0)
+  - BanubaSDK (= 1.32.0)
+  - BanubaSDKServicing (= 1.32.0)
+  - BanubaSDKSimple (= 1.32.0)
+  - BanubaUtilities (= 1.32.0)
+  - BanubaVideoEditorGallerySDK (= 1.32.0)
+  - BanubaVideoEditorSDK (= 1.32.0)
+  - BNBLicenseUtils (= 1.32.0)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -495,17 +536,16 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - VEEffectsSDK (= 1.31.0)
-  - VEExportSDK (= 1.31.0)
-  - VEPlaybackSDK (= 1.31.0)
-  - VideoEditor (= 1.31.0)
+  - VEEffectsSDK (= 1.32.0)
+  - VEExportSDK (= 1.32.0)
+  - VEPlaybackSDK (= 1.32.0)
+  - VideoEditor (= 1.32.0)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/Banuba/specs.git:
     - BanubaARCloudSDK
     - BanubaAudioBrowserSDK
-    - BanubaEffectPlayer
     - BanubaLicenseServicingSDK
     - BanubaSDK
     - BanubaSDKServicing
@@ -522,6 +562,18 @@ SPEC REPOS:
     - fmt
     - libevent
     - SocketRocket
+  https://github.com/sdk-banuba/banuba-sdk-podspecs:
+    - BNBBackground
+    - BNBEffectPlayer
+    - BNBEyes
+    - BNBFaceTracker
+    - BNBHair
+    - BNBLips
+    - BNBScripting
+    - BNBSdkApi
+    - BNBSdkCore
+    - BNBSkin
+    - BNBVisualClip
 
 EXTERNAL SOURCES:
   boost:
@@ -605,23 +657,33 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  BanubaARCloudSDK: 52d56decbb489bb32f8f208084d29ededd2ecaf5
-  BanubaAudioBrowserSDK: 312eab64964501af4779d37d147a5b050cd303b6
-  BanubaEffectPlayer: 0cc6bdcdf83583123bdc9bac8de5fa0bce2c079f
-  BanubaLicenseServicingSDK: 6c07bd3c90c212f66a843df68e88bff121a2a191
-  BanubaSDK: 35bb9495db729e990483b8160321c9dc5499e52c
-  BanubaSDKServicing: 63051b1d8d3f953a840de936a7b35944cd9383e3
-  BanubaSDKSimple: f89b5859061bee2627406d5a5f694867998204f0
-  BanubaUtilities: e84d946e1bc1de5e5937ea02c31bbcdf183b6665
-  BanubaVideoEditorGallerySDK: 0e9f78ee387d9d22e430fe9ee9b09ed821cdda82
-  BanubaVideoEditorSDK: 9e4afa69533778aa58a83c71f7c6d940abda7fec
-  BNBLicenseUtils: bca2f3f55c2dcee825d78a02cf177849e1b72506
-  boost: 57d2868c099736d80fcd648bf211b4431e51a558
+  BanubaARCloudSDK: bf701c6a3fe53b9f6f531ba95ab2d9784a2384e4
+  BanubaAudioBrowserSDK: ba5b9e331f430fe51fd9c3241da32f833277abe4
+  BanubaLicenseServicingSDK: 4bd68dbfa361eb7b608ebb65743380eb8aae181c
+  BanubaSDK: a70a4db6a96822bdd78a7a4651456cbc48f1fda5
+  BanubaSDKServicing: ebbcd4440d0ca550c3d4fdac91b9b2945f487a75
+  BanubaSDKSimple: c789cc2d94dbc83d678ff069805a1705e96e7112
+  BanubaUtilities: 96045a77a170a622de114a13f40afd578115a062
+  BanubaVideoEditorGallerySDK: 868fc63e6679ec16e2052e26092fead0e5695e2e
+  BanubaVideoEditorSDK: d9c998170c26abab1ff6c71669e27a8c8a1f95f7
+  BNBBackground: 3b81cb87c62fb069dc74b35e72f942811d4046e4
+  BNBEffectPlayer: dd3a81ed8040027d448be65feb18d1a6440f24c8
+  BNBEyes: 94127cf57f75536439fcd8ca63efd494e34b63ac
+  BNBFaceTracker: 478c111abd77837163f8610b7f0466f622dce8e5
+  BNBHair: 805cc99060b1be5b52c5b9c9b5dc106456e75e6e
+  BNBLicenseUtils: 2ffc3a1c1b0f3590de922c1a8237826b86345e9b
+  BNBLips: 880cbe24aa926f2b1ae2afb2bd8c5100ed0476c6
+  BNBScripting: 0d5efd7a28e2a3d29ed1f42a4e672e801b3a514e
+  BNBSdkApi: 84dde4fc542ed2069974badf91202c2df585e576
+  BNBSdkCore: a2f0a17be9c24ccf28cf5ea5135cba418d3544d4
+  BNBSkin: 1fdc110aaee047fd9b20a17e6970e45379f2f37b
+  BNBVisualClip: 6f8e77339fc0c14c9b6eb857912498a6b1d2e209
+  boost: a7c83b31436843459a1961bfd74b96033dc77234
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 5d4a3b7f411219a45a6d952f77d2c0a6c9989da5
   FBReactNativeSpec: 3fc2d478e1c4b08276f9dd9128f80ec6d5d85c1f
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
   hermes-engine: 81191603c4eaa01f5e4ae5737a9efcf64756c7b2
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
@@ -657,12 +719,12 @@ SPEC CHECKSUMS:
   React-utils: b79f2411931f9d3ea5781404dcbb2fa8a837e13a
   ReactCommon: 4b2bdcb50a3543e1c2b2849ad44533686610826d
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  VEEffectsSDK: 99041e8eb598d73409b08a889d5f49b85d03f280
-  VEExportSDK: f7192575ec01173d57b4fa4f0996d36a3646cfa7
-  VEPlaybackSDK: 082cb5d7cd28fdfdfb117eeef0a237607e3bca9a
-  VideoEditor: 6b23e5d6da4ccc073b6fad52f3bbe5e53ebfd50e
+  VEEffectsSDK: 0c6b03222842f74b05195494be2ad62432e73b92
+  VEExportSDK: 3882877f5734bfb0fe595e1ae77bf8ce3fd4059a
+  VEPlaybackSDK: 4b7db249dbb1c483a9351b4fb63f4f0fbfa52888
+  VideoEditor: 8625388c76ad4921eb231cb8d09716968846fd23
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
 
-PODFILE CHECKSUM: fb8af33729d0802ff55ec8860af998ffe1aca7c6
+PODFILE CHECKSUM: 1d048266a548964aeed37695ad013f29c482b261
 
 COCOAPODS: 1.13.0

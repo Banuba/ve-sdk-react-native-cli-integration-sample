@@ -11,8 +11,8 @@ import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
-import com.banuba.sdk.token.storage.license.BanubaVideoEditor
-import com.banuba.sdk.token.storage.license.LicenseStateCallback
+import com.banuba.sdk.core.license.BanubaVideoEditor
+import com.banuba.sdk.core.license.LicenseStateCallback
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.facebook.react.bridge.*
 import com.google.android.exoplayer2.upstream.cache.CacheDataSink

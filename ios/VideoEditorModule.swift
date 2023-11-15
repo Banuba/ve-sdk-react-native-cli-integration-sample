@@ -358,14 +358,21 @@ extension VideoEditorModule {
     videoEditorSDK?.export(
       using: exportConfiguration,
       exportProgress: nil
-    ) { [weak self] (error, coverImage) in
+    ) { [weak self] (error, previewImageInfo) in
       let success = error == nil
       // Export Callback
       DispatchQueue.main.async {
         if success {
           // Result urls. You could interact with your own implementation.
           
-          self?.currentResolve?(["videoUri": firstFileURL.absoluteString])
+          let previewImageData = previewImageInfo?.coverImage?.pngData()
+          let previewImageUrl = FileManager.default.temporaryDirectory.appendingPathComponent("\(UUID().uuidString).png")
+          try? previewImageData?.write(to: previewImageUrl)
+          
+          self?.currentResolve?([
+            "videoUri": firstFileURL.absoluteString,
+            "previewUri": previewImageUrl.absoluteString
+          ])
           // clear video editor session data and remove strong reference to video editor sdk instance
           if self?.restoreLastVideoEditingSession == false {
             self?.videoEditorSDK?.clearSessionData()

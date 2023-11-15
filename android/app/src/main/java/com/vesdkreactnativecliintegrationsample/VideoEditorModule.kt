@@ -15,6 +15,8 @@ import com.banuba.sdk.core.license.BanubaVideoEditor
 import com.banuba.sdk.core.license.LicenseStateCallback
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.facebook.react.bridge.*
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.Arguments;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSink
 import java.io.*
 import java.util.*
@@ -56,6 +58,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                         )
                         val exportedVideos = exportResult?.videoList ?: emptyList()
                         val resultUri = exportedVideos.firstOrNull()?.sourceUri
+                        val previewUri = exportResult?.preview
 
                         if (resultUri == null) {
                             exportResultPromise?.reject(
@@ -63,7 +66,11 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                                 "Exported video is null"
                             )
                         } else {
-                            exportResultPromise?.resolve(resultUri.toString())
+                            val arguments: WritableMap = Arguments.createMap()
+                            arguments.putString("videoUri", resultUri.toString())
+                            arguments.putString("previewUri", previewUri?.toString())
+
+                            exportResultPromise?.resolve(arguments)
                             /*
                                 NOT REQUIRED FOR INTEGRATION
                                 Added for playing exported video file.

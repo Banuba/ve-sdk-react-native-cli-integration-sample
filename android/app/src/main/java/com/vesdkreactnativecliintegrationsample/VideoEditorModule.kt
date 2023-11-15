@@ -71,10 +71,10 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                             activity?.let { demoPlayExportedVideo(it, resultUri) }
                         }
                     }
-                    requestCode == Activity.RESULT_CANCELED -> {
+                    resultCode == Activity.RESULT_CANCELED -> {
                         exportResultPromise?.reject(
                             ERR_VIDEO_EDITOR_CANCELLED,
-                            "Video editor export was cancelled"
+                            "Video editor export is cancelled or the user closed the sdk "
                         )
                     }
                 }

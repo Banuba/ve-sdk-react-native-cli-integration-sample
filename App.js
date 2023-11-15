@@ -121,9 +121,12 @@ export default class App extends Component {
                 startIosVideoEditor()
                   .then(response => {
                     const exportedVideoUri = response?.videoUri;
+                    const exportedVideoPreviewUri = response?.previewUri;
                     console.log(
-                      'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
-                        exportedVideoUri,
+                      'Banuba iOS Video Editor export video completed successfully. Video uri = '
+                      + exportedVideoUri
+                      + ' previewUri = '
+                      + exportedVideoPreviewUri,
                     );
                   })
                   .catch(e => {
@@ -154,9 +157,12 @@ export default class App extends Component {
                 startIosVideoEditorPIP()
                   .then(response => {
                     const exportedVideoUri = response?.videoUri;
+                    const exportedVideoPreviewUri = response?.previewUri;
                     console.log(
-                      'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
-                        exportedVideoUri,
+                      'Banuba iOS Video Editor export video completed successfully. Video uri = '
+                      + exportedVideoUri
+                      + ' previewUri = '
+                      + exportedVideoPreviewUri,
                     );
                   })
                   .catch(e => {
@@ -187,9 +193,12 @@ export default class App extends Component {
                 startIosVideoEditorTrimmer()
                   .then(response => {
                     const exportedVideoUri = response?.videoUri;
+                    const exportedVideoPreviewUri = response?.previewUri;
                     console.log(
-                      'Banuba iOS Video Editor export video completed successfully. Video uri = ' +
-                        exportedVideoUri,
+                      'Banuba iOS Video Editor export video completed successfully. Video uri = '
+                      + exportedVideoUri
+                      + ' previewUri = '
+                      + exportedVideoPreviewUri,
                     );
                   })
                   .catch(e => {

@@ -175,7 +175,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                         // ✅ License is active, all good
                         // You can show button that opens Video Editor or
                         // Start Video Editor right away
-                        openVideoEditorPIPInteranl(inputPromise)
+                        openVideoEditorPIPInternal(inputPromise)
                     } else {
                         // ❌ Use of Video Editor is restricted. License is revoked or expired.
                         inputPromise.reject(ERR_LICENSE_REVOKED_CODE, ERR_LICENSE_REVOKED_MESSAGE)
@@ -187,7 +187,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         )
     }
 
-    private fun openVideoEditorPIPInteranl(inputPromise: Promise) {
+    private fun openVideoEditorPIPInternal(inputPromise: Promise) {
         val hostActivity = currentActivity
         if (hostActivity == null) {
             inputPromise.reject(

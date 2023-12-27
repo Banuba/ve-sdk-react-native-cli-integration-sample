@@ -25,9 +25,7 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 3. Learn [Android quickstart](mddocs/android_integration.md) to quickly integrate Android Video Editor SDK into your React Native CLI project.
 
 ### Run on iOS
-:exclamation: **Important:** Please run ```sudo arch -x86_64 gem install ffi``` in terminal for Apple M-series chip based on ARM architecture.
-
-1. Install CocoaPods dependencies. Open **ios** directory and run in terminal ```pod install``` or ```arch -x86_64 pod install``` for Apple M1.
+1. Install CocoaPods dependencies. Open **ios** directory and run in terminal ```pod install```.
 2. Open **Signing & Capabilities** tab in Target settings and select your Development Team.
 3. Run ```npm run ios``` in terminal to launch the sample on a device or launch the app in IDE i.e. XCode, Intellij, VC, etc.
 4. Learn [iOS quickstart](mddocs/ios_integration.md) to quickly integrate iOS Video Editor SDK into your React Native CLI project.

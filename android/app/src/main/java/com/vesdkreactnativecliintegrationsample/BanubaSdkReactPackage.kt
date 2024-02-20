@@ -7,11 +7,10 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ReactShadowNode
 import com.facebook.react.uimanager.ViewManager
 
-class VideoEditorReactPackage : ReactPackage {
-
+class BanubaSdkReactPackage : ReactPackage {
     override fun createNativeModules(reactContext: ReactApplicationContext): MutableList<NativeModule> {
         val modules = mutableListOf<NativeModule>()
-        modules.add(VideoEditorModule(reactContext))
+        modules.add(SdkEditorModule(reactContext))
         return modules
     }
 

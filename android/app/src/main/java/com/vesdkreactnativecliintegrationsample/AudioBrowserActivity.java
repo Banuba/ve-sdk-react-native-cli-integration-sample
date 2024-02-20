@@ -21,7 +21,7 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate;
  * <p>
  * This Activity does not expect any native Android UI controls.
  * It contains 2 methods
- * - "applyAudioTrack" passes audio to Video Editor SDK. Call method from "VideoEditorModule" class.
+ * - "applyAudioTrack" passes audio to Video Editor SDK. Call method from "SdkEditorModule" class.
  * - "handleLastUsedAudio" use this method to handle last used audio received from Video Editor SDK.
  *
  */
@@ -32,7 +32,7 @@ public class AudioBrowserActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(VideoEditorModule.TAG, "AudioBrowserActivity. onCreate");
+        Log.d(SdkEditorModule.TAG, "AudioBrowserActivity. onCreate");
 
         handleLastUsedAudio();
     }
@@ -47,7 +47,7 @@ public class AudioBrowserActivity extends ReactActivity {
         if (lastAudioTrack != null) {
             final String lastAudioPath = lastAudioTrack.getLocalUri().toString();
             // Pass lastAudioPath to React Native side to implement custom logic if it is needed.
-            Log.d(VideoEditorModule.TAG, "Last used audio = " + lastAudioPath);
+            Log.d(SdkEditorModule.TAG, "Last used audio = " + lastAudioPath);
         }
     }
 

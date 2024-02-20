@@ -23,7 +23,7 @@ You will be able to launch video editor from your React Native CLI project when 
 Complete [Installation](../README.md#Installation) guide to proceed.
 
 ## Add SDK dependencies
-Add Banuba repositories in [project gradle](../android/build.gradle#L30) file in ```allprojects``` section to get SDK dependencies.
+Add Banuba repositories in [gradle](../android/build.gradle#L30) file in ```allprojects``` section to get SDK dependencies.
 
 ```groovy
 ...
@@ -48,6 +48,14 @@ allprojects {
                 password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
             }
         }
+        maven {
+            name "GitHubPackagesEffectPlayer"
+            url "https://maven.pkg.github.com/sdk-banuba/banuba-sdk-android"
+            credentials {
+                username = "sdk-banuba"
+                password = "\u0067\u0068\u0070\u005f\u0033\u0057\u006a\u0059\u004a\u0067\u0071\u0054\u0058\u0058\u0068\u0074\u0051\u0033\u0075\u0038\u0051\u0046\u0036\u005a\u0067\u004f\u0041\u0053\u0064\u0046\u0032\u0045\u0046\u006a\u0030\u0036\u006d\u006e\u004a\u004a"
+            }
+        }
 
         ...
     }
@@ -56,7 +64,7 @@ allprojects {
 
 Add Video Editor SDK dependencies in [app gradle](../android/app/build.gradle#L148) file.
 ```groovy
-    def banubaSdkVersion = '1.30.0'
+    def banubaSdkVersion = '1.34.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -80,28 +88,28 @@ Add Video Editor SDK dependencies in [app gradle](../android/app/build.gradle#L1
 Add [VideoEditorIntegrationModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt) file
 to your project. Use this class to initialize and customize Video Editor SDK features.
 
-Next, add [VideoEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt) for communicating
+Next, add [SdkEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt) for communicating
 between React Native and Video Editor SDK.
 
-Create ```VideoEditorReactPackage``` and add [VideoEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt) to the list of modules.
+Create ```BanubaSdkReactPackage``` and add [SdkEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt) to the list of modules.
 ```kotlin
- class VideoEditorReactPackage : ReactPackage {
+ class BanubaSdkReactPackage : ReactPackage {
 
     override fun createNativeModules(reactContext: ReactApplicationContext): MutableList<NativeModule> {
         val modules = mutableListOf<NativeModule>()
-        modules.add(VideoEditorModule(reactContext))
+        modules.add(SdkEditorModule(reactContext))
         return modules
     }
     ...
 }
 
 ```
-Finally, add ```VideoEditorReactPackage```  to list of packages in [Application class](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L31)
+Finally, add ```BanubaSdkReactPackage```  to list of packages in [Application](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L31) class
 ```java
         @Override
         protected List<ReactPackage> getPackages() {
             List<ReactPackage> packages = new PackageList(this).getPackages();
-            packages.add(new VideoEditorReactPackage());
+            packages.add(new BanubaSdkReactPackage());
             ...
             return packages;
         }
@@ -171,10 +179,10 @@ function initVideoEditor() {
 }
 ```
 
-Implement ```ReactMethod``` in [VideoEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#L96)
+Implement ```ReactMethod``` in [SdkEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L135)
 to initialize video editor on Android side. ```BanubaVideoEditor.initialize(LICENSE_TOKEN)``` initializes Android Video Editor SDK with the license token.
 ```kotlin
-class VideoEditorModule(reactContext: ReactApplicationContext) :
+class SdkEditorModule(reactContext: ReactApplicationContext) :
    ReactContextBaseJavaModule(reactContext) {
    ...
    @ReactMethod
@@ -213,11 +221,11 @@ async function startAndroidVideoEditor() {
 }
 ```
 
-Implement ```ReactMethod``` in [VideoEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#L118)
+Implement ```ReactMethod``` in [SdkEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L157)
 on Android side to check license state and start video editor.
 
 ### Export result
-Handle export result in [onActivityResult](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorModule.kt#L44) and
+Handle export result in [onActivityResult](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L44) and
 pass the result to [React Native](../App.js#L111). In this sample, the first exported video file path as ```String``` returns.
 You can customize it and return any result.
 

@@ -37,6 +37,11 @@ async function startIosVideoEditorTrimmer() {
   return await SdkEditorModule.openVideoEditorTrimmer();
 }
 
+async function startIosPhotoEditor() {
+  await SdkEditorModule.initPhotoEditor(LICENSE_TOKEN);
+  return await SdkEditorModule.openPhotoEditor();
+}
+
 async function startAndroidVideoEditorTrimmer() {
   initSDK();
   return await SdkEditorModule.openVideoEditorTrimmer();
@@ -121,16 +126,9 @@ export default class App extends Component {
                             this.handleExportException(e);
                           });
                       } else {
-                        startIosVideoEditor()
+                        startIosPhotoEditor()
                           .then(response => {
-                            const exportedVideoUri = response?.videoUri;
-                            const exportedVideoPreviewUri = response?.previewUri;
-                            console.log(
-                              'Banuba iOS Photo Editor export video completed successfully. Photo uri = '
-                              + exportedVideoUri
-                              + ' previewUri = '
-                              + exportedVideoPreviewUri,
-                            );
+                            console.log('Exported photo = ' + response?.photoUri);
                           })
                           .catch(e => {
                             this.handleExportException(e);

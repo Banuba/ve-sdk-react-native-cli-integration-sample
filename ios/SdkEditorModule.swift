@@ -4,18 +4,20 @@ import VideoEditor
 import VEExportSDK
 import AVKit
 import BanubaAudioBrowserSDK
+import BanubaPhotoEditorSDK
 
 typealias TimerOptionConfiguration = TimerConfiguration.TimerOptionConfiguration
 
-@objc(VideoEditorModule)
-class VideoEditorModule: NSObject, RCTBridgeModule {
+@objc(SdkEditorModule)
+class SdkEditorModule: NSObject, RCTBridgeModule {
   
-  static let errEditorNotInitialized = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
-  static let errEditorLicenseRevoked = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
+  static let errEditorNotInitialized = "ERR_SDK_EDITOR_NOT_INITIALIZED"
+  static let errEditorLicenseRevoked = "ERR_SDK_EDITOR_LICENSE_REVOKED"
   
   private let customViewControllerFactory = CustomViewControllerFactory()
   
   private var videoEditorSDK: BanubaVideoEditor?
+  private var photoEditorSDK: BanubaPhotoEditor?
   
   static func requiresMainQueueSetup() -> Bool {
     return true
@@ -118,11 +120,15 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
       // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
       // Please provide valid video URL to open Video Editor in Trimmer.
       let trimmerVideoURL = Bundle.main.url(forResource: "sample_video", withExtension: "mp4")!
+      let fileManager = FileManager.default
+      let tmpURL = fileManager.temporaryDirectory.appendingPathComponent("sample_video.mp4")
+      try? fileManager.removeItem(at: tmpURL)
+      try? fileManager.copyItem(at: trimmerVideoURL, to: tmpURL)
       
       let trimmerLaunchConfig = VideoEditorLaunchConfig(
         entryPoint: .trimmer,
         hostController: presentedVC,
-        videoItems: [trimmerVideoURL],
+        videoItems: [tmpURL],
         musicTrack: nil,
         animated: true
       )
@@ -160,6 +166,62 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
       }
     })
   }
+  
+  // MARK: - Photo Editor
+  @objc (initPhotoEditor:resolver:rejecter:)
+  func initPhotoEditor(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
+    DispatchQueue.main.async {
+      guard self.photoEditorSDK == nil else { return }
+      
+      let configuration = PhotoEditorConfig()
+      self.photoEditorSDK = BanubaPhotoEditor(
+          token: token,
+          configuration: configuration
+      )
+      
+      if self.photoEditorSDK == nil {
+        reject(Self.errEditorNotInitialized, nil, nil)
+        return
+      }
+      
+      // Set delegate
+      self.photoEditorSDK?.delegate = self
+      resolve(NSNull())
+    }
+  }
+  
+  @objc func openPhotoEditor(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    DispatchQueue.main.async {
+      guard let presentedVC = RCTPresentedViewController() else {
+        return
+      }
+      if self.photoEditorSDK == nil {
+        reject(Self.errEditorNotInitialized, nil, nil)
+        return
+      }
+      
+      self.currentResolve = resolve
+      self.currentReject = reject
+      
+      self.photoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
+        guard let self else { return }
+        if isValid {
+          print("✅ License is active, all good")
+          let launchConfig = PhotoEditorLaunchConfig(
+            hostController: presentedVC,
+            entryPoint: .gallery
+          )
+          self.photoEditorSDK?.presentPhotoEditor(withLaunchConfiguration: launchConfig, completion: nil)
+        } else {
+          print("❌ License is either revoked or expired")
+          self.photoEditorSDK = nil
+          reject(Self.errEditorLicenseRevoked, nil, nil)
+        }
+      })
+    }
+  }
+  
+  // MARK: - Audio tracks
   
   // Applies audio track from custom audio browser
   @objc func applyAudioTrack(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
@@ -323,12 +385,12 @@ class VideoEditorModule: NSObject, RCTBridgeModule {
   
   // MARK: - RCTBridgeModule
   static func moduleName() -> String! {
-    return "VideoEditorModule"
+    return "SdkEditorModule"
   }
 }
 
 // MARK: - Export flow
-extension VideoEditorModule {
+extension SdkEditorModule {
   func exportVideo() {
     let manager = FileManager.default
     // File name
@@ -399,7 +461,7 @@ extension VideoEditorModule {
 }
 
 // MARK: - BanubaVideoEditorSDKDelegate
-extension VideoEditorModule: BanubaVideoEditorDelegate {
+extension SdkEditorModule: BanubaVideoEditorDelegate {
   func videoEditorDidCancel(_ videoEditor: BanubaVideoEditor) {
     videoEditor.dismissVideoEditor(animated: true) { [weak self] in
       // clear video editor session data and remove strong reference to video editor sdk instance
@@ -418,3 +480,34 @@ extension VideoEditorModule: BanubaVideoEditorDelegate {
   }
 }
 
+// MARK: - BanubaPhotoEditorDelegate
+extension SdkEditorModule: BanubaPhotoEditorDelegate {
+  func photoEditorDidCancel(_ photoEditor: BanubaPhotoEditorSDK.BanubaPhotoEditor) {
+    photoEditor.dismissPhotoEditor(animated: true) { [weak self] in
+      self?.photoEditorSDK = nil
+      self?.currentResolve?(NSNull())
+    }
+  }
+  
+  func photoEditorDidFinishWithImage(_ photoEditor: BanubaPhotoEditorSDK.BanubaPhotoEditor, image: UIImage) {
+    let manager = FileManager.default
+    let photoUrl = manager.temporaryDirectory.appendingPathComponent("tmp.png")
+    if manager.fileExists(atPath: photoUrl.path) {
+      try? manager.removeItem(at: photoUrl)
+    }
+
+    photoEditor.dismissPhotoEditor(animated: true) { [weak self] in
+      self?.photoEditorSDK = nil
+      
+      do {
+        try image.pngData()?.write(to: photoUrl)
+        self?.currentResolve?([
+          "photoUri": photoUrl.absoluteString
+        ])
+      } catch {
+        self?.currentReject?("", error.errorMessage, nil)
+        print("Error during image writing to disk: \(error)")
+      }
+    }
+  }
+}

@@ -8,20 +8,20 @@ import {
   NativeModules,
 } from 'react-native';
 
-const {VideoEditorModule} = NativeModules;
+const {SdkEditorModule} = NativeModules;
 
 async function applyAudioTrack() {
   // Invokes native Android Video Editor integration module that will pass your prepared audio file to Video Editor SDK.
   // You can override "VideoEditorModule.applyAudioTrack()" to pass your custom audio data from React Native to Android.
-  return await VideoEditorModule.applyAudioTrack();
+  return await SdkEditorModule.applyAudioTrack();
 }
 
 async function discardAudioTrack() {
-  return await VideoEditorModule.discardAudioTrack();
+  return await SdkEditorModule.discardAudioTrack();
 }
 
 async function close() {
-  return await VideoEditorModule.closeAudioBrowser();
+  return await SdkEditorModule.closeAudioBrowser();
 }
 
 // Simple Screen to show how to pass and apply audio in Video Editor SDK.

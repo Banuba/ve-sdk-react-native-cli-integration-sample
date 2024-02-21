@@ -20,27 +20,34 @@ import com.facebook.react.bridge.Arguments;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSink
 import java.io.*
 import java.util.*
+import com.banuba.sdk.pe.PhotoCreationActivity
+import com.banuba.sdk.pe.PhotoExportResultContract
 
-class VideoEditorModule(reactContext: ReactApplicationContext) :
+class SdkEditorModule(reactContext: ReactApplicationContext) :
     ReactContextBaseJavaModule(reactContext) {
 
     companion object {
-        const val TAG = "BanubaVideoEditor"
+        const val TAG = "SdkEditorModule"
 
-        private const val EXPORT_REQUEST_CODE = 1111
+        private const val VIDEO_EXPORT_REQUEST_CODE = 1111
+        private const val PHOTO_EXPORT_REQUEST_CODE = 2222
+
         private const val ERR_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST"
         private const val ERR_VIDEO_EDITOR_CANCELLED = "E_VIDEO_EDITOR_CANCELLED"
         private const val ERR_EXPORTED_VIDEO_NOT_FOUND = "E_EXPORTED_VIDEO_NOT_FOUND"
 
-        private const val ERR_SDK_NOT_INITIALIZED_CODE = "ERR_VIDEO_EDITOR_NOT_INITIALIZED"
-        private const val ERR_LICENSE_REVOKED_CODE = "ERR_VIDEO_EDITOR_LICENSE_REVOKED"
+        private const val ERR_PHOTO_EDITOR_CANCELLED = "E_PHOTO_EDITOR_CANCELLED"
+        private const val ERR_EXPORTED_PHOTO_NOT_FOUND = "E_EXPORTED_PHOTO_NOT_FOUND"
+
+        private const val ERR_SDK_NOT_INITIALIZED_CODE = "ERR_SDK_EDITOR_NOT_INITIALIZED"
+        private const val ERR_LICENSE_REVOKED_CODE = "ERR_SDK_EDITOR_LICENSE_REVOKED"
         private const val ERR_SDK_NOT_INITIALIZED_MESSAGE
-                = "Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba"
+                = "Banuba Video Editor or Photo Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba"
         private const val ERR_LICENSE_REVOKED_MESSAGE = "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new";
     }
 
     private var exportResultPromise: Promise? = null
-    private var videoEditorSDK: BanubaVideoEditor? = null
+    private var editorSDK: BanubaVideoEditor? = null
     private var integrationModule: VideoEditorIntegrationModule? = null
 
     private val videoEditorResultListener = object : ActivityEventListener {
@@ -50,7 +57,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
             resultCode: Int,
             data: Intent?
         ) {
-            if (requestCode == EXPORT_REQUEST_CODE) {
+            if (requestCode == VIDEO_EXPORT_REQUEST_CODE) {
                 when {
                     resultCode == Activity.RESULT_OK -> {
                         val exportResult = data?.getParcelableExtra<ExportResult.Success>(
@@ -86,6 +93,31 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                     }
                 }
                 exportResultPromise = null
+            } else if (requestCode == PHOTO_EXPORT_REQUEST_CODE) {
+                when {
+                    resultCode == Activity.RESULT_OK -> {
+                        val photoUri = data?.getParcelableExtra(PhotoCreationActivity.EXTRA_EXPORTED) as? Uri
+                        Log.w(TAG, "Exported photo on Android = $photoUri")
+
+                        if (photoUri == null) {
+                            exportResultPromise?.reject(
+                                ERR_EXPORTED_PHOTO_NOT_FOUND,
+                                "Exported photo is null"
+                            )
+                        } else {
+                            val arguments: WritableMap = Arguments.createMap()
+                            arguments.putString("photoUri", photoUri.toString())
+                            exportResultPromise?.resolve(arguments)
+                        }
+                    }
+                    resultCode == Activity.RESULT_CANCELED -> {
+                        exportResultPromise?.reject(
+                            ERR_PHOTO_EDITOR_CANCELLED,
+                            "Photo editor export is cancelled or the user closed the sdk "
+                        )
+                    }
+                }
+                exportResultPromise = null
             }
         }
 
@@ -97,13 +129,13 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         reactApplicationContext.addActivityEventListener(videoEditorResultListener)
     }
 
-    override fun getName(): String = "VideoEditorModule"
+    override fun getName(): String = "SdkEditorModule"
 
     @ReactMethod
     fun initVideoEditor(licenseToken: String, inputPromise: Promise) {
-        videoEditorSDK = BanubaVideoEditor.initialize(licenseToken)
+        editorSDK = BanubaVideoEditor.initialize(licenseToken)
 
-        if (videoEditorSDK == null) {
+        if (editorSDK == null) {
             // Token you provided is not correct - empty or truncated
             Log.e(TAG, ERR_SDK_NOT_INITIALIZED_MESSAGE)
             inputPromise.reject(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE)
@@ -141,6 +173,29 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         )
     }
 
+    /**
+     * Open Video Editor SDK
+     */
+    @ReactMethod
+    fun openPhotoEditor(inputPromise: Promise) {
+        checkVideoEditorLicense(
+            licenseStateCallback = { isValid ->
+                if (isValid) {
+                    // ✅ License is active, all good
+                    // You can show button that opens Video Editor or
+                    // Start Photo Editor right away
+                    openPhotoEditorInternal(inputPromise)
+                } else {
+                    // ❌ Use of Video Editor is restricted. License is revoked or expired.
+                    inputPromise.reject(ERR_LICENSE_REVOKED_CODE, ERR_LICENSE_REVOKED_MESSAGE)
+                }
+            },
+            notInitializedError = {
+                inputPromise.reject(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE)
+            }
+        )
+    }
+
     private fun openVideEditorInternal(inputPromise: Promise) {
         val hostActivity = currentActivity
         if (hostActivity == null) {
@@ -163,7 +218,24 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                     // set TrackData object if you open VideoCreationActivity with preselected music track
                     null
             )
-            hostActivity.startActivityForResult(intent, EXPORT_REQUEST_CODE)
+            hostActivity.startActivityForResult(intent, VIDEO_EXPORT_REQUEST_CODE)
+        }
+    }
+
+    private fun openPhotoEditorInternal(inputPromise: Promise) {
+        val hostActivity = currentActivity
+        if (hostActivity == null) {
+            inputPromise.reject(
+                ERR_ACTIVITY_DOES_NOT_EXIST,
+                "Host activity to open Photo Editor does not exist!"
+            )
+            return
+        } else {
+            this.exportResultPromise = inputPromise
+            hostActivity.startActivityForResult(
+                PhotoCreationActivity.startFromGallery(hostActivity.applicationContext),
+                PHOTO_EXPORT_REQUEST_CODE
+            )
         }
     }
 
@@ -216,7 +288,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                     // set TrackData object if you open VideoCreationActivity with preselected music track
                     null
             )
-            hostActivity.startActivityForResult(intent, EXPORT_REQUEST_CODE)
+            hostActivity.startActivityForResult(intent, VIDEO_EXPORT_REQUEST_CODE)
         }
     }
 
@@ -266,7 +338,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
                     // set TrackData object if you open VideoCreationActivity with preselected music track
                     null
             )
-            hostActivity.startActivityForResult(intent, EXPORT_REQUEST_CODE)
+            hostActivity.startActivityForResult(intent, VIDEO_EXPORT_REQUEST_CODE)
         }
     }
 
@@ -406,7 +478,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
             licenseStateCallback: LicenseStateCallback,
             notInitializedError: () -> Unit
     ) {
-        if (videoEditorSDK == null) {
+        if (editorSDK == null) {
             Log.e(
                     "BanubaVideoEditor",
                     "Cannot check license state. Please initialize Video Editor SDK"
@@ -415,7 +487,7 @@ class VideoEditorModule(reactContext: ReactApplicationContext) :
         } else {
             // Checking the license might take around 1 sec in the worst case.
             // Please optimize use if this method in your application for the best user experience
-            videoEditorSDK?.getLicenseState(licenseStateCallback)
+            editorSDK?.getLicenseState(licenseStateCallback)
         }
     }
 }

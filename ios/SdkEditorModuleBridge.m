@@ -6,7 +6,7 @@
 #import <React/RCTConvert.h>
 #import <React/RCTBundleURLProvider.h>
 
-@interface RCT_EXTERN_MODULE(VideoEditorModule, NSObject)
+@interface RCT_EXTERN_MODULE(SdkEditorModule, NSObject)
 
 RCT_EXTERN_METHOD(initVideoEditor:(NSString *) token resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
@@ -21,5 +21,9 @@ RCT_EXTERN_METHOD(closeAudioBrowser: (RCTPromiseResolveBlock)resolve rejecter:(R
 RCT_EXTERN_METHOD(openVideoEditorPIP: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(openVideoEditorTrimmer: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(initPhotoEditor:(NSString *) token resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(openPhotoEditor: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
 @end

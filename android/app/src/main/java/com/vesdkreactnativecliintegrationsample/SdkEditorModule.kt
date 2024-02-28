@@ -23,101 +23,82 @@ import java.util.*
 import com.banuba.sdk.pe.PhotoCreationActivity
 import com.banuba.sdk.pe.PhotoExportResultContract
 
-class SdkEditorModule(reactContext: ReactApplicationContext) :
-    ReactContextBaseJavaModule(reactContext) {
+class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
     companion object {
         const val TAG = "SdkEditorModule"
 
-        private const val VIDEO_EXPORT_REQUEST_CODE = 1111
-        private const val PHOTO_EXPORT_REQUEST_CODE = 2222
+        // For Video Editor
+        private const val OPEN_VIDEO_EDITOR_REQUEST_CODE = 1111
 
-        private const val ERR_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST"
-        private const val ERR_VIDEO_EDITOR_CANCELLED = "E_VIDEO_EDITOR_CANCELLED"
-        private const val ERR_EXPORTED_VIDEO_NOT_FOUND = "E_EXPORTED_VIDEO_NOT_FOUND"
+        // For Photo Editor
+        private const val OPEN_PHOTO_EDITOR_REQUEST_CODE = 2222
 
-        private const val ERR_PHOTO_EDITOR_CANCELLED = "E_PHOTO_EDITOR_CANCELLED"
-        private const val ERR_EXPORTED_PHOTO_NOT_FOUND = "E_EXPORTED_PHOTO_NOT_FOUND"
-
-        private const val ERR_SDK_NOT_INITIALIZED_CODE = "ERR_SDK_EDITOR_NOT_INITIALIZED"
-        private const val ERR_LICENSE_REVOKED_CODE = "ERR_SDK_EDITOR_LICENSE_REVOKED"
-        private const val ERR_SDK_NOT_INITIALIZED_MESSAGE
-                = "Banuba Video Editor or Photo Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba"
-        private const val ERR_LICENSE_REVOKED_MESSAGE = "License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new";
+        // Error codes
+        private const val ERR_CODE_NOT_INITIALIZED = "ERR_SDK_NOT_INITIALIZED"
+        private const val ERR_CODE_LICENSE_REVOKED = "ERR_SDK_EDITOR_LICENSE_REVOKED"
+        private const val ERR_CODE_NO_HOST_CONTROLLER = "ERR_CODE_NO_HOST_CONTROLLER"
     }
 
-    private var exportResultPromise: Promise? = null
+    private var resultPromise: Promise? = null
+
     private var editorSDK: BanubaVideoEditor? = null
     private var integrationModule: VideoEditorIntegrationModule? = null
 
     private val videoEditorResultListener = object : ActivityEventListener {
         override fun onActivityResult(
-            activity: Activity?,
-            requestCode: Int,
-            resultCode: Int,
-            data: Intent?
+            activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?
         ) {
-            if (requestCode == VIDEO_EXPORT_REQUEST_CODE) {
+            if (requestCode == OPEN_VIDEO_EDITOR_REQUEST_CODE) {
                 when {
                     resultCode == Activity.RESULT_OK -> {
                         val exportResult = data?.getParcelableExtra<ExportResult.Success>(
                             EXTRA_EXPORTED_SUCCESS
                         )
-                        val exportedVideos = exportResult?.videoList ?: emptyList()
-                        val resultUri = exportedVideos.firstOrNull()?.sourceUri
+
+                        val videoUri = exportResult?.videoList?.firstOrNull()?.sourceUri
                         val previewUri = exportResult?.preview
 
-                        if (resultUri == null) {
-                            exportResultPromise?.reject(
-                                ERR_EXPORTED_VIDEO_NOT_FOUND,
-                                "Exported video is null"
-                            )
+                        if (videoUri == null) {
+                            resultPromise?.reject("ERR_MISSING_EXPORT_RESULT", "")
                         } else {
+                            // Send video export results to React
                             val arguments: WritableMap = Arguments.createMap()
-                            arguments.putString("videoUri", resultUri.toString())
+                            arguments.putString("videoUri", videoUri.toString())
                             arguments.putString("previewUri", previewUri?.toString())
+                            Log.d(TAG, "Send video export results to React")
+                            resultPromise?.resolve(arguments)
 
-                            exportResultPromise?.resolve(arguments)
                             /*
                                 NOT REQUIRED FOR INTEGRATION
-                                Added for playing exported video file.
+                                Added for demonstrating exported video file
                             */
-                            activity?.let { demoPlayExportedVideo(it, resultUri) }
+                            demoPlayExportedVideo(activity, videoUri)
                         }
                     }
-                    resultCode == Activity.RESULT_CANCELED -> {
-                        exportResultPromise?.reject(
-                            ERR_VIDEO_EDITOR_CANCELLED,
-                            "Video editor export is cancelled or the user closed the sdk "
-                        )
-                    }
+
+                    resultCode == Activity.RESULT_CANCELED -> resultPromise?.reject("ERR_VIDEO_EXPORT_CANCEL", "")
                 }
-                exportResultPromise = null
-            } else if (requestCode == PHOTO_EXPORT_REQUEST_CODE) {
+                resultPromise = null
+            } else if (requestCode == OPEN_PHOTO_EDITOR_REQUEST_CODE) {
                 when {
                     resultCode == Activity.RESULT_OK -> {
                         val photoUri = data?.getParcelableExtra(PhotoCreationActivity.EXTRA_EXPORTED) as? Uri
-                        Log.w(TAG, "Exported photo on Android = $photoUri")
 
                         if (photoUri == null) {
-                            exportResultPromise?.reject(
-                                ERR_EXPORTED_PHOTO_NOT_FOUND,
-                                "Exported photo is null"
-                            )
+                            resultPromise?.reject("ERR_MISSING_EXPORT_RESULT", "")
                         } else {
+                            // Send photo export results to React
                             val arguments: WritableMap = Arguments.createMap()
                             arguments.putString("photoUri", photoUri.toString())
-                            exportResultPromise?.resolve(arguments)
+                            Log.d(TAG, "Send photo export results to React")
+                            resultPromise?.resolve(arguments)
                         }
                     }
-                    resultCode == Activity.RESULT_CANCELED -> {
-                        exportResultPromise?.reject(
-                            ERR_PHOTO_EDITOR_CANCELLED,
-                            "Photo editor export is cancelled or the user closed the sdk "
-                        )
-                    }
+
+                    resultCode == Activity.RESULT_CANCELED -> resultPromise?.reject("ERR_PHOTO_EXPORT_CANCEL", "")
                 }
-                exportResultPromise = null
+                resultPromise = null
             }
         }
 
@@ -132,13 +113,13 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
     override fun getName(): String = "SdkEditorModule"
 
     @ReactMethod
-    fun initVideoEditor(licenseToken: String, inputPromise: Promise) {
+    fun initSDK(licenseToken: String, promise: Promise) {
         editorSDK = BanubaVideoEditor.initialize(licenseToken)
 
         if (editorSDK == null) {
             // Token you provided is not correct - empty or truncated
-            Log.e(TAG, ERR_SDK_NOT_INITIALIZED_MESSAGE)
-            inputPromise.reject(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE)
+            Log.e(TAG, "SDK is not initialized!")
+            promise.reject(ERR_CODE_NOT_INITIALIZED, "")
         } else {
             if (integrationModule == null) {
                 // Initialize video editor sdk dependencies
@@ -146,7 +127,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
                     initialize(reactApplicationContext.applicationContext)
                 }
             }
-            inputPromise.resolve(null)
+            promise.resolve(null)
         }
     }
 
@@ -154,192 +135,116 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
      * Open Video Editor SDK
      */
     @ReactMethod
-    fun openVideoEditor(inputPromise: Promise) {
-        checkVideoEditorLicense(
-                licenseStateCallback = { isValid ->
-                    if (isValid) {
-                        // ✅ License is active, all good
-                        // You can show button that opens Video Editor or
-                        // Start Video Editor right away
-                        openVideEditorInternal(inputPromise)
-                    } else {
-                        // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                        inputPromise.reject(ERR_LICENSE_REVOKED_CODE, ERR_LICENSE_REVOKED_MESSAGE)
-                    }
-                },
-                notInitializedError = {
-                    inputPromise.reject(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE)
-                }
-        )
-    }
-
-    /**
-     * Open Video Editor SDK
-     */
-    @ReactMethod
-    fun openPhotoEditor(inputPromise: Promise) {
-        checkVideoEditorLicense(
-            licenseStateCallback = { isValid ->
-                if (isValid) {
-                    // ✅ License is active, all good
-                    // You can show button that opens Video Editor or
-                    // Start Photo Editor right away
-                    openPhotoEditorInternal(inputPromise)
+    fun openVideoEditor(promise: Promise) {
+        checkLicense(callback = { isValid ->
+            if (isValid) {
+                // ✅ The license is active
+                val hostActivity = currentActivity
+                if (hostActivity == null) {
+                    promise.reject(ERR_CODE_NO_HOST_CONTROLLER)
                 } else {
-                    // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                    inputPromise.reject(ERR_LICENSE_REVOKED_CODE, ERR_LICENSE_REVOKED_MESSAGE)
+                    this.resultPromise = promise
+                    val intent = VideoCreationActivity.startFromCamera(
+                        hostActivity,
+                        PipConfig(video = Uri.EMPTY, openPipSettings = false),
+                        null,
+                        null
+                    )
+                    hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
                 }
-            },
-            notInitializedError = {
-                inputPromise.reject(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE)
+            } else {
+                // ❌ Use of SDK is restricted: the license is revoked or expired
+                promise.reject(ERR_CODE_LICENSE_REVOKED, "")
             }
-        )
+        }, onError = { promise.reject(ERR_CODE_NOT_INITIALIZED, "") })
     }
 
-    private fun openVideEditorInternal(inputPromise: Promise) {
-        val hostActivity = currentActivity
-        if (hostActivity == null) {
-            inputPromise.reject(
-                    ERR_ACTIVITY_DOES_NOT_EXIST,
-                    "Host activity to open Video Editor does not exist!"
-            )
-            return
-        } else {
-            this.exportResultPromise = inputPromise
-            val intent = VideoCreationActivity.startFromCamera(
-                    hostActivity,
-                    // set PiP video configuration
-                    PipConfig(
-                            video = Uri.EMPTY,
-                            openPipSettings = false
-                    ),
-                    // setup data that will be acceptable during export flow
-                    null,
-                    // set TrackData object if you open VideoCreationActivity with preselected music track
-                    null
-            )
-            hostActivity.startActivityForResult(intent, VIDEO_EXPORT_REQUEST_CODE)
-        }
-    }
-
-    private fun openPhotoEditorInternal(inputPromise: Promise) {
-        val hostActivity = currentActivity
-        if (hostActivity == null) {
-            inputPromise.reject(
-                ERR_ACTIVITY_DOES_NOT_EXIST,
-                "Host activity to open Photo Editor does not exist!"
-            )
-            return
-        } else {
-            this.exportResultPromise = inputPromise
-            hostActivity.startActivityForResult(
-                PhotoCreationActivity.startFromGallery(hostActivity.applicationContext),
-                PHOTO_EXPORT_REQUEST_CODE
-            )
-        }
+    /**
+     * Open Video Editor SDK
+     */
+    @ReactMethod
+    fun openPhotoEditor(promise: Promise) {
+        checkLicense(callback = { isValid ->
+            if (isValid) {
+                // ✅ The license is active
+                val hostActivity = currentActivity
+                if (hostActivity == null) {
+                    promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
+                } else {
+                    this.resultPromise = promise
+                    hostActivity.startActivityForResult(
+                        PhotoCreationActivity.startFromGallery(hostActivity.applicationContext), OPEN_PHOTO_EDITOR_REQUEST_CODE
+                    )
+                }
+            } else {
+                // ❌ Use of SDK is restricted: the license is revoked or expired
+                promise.reject(ERR_CODE_LICENSE_REVOKED, "")
+            }
+        }, onError = { promise.reject(ERR_CODE_NOT_INITIALIZED, "") })
     }
 
     @ReactMethod
-    fun openVideoEditorPIP(inputPromise: Promise) {
-        checkVideoEditorLicense(
-                licenseStateCallback = { isValid ->
-                    if (isValid) {
-                        // ✅ License is active, all good
-                        // You can show button that opens Video Editor or
-                        // Start Video Editor right away
-                        openVideoEditorPIPInternal(inputPromise)
-                    } else {
-                        // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                        inputPromise.reject(ERR_LICENSE_REVOKED_CODE, ERR_LICENSE_REVOKED_MESSAGE)
-                    }
-                },
-                notInitializedError = {
-                    inputPromise.reject(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE)
+    fun openVideoEditorPIP(promise: Promise) {
+        checkLicense(callback = { isValid ->
+            if (isValid) {
+                // ✅ The license is active
+                val hostActivity = currentActivity
+                if (hostActivity == null) {
+                    promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
+                } else {
+                    // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
+                    // Please provide valid video URL to open Video Editor in PIP.
+                    val sampleVideoFileName = "sample_video.mp4"
+                    val filesStorage: File = hostActivity.applicationContext.filesDir
+                    val assets: AssetManager = hostActivity.applicationContext.assets
+                    val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
+
+                    this.resultPromise = promise
+                    val intent = VideoCreationActivity.startFromCamera(
+                        hostActivity,
+                        PipConfig(video = sampleVideoFile.toUri(), openPipSettings = false),
+                        null,
+                        null
+                    )
+                    hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
                 }
-        )
-    }
-
-    private fun openVideoEditorPIPInternal(inputPromise: Promise) {
-        val hostActivity = currentActivity
-        if (hostActivity == null) {
-            inputPromise.reject(
-                    ERR_ACTIVITY_DOES_NOT_EXIST,
-                    "Host activity to open Video Editor does not exist!"
-            )
-            return
-        } else {
-            // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-            // Please provide valid video URL to open Video Editor in PIP.
-            val sampleVideoFileName = "sample_video.mp4"
-            val filesStorage: File = hostActivity.applicationContext.filesDir
-            val assets: AssetManager = hostActivity.applicationContext.assets
-            val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
-
-            this.exportResultPromise = inputPromise
-            val intent = VideoCreationActivity.startFromCamera(
-                    hostActivity,
-                    // set PiP video configuration
-                    PipConfig(
-                            video = sampleVideoFile.toUri(),
-                            openPipSettings = false
-                    ),
-                    // setup data that will be acceptable during export flow
-                    null,
-                    // set TrackData object if you open VideoCreationActivity with preselected music track
-                    null
-            )
-            hostActivity.startActivityForResult(intent, VIDEO_EXPORT_REQUEST_CODE)
-        }
+            } else {
+                // ❌ Use of SDK is restricted: the license is revoked or expired
+                promise.reject(ERR_CODE_LICENSE_REVOKED, "")
+            }
+        }, onError = { promise.reject(ERR_CODE_NOT_INITIALIZED, "") })
     }
 
     @ReactMethod
-    fun openVideoEditorTrimmer(inputPromise: Promise) {
-        checkVideoEditorLicense(
-                licenseStateCallback = { isValid ->
-                    if (isValid) {
-                        // ✅ License is active, all good
-                        // You can show button that opens Video Editor or
-                        // Start Video Editor right away
-                        openVideoEditorTrimmerInternal(inputPromise)
-                    } else {
-                        // ❌ Use of Video Editor is restricted. License is revoked or expired.
-                        inputPromise.reject(ERR_LICENSE_REVOKED_CODE, ERR_LICENSE_REVOKED_MESSAGE)
-                    }
-                },
-                notInitializedError = {
-                    inputPromise.reject(ERR_SDK_NOT_INITIALIZED_CODE, ERR_SDK_NOT_INITIALIZED_MESSAGE)
+    fun openVideoEditorTrimmer(promise: Promise) {
+        checkLicense(callback = { isValid ->
+            if (isValid) {
+                // ✅ The license is active
+                val hostActivity = currentActivity
+                if (hostActivity == null) {
+                    promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
+                } else {
+                    // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
+                    // Please provide valid video URL to open Video Editor in trimmer.
+                    val sampleVideoFileName = "sample_video.mp4"
+                    val filesStorage: File = hostActivity.applicationContext.filesDir
+                    val assets: AssetManager = hostActivity.applicationContext.assets
+                    val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
+
+                    this.resultPromise = promise
+                    val intent = VideoCreationActivity.startFromTrimmer(
+                        hostActivity,
+                        arrayOf(sampleVideoFile.toUri()),
+                        null,
+                        null
+                    )
+                    hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
                 }
-        )
-    }
-
-    fun openVideoEditorTrimmerInternal(inputPromise: Promise) {
-        val hostActivity = currentActivity
-        if (hostActivity == null) {
-            inputPromise.reject(
-                    ERR_ACTIVITY_DOES_NOT_EXIST,
-                    "Host activity to open Video Editor does not exist!"
-            )
-            return
-        } else {
-            // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-            // Please provide valid video URL to open Video Editor in trimmer.
-            val sampleVideoFileName = "sample_video.mp4"
-            val filesStorage: File = hostActivity.applicationContext.filesDir
-            val assets: AssetManager = hostActivity.applicationContext.assets
-            val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
-
-            this.exportResultPromise = inputPromise
-            val intent = VideoCreationActivity.startFromTrimmer(
-                    hostActivity,
-                    // set trimmer video configuration
-                    arrayOf(sampleVideoFile.toUri()),
-                    // setup data that will be acceptable during export flow
-                    null,
-                    // set TrackData object if you open VideoCreationActivity with preselected music track
-                    null
-            )
-            hostActivity.startActivityForResult(intent, VIDEO_EXPORT_REQUEST_CODE)
-        }
+            } else {
+                // ❌ Use of SDK is restricted: the license is revoked or expired
+                promise.reject(ERR_CODE_LICENSE_REVOKED, "")
+            }
+        }, onError = { promise.reject(ERR_CODE_NOT_INITIALIZED, "") })
     }
 
     /**
@@ -352,7 +257,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
      * and use it in "AudioBrowserActivity.applyAudioTrack".
      */
     @ReactMethod
-    fun applyAudioTrack(inputPromise: Promise) {
+    fun applyAudioTrack(promise: Promise) {
         val hostActivity = currentActivity
 
         // Check if host Activity is a your specific Android Activity responsible for
@@ -371,10 +276,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
 
                 // TrackData is required in Video Editor SDK for playing audio.
                 TrackData(
-                    UUID.randomUUID(),
-                    "Set title",
-                    Uri.fromFile(sampleAudioFile),
-                    "Set artist"
+                    UUID.randomUUID(), "Set title", Uri.fromFile(sampleAudioFile), "Set artist"
                 )
             } catch (e: IOException) {
                 Log.w(TAG, "Cannot prepare sample audio file", e)
@@ -388,24 +290,35 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
     }
 
     @ReactMethod
-    fun discardAudioTrack(inputPromise: Promise) {
+    fun discardAudioTrack(promise: Promise) {
         val hostActivity = currentActivity
         if (hostActivity is AudioBrowserActivity) {
             hostActivity.discardAudioTrack()
-            inputPromise.resolve(null)
+            promise.resolve(null)
         } else {
-            inputPromise.reject(IllegalStateException("Invalid host Activity"))
+            promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
         }
     }
 
     @ReactMethod
-    fun closeAudioBrowser(inputPromise: Promise) {
+    fun closeAudioBrowser(promise: Promise) {
         val hostActivity = currentActivity
         if (hostActivity is AudioBrowserActivity) {
             hostActivity.close()
-            inputPromise.resolve(null)
+            promise.resolve(null)
         } else {
-            inputPromise.reject(IllegalStateException("Invalid host Activity"))
+            promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
+        }
+    }
+
+    private fun checkLicense(callback: LicenseStateCallback, onError: () -> Unit) {
+        if (editorSDK == null) {
+            Log.e(TAG, "Cannot check license state. Please initialize Video Editor SDK")
+            onError()
+        } else {
+            // Checking the license might take around 1 sec in the worst case.
+            // Please optimize use if this method in your application for the best user experience
+            editorSDK?.getLicenseState(callback)
         }
     }
 
@@ -415,9 +328,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
      */
     @Throws(IOException::class)
     private fun prepareMediaFile(
-        assets: AssetManager,
-        filesStorage: File,
-        mediaFileName: String
+        assets: AssetManager, filesStorage: File, mediaFileName: String
     ): File {
         val sampleAudioFile = File(filesStorage, mediaFileName)
 
@@ -440,8 +351,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
 
     @Throws(IOException::class)
     private fun copyStream(
-        inStream: InputStream,
-        outStream: OutputStream
+        inStream: InputStream, outStream: OutputStream
     ): Long {
         var size = 0L
         val buffer = ByteArray(CacheDataSink.DEFAULT_BUFFER_SIZE)
@@ -459,35 +369,17 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
     Added for playing exported video file.
     */
     private fun demoPlayExportedVideo(
-        activity: Activity,
-        videoUri: Uri
+        activity: Activity?, videoUri: Uri
     ) {
+        activity ?: return
+
         val intent = Intent(Intent.ACTION_VIEW).apply {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             val uri = FileProvider.getUriForFile(
-                activity.applicationContext,
-                "${activity.packageName}.provider",
-                File(videoUri.encodedPath)
+                activity.applicationContext, "${activity.packageName}.provider", File(videoUri.encodedPath)
             )
             setDataAndType(uri, "video/mp4")
         }
-        activity.startActivity(intent)
-    }
-
-    private fun checkVideoEditorLicense(
-            licenseStateCallback: LicenseStateCallback,
-            notInitializedError: () -> Unit
-    ) {
-        if (editorSDK == null) {
-            Log.e(
-                    "BanubaVideoEditor",
-                    "Cannot check license state. Please initialize Video Editor SDK"
-            )
-            notInitializedError()
-        } else {
-            // Checking the license might take around 1 sec in the worst case.
-            // Please optimize use if this method in your application for the best user experience
-            editorSDK?.getLicenseState(licenseStateCallback)
-        }
+        activity?.startActivity(intent)
     }
 }

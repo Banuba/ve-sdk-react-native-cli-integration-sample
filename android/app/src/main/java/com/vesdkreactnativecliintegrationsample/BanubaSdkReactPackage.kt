@@ -13,7 +13,6 @@ class BanubaSdkReactPackage : ReactPackage {
         modules.add(SdkEditorModule(reactContext))
         return modules
     }
-
     override fun createViewManagers(reactContext: ReactApplicationContext): MutableList<ViewManager<View, ReactShadowNode<*>>> =
             mutableListOf()
 }

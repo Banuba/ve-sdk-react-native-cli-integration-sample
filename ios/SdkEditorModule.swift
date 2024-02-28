@@ -11,7 +11,7 @@ typealias TimerOptionConfiguration = TimerConfiguration.TimerOptionConfiguration
 @objc(SdkEditorModule)
 class SdkEditorModule: NSObject, RCTBridgeModule {
   
-  static let errEditorNotInitialized = "ERR_SDK_EDITOR_NOT_INITIALIZED"
+  static let errEditorNotInitialized = "ERR_SDK_NOT_INITIALIZED"
   static let errEditorLicenseRevoked = "ERR_SDK_EDITOR_LICENSE_REVOKED"
   
   private let customViewControllerFactory = CustomViewControllerFactory()
@@ -31,8 +31,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   // Use “true” if you want users could restore the last video editing session.
   private let restoreLastVideoEditingSession: Bool = false
   
-  @objc (initVideoEditor:resolver:rejecter:)
-  func initVideoEditor(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
+  @objc (initSDK:resolver:rejecter:)
+  func initSDK(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
     guard videoEditorSDK == nil else { return }
     
     let config = createVideoEditorConfiguration()
@@ -447,7 +447,7 @@ extension SdkEditorModule {
            */
           self?.demoPlayExportedVideo(videoURL: firstFileURL)
         } else {
-          self?.currentReject?("", error?.errorMessage, nil)
+          self?.currentReject?("ERR_MISSING_EXPORT_RESULT", error?.errorMessage, nil)
           // clear video editor session data and remove strong reference to video editor sdk instance
           if self?.restoreLastVideoEditingSession == false {
             self?.videoEditorSDK?.clearSessionData()

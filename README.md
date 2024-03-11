@@ -16,7 +16,7 @@ Feel free to [contact us](https://www.banuba.com/faq/kb-tickets/new) if you have
 ## Installation
 1. Complete React Native [Environment setup](https://reactnative.dev/docs/environment-setup)
 2. Complete [Running On Device](https://reactnative.dev/docs/running-on-device)
-3. Run ```npm install``` or ```yarn install``` in terminal to install dependencies.
+4. Run ```npm install``` or ```yarn install``` in Terminal to install dependencies. Please check ```yarn --version``` and make sure you use the latest yarn version i.e.```4.1.1``` .
 
 ## Launch
 
@@ -36,6 +36,7 @@ Set Banuba license token [within the app](App.js#L13).
 ## Dependencies
 |              | Version | 
 |--------------|:-------:|
-| react native | 0.73.0  |
+| Yarn         |  4.1.1  |
+| React Native | 0.73.5  |
 | Android      |  6.0+   |
-| iOS          |  13.0+  |
+| iOS          |  14.0+  |

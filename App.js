@@ -84,7 +84,7 @@ export default class App extends Component {
                             console.log('Exported photo = ' + response?.photoUri);
                           })
                           .catch(e => {
-                            this.handleExportException(e);
+                            this.handleSdkError(e);
                           });
                       } else {
                         startIosPhotoEditor()
@@ -92,7 +92,7 @@ export default class App extends Component {
                             console.log('Exported photo = ' + response?.photoUri);
                           })
                           .catch(e => {
-                            this.handleExportException(e);
+                            this.handleSdkError(e);
                           });
                       }
                     }}
@@ -105,7 +105,7 @@ export default class App extends Component {
             onPress={async () => {
                  startVideoEditor()
                     .then(response => { this.handleVideoExport(response); })
-                    .catch(e => { this.handleExportException(e); });
+                    .catch(e => { this.handleSdkError(e); });
             }}
           />
         </View>
@@ -116,7 +116,7 @@ export default class App extends Component {
             onPress={async () => {
                 startVideoEditorPIP()
                     .then(response => { this.handleVideoExport(response); })
-                    .catch(e => { this.handleExportException(e); });
+                    .catch(e => { this.handleSdkError(e); });
             }}
           />
         </View>
@@ -127,7 +127,7 @@ export default class App extends Component {
             onPress={async () => {
                 startVideoEditorTrimmer()
                     .then(response => { this.handleVideoExport(response); })
-                    .catch(e => { this.handleExportException(e); });
+                    .catch(e => { this.handleSdkError(e); });
             }}
           />
         </View>
@@ -135,13 +135,15 @@ export default class App extends Component {
     );
   }
 
-  handleExportException(e) {
+  handleSdkError(e) {
+      console.log('handle sdk error = ' + e.code);
+
       var message = '';
       switch (e.code) {
-        case 'ERR_CODE_NOT_INITIALIZED':
+        case 'ERR_SDK_NOT_INITIALIZED':
           message = 'Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba';
           break;
-        case 'ERR_CODE_LICENSE_REVOKED':
+        case 'ERR_SDK_EDITOR_LICENSE_REVOKED':
           message = 'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
           break;
         case 'ERR_MISSING_EXPORT_RESULT':

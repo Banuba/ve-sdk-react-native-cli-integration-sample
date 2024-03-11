@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import React
 
 @UIApplicationMain
 class AppDelegate: RCTAppDelegate {

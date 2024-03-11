@@ -36,6 +36,6 @@ Set Banuba license token [within the app](App.js#L13).
 ## Dependencies
 |              | Version | 
 |--------------|:-------:|
-| react native | 0.72.11 |
+| react native | 0.73.0  |
 | Android      |  6.0+   |
 | iOS          |  13.0+  |

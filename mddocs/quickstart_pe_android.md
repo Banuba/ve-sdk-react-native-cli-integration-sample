@@ -8,11 +8,10 @@ Once complete you will be able to launch photo editor in your React Native proje
 
 - [Installation](#Installation)
 - [Launch](#Launch)
-- [What is next?](#What-is-next)
 
 ## Installation
-GitHub Packages is used for downloading Android Photo Editor SDK modules.
-First, add repositories to [gradle](../android/build.gradle#L28) file in ```allprojects``` section.
+GitHub Packages is used for downloading SDK modules.
+First, add repositories to [gradle](../android/build.gradle#L30) file in ```allprojects``` section.
 
 ```groovy
 ...
@@ -85,15 +84,13 @@ Create [BanubaSdkReactPackage](../android/app/src/main/java/com/vesdkreactnative
 }
 ```
 
-Next, add ```BanubaSdkReactPackage```  to the list of packages in [Application](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.java#L26) class
-```java
-        @Override
-        protected List<ReactPackage> getPackages() {
-            List<ReactPackage> packages = new PackageList(this).getPackages();
-            packages.add(new BanubaSdkReactPackage());
-            ...
-            return packages;
-        }
+Next, add ```BanubaSdkReactPackage```  to the list of packages in [Application](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.kt#L23) class
+```kotlin
+    override fun getPackages(): MutableList<ReactPackage> {
+    val packages = PackageList(this).packages
+    packages.add(BanubaSdkReactPackage())
+    return packages
+}
 ```
 
 
@@ -110,17 +107,10 @@ Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegratio
 1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
 2. It is highly recommended to [check license](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L318) if the license is active before starting Photo Editor.
 
-Finally, once the SDK in initialized you can invoke [startAndroidPhotoEditor](../App.js#L39) message from React Native to Android
+Finally, once the SDK in initialized you can invoke [openPhotoEditor](../App.js#L39) message from React Native to Android
 
 ```javascript
 await SdkEditorModule.openPhotoEditor();
 ```
 
 and add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L166) on Android side to start Photo Editor.
-
-
-## What is next?
-This quickstart guide has just covered how to quickly integrate Android Photo Editor SDK,
-it is considered you managed to start photo editor from your React Native project.
-
-Please check out [docs](https://docs.banuba.com/ve-pe-sdk/docs/android/requirements-pe/) to know more about the SDK and complete full integration.

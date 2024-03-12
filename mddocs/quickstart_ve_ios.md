@@ -11,7 +11,6 @@ Once complete you will be able to launch video editor in your React Native proje
 - [Configuration](#configuration)
 - [Launch](#launch)
 - [Connect External Audio API](#connect-external-audio-api)
-- [What is next?](#what-is-next)
 
 
 ## Installation
@@ -24,7 +23,7 @@ Please make sure all these resources are provided in your project.
 2. [luts](../ios/vesdkreactnativecliintegrationsample/luts) to use Lut effects shown in the Effects tab.
 3. [Localizable.strings](../ios/Localizable.strings) file with English localization.
 
-**Photo Editor SDK** needs only the [Localizable.strings](../ios/Localizable.strings) file.
+**Video Editor SDK** needs only the [Localizable.strings](../ios/Localizable.strings) file.
 
 ## Configuration
 Add [BridgeHeader.h](../ios/BridgeHeader.h) and [SdkEditorModuleBridge.m](../ios/SdkEditorModuleBridge.m) files for communication between React Native and iOS 
@@ -51,16 +50,13 @@ await SdkEditorModule.openVideoEditor();
 
 and add [ReactMethod](../ios/SdkEditorModule.swift#L56) on iOS side to start Video Editor.
 
+### Export media
+Video Editor SDK exports single video with auto quality by default. Auto quality is based on device hardware capabilities.
 
-Export returns [videoUri](../App.js#L159) path as a ```String``` value where exported video stored to ReactNative.
+Process the result and pass it to [handler](../App.js#L53) on React Native side.
 
 ## Connect External Audio API
 Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
 To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](../ios/AppDelegate.swift#L15)  
 > [!IMPORTANT]
 > Video Editor SDK can play only files stored on device.
-
-## What is next?
-We have covered a basic process of Banuba Video Editor SDK integration into your React Native project.
-
-Please check out [docs](https://docs.banuba.com/ve-pe-sdk/docs/ios/requirements) to know more about the SDK and complete full integration.

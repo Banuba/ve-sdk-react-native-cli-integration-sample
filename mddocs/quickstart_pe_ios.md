@@ -1,5 +1,11 @@
 # iOS Photo Editor SDK quickstart
 
+This guide demonstrates how to quickly integrate iOS Photo Editor SDK into your React Native project.
+The main part of an integration and customization is implemented in ```ios``` directory
+in your React Native project using native iOS development process.
+
+Once complete you will be able to launch photo editor in your React Native project.
+
 ## Installation
 
 Add iOS Photo Editor SDK dependency ```pod 'BanubaPhotoEditorSDK', '1.1.1'``` to your [Podfile](../ios/Podfile).
@@ -14,10 +20,10 @@ let photoEditorSDK = BanubaPhotoEditor(
 ```
 Please note that the instance ```photoEditorSDK``` can be **nil** if the license token is incorrect.
 
-Next, to start the Photo Editor SDK from React Native use ```startIosPhotoEditor()``` method defined in [App.js](../App.js#L40).
+Next, to start the Photo Editor SDK from React Native use ```openIosPhotoEditor()``` method defined in [App.js](../App.js#L34).
 It will open the Photo Editor SDK from gallery screen.
 ```javascript
-async function startIosPhotoEditor() {
+async function openIosPhotoEditor() {
   await SdkEditorModule.initPhotoEditor(LICENSE_TOKEN);
   return await SdkEditorModule.openPhotoEditor();
 }
@@ -37,9 +43,4 @@ async function startIosPhotoEditor() {
   }
 />
  ```
-Export returns the [photoUri](../App.js#L131) path as a ```String``` value of local URL that leads to exported photo in ```.png``` format.
-
-## What is next?
-We have covered a basic process of Banuba Photo Editor SDK integration into your React Native project.
-
-Please check out [docs](https://docs.banuba.com/ve-pe-sdk/docs/ios/pe-requirements) to know more about the SDK and complete full integration.
+Export returns the [photoUri](../App.js#L92) path as a ```String``` value of local URL that leads to exported photo in ```.png``` format.

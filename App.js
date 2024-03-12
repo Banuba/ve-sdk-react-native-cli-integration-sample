@@ -16,27 +16,27 @@ function initSDK() {
   SdkEditorModule.initSDK(LICENSE_TOKEN);
 }
 
-async function startVideoEditor() {
+async function openVideoEditor() {
   initSDK();
   return await SdkEditorModule.openVideoEditor();
 }
 
-async function startVideoEditorPIP() {
+async function openVideoEditorPIP() {
   initSDK();
   return await SdkEditorModule.openVideoEditorPIP();
 }
 
-async function startVideoEditorTrimmer() {
+async function openVideoEditorTrimmer() {
   initSDK();
   return await SdkEditorModule.openVideoEditorTrimmer();
 }
 
-async function startIosPhotoEditor() {
+async function openIosPhotoEditor() {
   await SdkEditorModule.initPhotoEditor(LICENSE_TOKEN);
   return await SdkEditorModule.openPhotoEditor();
 }
 
-async function startAndroidPhotoEditor() {
+async function openAndroidPhotoEditor() {
   initSDK();
   return await SdkEditorModule.openPhotoEditor();
 }
@@ -79,7 +79,7 @@ export default class App extends Component {
                color="#00ab41"
                 onPress={async () => {
                       if (Platform.OS === 'android') {
-                        startAndroidPhotoEditor()
+                        openAndroidPhotoEditor()
                           .then(response => {
                             console.log('Exported photo = ' + response?.photoUri);
                           })
@@ -87,7 +87,7 @@ export default class App extends Component {
                             this.handleSdkError(e);
                           });
                       } else {
-                        startIosPhotoEditor()
+                        openIosPhotoEditor()
                           .then(response => {
                             console.log('Exported photo = ' + response?.photoUri);
                           })
@@ -103,7 +103,7 @@ export default class App extends Component {
           <Button
             title="Open Video Editor - Default"
             onPress={async () => {
-                 startVideoEditor()
+                 openVideoEditor()
                     .then(response => { this.handleVideoExport(response); })
                     .catch(e => { this.handleSdkError(e); });
             }}
@@ -114,7 +114,7 @@ export default class App extends Component {
           <Button
             title="Open Video Editor - PIP"
             onPress={async () => {
-                startVideoEditorPIP()
+                openVideoEditorPIP()
                     .then(response => { this.handleVideoExport(response); })
                     .catch(e => { this.handleSdkError(e); });
             }}
@@ -125,7 +125,7 @@ export default class App extends Component {
           <Button
             title="Open Video Editor - Trimmer"
             onPress={async () => {
-                startVideoEditorTrimmer()
+                openVideoEditorTrimmer()
                     .then(response => { this.handleVideoExport(response); })
                     .catch(e => { this.handleSdkError(e); });
             }}

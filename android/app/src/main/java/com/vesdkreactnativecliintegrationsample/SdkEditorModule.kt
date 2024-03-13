@@ -192,8 +192,6 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
                 if (hostActivity == null) {
                     promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
                 } else {
-                    // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-                    // Please provide valid video URL to open Video Editor in PIP.
                     this.resultPromise = promise
 
                     MediaScannerConnection.scanFile(
@@ -220,7 +218,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
     }
 
     @ReactMethod
-    fun openVideoEditorTrimmer(promise: Promise) {
+    fun openVideoEditorTrimmer(videoPath: String, promise: Promise) {
         checkLicense(callback = { isValid ->
             if (isValid) {
                 // ✅ The license is active
@@ -228,21 +226,23 @@ class SdkEditorModule(reactContext: ReactApplicationContext) :
                 if (hostActivity == null) {
                     promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
                 } else {
-                    // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-                    // Please provide valid video URL to open Video Editor in trimmer.
-                    val sampleVideoFileName = "sample_video.mp4"
-                    val filesStorage: File = hostActivity.applicationContext.filesDir
-                    val assets: AssetManager = hostActivity.applicationContext.assets
-                    val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
-
                     this.resultPromise = promise
-                    val intent = VideoCreationActivity.startFromTrimmer(
+
+                    MediaScannerConnection.scanFile(
                         hostActivity,
-                        arrayOf(sampleVideoFile.toUri()),
-                        null,
-                        null
-                    )
-                    hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
+                        arrayOf(File(videoPath).absolutePath),
+                        arrayOf()
+                    ) { path, uri ->
+                        Log.d(TAG, "Found path = $path, uri = $uri")
+
+                        val intent = VideoCreationActivity.startFromTrimmer(
+                            hostActivity,
+                            arrayOf(uri),
+                            null,
+                            null
+                        )
+                        hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
+                    }
                 }
             } else {
                 // ❌ Use of SDK is restricted: the license is revoked or expired

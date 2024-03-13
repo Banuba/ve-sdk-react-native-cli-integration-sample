@@ -10,6 +10,7 @@ import {
   View,
   Platform,
   NativeModules,
+  PermissionsAndroid,
 } from 'react-native';
 const {SdkEditorModule} = NativeModules;
 
@@ -28,35 +29,63 @@ async function openVideoEditor() {
 async function openVideoEditorPIP() {
   initSDK();
 
-  const requestOptions: ImageLibraryOptions = {
-    mediaType: 'video',
-    videoQuality: 'high',
-    formatAsMp4: true,
-    quality: 1,
-    maxWidth: 0,
-    maxHeight: 0,
-    includeBase64: false,
-    cameraType: 'back',
-    selectionLimit: 1,
-    saveToPhotos: false,
-    durationLimit: 0,
-    includeExtra: false,
-    presentationStyle: 'pageSheet',
-    assetRepresentationMode: 'auto',
-  };
+  // PLEASE GRANT ALL PERMISSIONS TO PROCEED
+  await grantMediaPermissions()
 
-  // TODO: Android permissions should be provided
-  const result = await launchImageLibrary(requestOptions);
-  const pipVideoFilePath = result.assets[0].originalPath
-  const pipVideoUri = result.assets[0].uri
-  console.log('Open video editor in pip mode with video = ' + pipVideoFilePath + ', uri = ' + pipVideoUri);
+  const videoOptions: ImageLibraryOptions = {
+        mediaType: 'video',
+        videoQuality: 'high',
+        formatAsMp4: true,
+        quality: 1,
+        includeBase64: false,
+        selectionLimit: 1,
+        durationLimit: 0,
+   };
 
-  return await SdkEditorModule.openVideoEditorPIP(pipVideoFilePath);
+   const result = await launchImageLibrary(videoOptions);
+
+   const videoPath = result.assets[0].originalPath
+   const videoUri = result.assets[0].uri
+   console.log('Open video editor in pip mode with video: path = ' + videoPath + ', uri = ' + videoUri);
+
+   // IMPORTANT
+   // videoPath requirements
+   // 1. Android
+   //   a. when video is taken from Gallery. Example, /storage/emulated/0/Movies/sample.mp4
+   //   b. in app directory - IN PROGRESS
+   // 2. iOS
+   return await SdkEditorModule.openVideoEditorPIP(videoPath);
 }
 
 async function openVideoEditorTrimmer() {
   initSDK();
-  return await SdkEditorModule.openVideoEditorTrimmer();
+
+  // PLEASE GRANT ALL PERMISSIONS TO PROCEED
+    await grantMediaPermissions()
+
+    const videoOptions: ImageLibraryOptions = {
+          mediaType: 'video',
+          videoQuality: 'high',
+          formatAsMp4: true,
+          quality: 1,
+          includeBase64: false,
+          selectionLimit: 1,
+          durationLimit: 0,
+     };
+
+     const result = await launchImageLibrary(videoOptions);
+
+     const videoPath = result.assets[0].originalPath
+     const videoUri = result.assets[0].uri
+     console.log('Open video editor in Trimmer mode with video: path = ' + videoPath + ', uri = ' + videoUri);
+
+     // IMPORTANT
+     // videoPath requirements
+     // 1. Android
+     //   a. when video is taken from Gallery. Example, /storage/emulated/0/Movies/sample.mp4
+     //   b. in app directory - IN PROGRESS
+     // 2. iOS
+  return await SdkEditorModule.openVideoEditorTrimmer(videoPath);
 }
 
 async function openIosPhotoEditor() {
@@ -68,6 +97,16 @@ async function openAndroidPhotoEditor() {
   initSDK();
   return await SdkEditorModule.openPhotoEditor();
 }
+
+const grantMediaPermissions = async () => {
+  const status = await PermissionsAndroid.requestMultiple([
+    PermissionsAndroid.PERMISSIONS.ACCESS_MEDIA_LOCATION,
+    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    PermissionsAndroid.PERMISSIONS.READ_MEDIA_VIDEO
+  ]);
+
+  return status
+};
 
 export default class App extends Component {
   

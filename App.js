@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+
+// Use to access video files https://github.com/react-native-image-picker/react-native-image-picker/tree/main
+import {launchImageLibrary} from 'react-native-image-picker';
+
 import {
   StyleSheet,
   Text,
@@ -23,7 +27,31 @@ async function openVideoEditor() {
 
 async function openVideoEditorPIP() {
   initSDK();
-  return await SdkEditorModule.openVideoEditorPIP();
+
+  const requestOptions: ImageLibraryOptions = {
+    mediaType: 'video',
+    videoQuality: 'high',
+    formatAsMp4: true,
+    quality: 1,
+    maxWidth: 0,
+    maxHeight: 0,
+    includeBase64: false,
+    cameraType: 'back',
+    selectionLimit: 1,
+    saveToPhotos: false,
+    durationLimit: 0,
+    includeExtra: false,
+    presentationStyle: 'pageSheet',
+    assetRepresentationMode: 'auto',
+  };
+
+  // TODO: Android permissions should be provided
+  const result = await launchImageLibrary(requestOptions);
+  const pipVideoFilePath = result.assets[0].originalPath
+  const pipVideoUri = result.assets[0].uri
+  console.log('Open video editor in pip mode with video = ' + pipVideoFilePath + ', uri = ' + pipVideoUri);
+
+  return await SdkEditorModule.openVideoEditorPIP(pipVideoFilePath);
 }
 
 async function openVideoEditorTrimmer() {

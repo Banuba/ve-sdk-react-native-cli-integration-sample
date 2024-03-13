@@ -3,27 +3,26 @@ package com.vesdkreactnativecliintegrationsample
 import android.app.Activity
 import android.content.Intent
 import android.content.res.AssetManager
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.core.data.TrackData
-import com.banuba.sdk.export.data.ExportResult
-import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.core.license.BanubaVideoEditor
 import com.banuba.sdk.core.license.LicenseStateCallback
+import com.banuba.sdk.export.data.ExportResult
+import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
+import com.banuba.sdk.pe.PhotoCreationActivity
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.facebook.react.bridge.*
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.bridge.Arguments;
 import com.google.android.exoplayer2.upstream.cache.CacheDataSink
 import java.io.*
 import java.util.*
-import com.banuba.sdk.pe.PhotoCreationActivity
-import com.banuba.sdk.pe.PhotoExportResultContract
 
-class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+class SdkEditorModule(reactContext: ReactApplicationContext) :
+    ReactContextBaseJavaModule(reactContext) {
 
     companion object {
         const val TAG = "SdkEditorModule"
@@ -184,7 +183,8 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
     }
 
     @ReactMethod
-    fun openVideoEditorPIP(promise: Promise) {
+    fun openVideoEditorPIP(pipVideoPath: String, promise: Promise) {
+        Log.d(TAG, "openVideoEditorPIP = $pipVideoPath")
         checkLicense(callback = { isValid ->
             if (isValid) {
                 // ✅ The license is active
@@ -194,19 +194,23 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                 } else {
                     // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
                     // Please provide valid video URL to open Video Editor in PIP.
-                    val sampleVideoFileName = "sample_video.mp4"
-                    val filesStorage: File = hostActivity.applicationContext.filesDir
-                    val assets: AssetManager = hostActivity.applicationContext.assets
-                    val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
-
                     this.resultPromise = promise
-                    val intent = VideoCreationActivity.startFromCamera(
+
+                    MediaScannerConnection.scanFile(
                         hostActivity,
-                        PipConfig(video = sampleVideoFile.toUri(), openPipSettings = false),
-                        null,
-                        null
-                    )
-                    hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
+                        arrayOf(File(pipVideoPath).absolutePath),
+                        arrayOf()
+                    ) { path, uri ->
+                        Log.d(TAG, "Found path = $path, uri = $uri")
+
+                        val intent = VideoCreationActivity.startFromCamera(
+                            hostActivity,
+                            PipConfig(video = uri, openPipSettings = false),
+                            null,
+                            null
+                        )
+                        hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
+                    }
                 }
             } else {
                 // ❌ Use of SDK is restricted: the license is revoked or expired

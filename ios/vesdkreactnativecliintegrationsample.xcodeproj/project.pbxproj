@@ -21,7 +21,6 @@
 		C2A6917D294C9CE6005DFA75 /* AudioBrowserModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */; };
 		C2A69180294C9D1C005DFA75 /* CustomViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */; };
 		C2A69183294CA0AB005DFA75 /* sample_audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */; };
-		C2B80BDF294DFBFA006D11FA /* sample_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C2B80BDE294DFBFA006D11FA /* sample_video.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +45,6 @@
 		C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBrowserModule.swift; sourceTree = "<group>"; };
 		C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewControllerFactory.swift; sourceTree = "<group>"; };
 		C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sample_audio.mp3; path = ../android/app/src/main/assets/sample_audio.mp3; sourceTree = "<group>"; };
-		C2B80BDE294DFBFA006D11FA /* sample_video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = sample_video.mp4; path = ../android/app/src/main/assets/sample_video.mp4; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F3D506A8DB72071BDDDE58E8 /* libPods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -104,7 +102,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				C2B80BDE294DFBFA006D11FA /* sample_video.mp4 */,
 				7837EBDA28AF8E3C00174DDB /* Localizable.strings */,
 				13B07FAE1A68108700A75B9A /* vesdkreactnativecliintegrationsample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -199,7 +196,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				C2B80BDF294DFBFA006D11FA /* sample_video.mp4 in Resources */,
 				C2A69183294CA0AB005DFA75 /* sample_audio.mp3 in Resources */,
 				7837EBDB28AF8E3C00174DDB /* Localizable.strings in Resources */,
 				7837EBDD28AF91FD00174DDB /* Music in Resources */,

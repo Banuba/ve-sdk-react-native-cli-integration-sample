@@ -80,19 +80,21 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
     }
   }
   
-  @objc func openVideoEditorPIP(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+  @objc func openVideoEditorPIP(_ pipVideoPath: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
     self.currentResolve = resolve
     self.currentReject = reject
     
     prepareAudioBrowser()
     DispatchQueue.main.async {
       guard let presentedVC = RCTPresentedViewController() else {
+        reject("RCTPresentedViewController returned nil", nil, nil)
         return
       }
       
-      // sample_pip_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-      // Please provide valid video URL to open Video Editor in PIP.
-      let pipVideoURL = Bundle.main.url(forResource: "sample_video", withExtension: "mp4")
+      guard let pipVideoURL = URL(string: pipVideoPath) else {
+        reject("Failed to instantiate URL from String", nil, nil)
+        return
+      }
       
       let pipLaunchConfig = VideoEditorLaunchConfig(
         entryPoint: .pip,
@@ -106,7 +108,7 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
     }
   }
   
-  @objc func openVideoEditorTrimmer(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+  @objc func openVideoEditorTrimmer(_ trimmerVideoPath: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
     self.currentResolve = resolve
     self.currentReject = reject
     
@@ -114,21 +116,19 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
     
     DispatchQueue.main.async {
       guard let presentedVC = RCTPresentedViewController() else {
+        reject("RCTPresentedViewController returned nil", nil, nil)
         return
       }
       
-      // sample_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-      // Please provide valid video URL to open Video Editor in Trimmer.
-      let trimmerVideoURL = Bundle.main.url(forResource: "sample_video", withExtension: "mp4")!
-      let fileManager = FileManager.default
-      let tmpURL = fileManager.temporaryDirectory.appendingPathComponent("sample_video.mp4")
-      try? fileManager.removeItem(at: tmpURL)
-      try? fileManager.copyItem(at: trimmerVideoURL, to: tmpURL)
+      guard let trimmerVideoURL = URL(string: trimmerVideoPath) else {
+        reject("Failed to instantiate URL from String", nil, nil)
+        return
+      }
       
       let trimmerLaunchConfig = VideoEditorLaunchConfig(
         entryPoint: .trimmer,
         hostController: presentedVC,
-        videoItems: [tmpURL],
+        videoItems: [trimmerVideoURL],
         musicTrack: nil,
         animated: true
       )

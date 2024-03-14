@@ -35,7 +35,7 @@ async function openVideoEditorPIP() {
   const videoOptions: ImageLibraryOptions = {
         mediaType: 'video',
         videoQuality: 'high',
-        formatAsMp4: true,
+        formatAsMp4: false,
         quality: 1,
         includeBase64: false,
         selectionLimit: 1,
@@ -53,8 +53,11 @@ async function openVideoEditorPIP() {
    // 1. Android
    //   a. when video is taken from Gallery. Example, /storage/emulated/0/Movies/sample.mp4
    //   b. in app directory - IN PROGRESS
-   // 2. iOS
-   return await SdkEditorModule.openVideoEditorPIP(videoPath);
+  if (Platform.OS === 'android') {
+    return await SdkEditorModule.openVideoEditorPIP(videoPath);
+  } else {
+    return await SdkEditorModule.openVideoEditorPIP(videoUri);
+  }
 }
 
 async function openVideoEditorTrimmer() {
@@ -66,7 +69,7 @@ async function openVideoEditorTrimmer() {
     const videoOptions: ImageLibraryOptions = {
           mediaType: 'video',
           videoQuality: 'high',
-          formatAsMp4: true,
+          formatAsMp4: false,
           quality: 1,
           includeBase64: false,
           selectionLimit: 1,
@@ -84,8 +87,11 @@ async function openVideoEditorTrimmer() {
      // 1. Android
      //   a. when video is taken from Gallery. Example, /storage/emulated/0/Movies/sample.mp4
      //   b. in app directory - IN PROGRESS
-     // 2. iOS
-  return await SdkEditorModule.openVideoEditorTrimmer(videoPath);
+  if (Platform.OS === 'android') {
+    return await SdkEditorModule.openVideoEditorTrimmer(videoPath);
+  } else {
+    return await SdkEditorModule.openVideoEditorTrimmer(videoUri);
+  }
 }
 
 async function openIosPhotoEditor() {
@@ -99,6 +105,10 @@ async function openAndroidPhotoEditor() {
 }
 
 const grantMediaPermissions = async () => {
+  if (Platform.OS === 'ios') {
+    return
+  }
+
   const status = await PermissionsAndroid.requestMultiple([
     PermissionsAndroid.PERMISSIONS.ACCESS_MEDIA_LOCATION,
     PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,

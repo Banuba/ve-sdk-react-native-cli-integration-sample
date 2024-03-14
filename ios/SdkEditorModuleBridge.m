@@ -18,9 +18,9 @@ RCT_EXTERN_METHOD(discardAudioTrack: (RCTPromiseResolveBlock)resolve rejecter:(R
 
 RCT_EXTERN_METHOD(closeAudioBrowser: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(openVideoEditorPIP: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(openVideoEditorPIP:(NSString *)pipVideoPath resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(openVideoEditorTrimmer: (RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(openVideoEditorTrimmer:(NSString *)trimmerVideoPath resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(initPhotoEditor:(NSString *) token resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 

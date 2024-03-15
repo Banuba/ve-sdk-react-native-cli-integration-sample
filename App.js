@@ -30,6 +30,7 @@ async function openVideoEditorPIP() {
   initSDK();
 
   // PLEASE GRANT ALL PERMISSIONS TO PROCEED
+  // The implementation below is for demonstration purposes to show how to use vide for PIP mode
   await grantMediaPermissions()
 
   const videoOptions: ImageLibraryOptions = {
@@ -48,12 +49,10 @@ async function openVideoEditorPIP() {
    const videoUri = result.assets[0].uri
    console.log('Open video editor in pip mode with video: path = ' + videoPath + ', uri = ' + videoUri);
 
-   // IMPORTANT
-   // videoPath requirements
-   // 1. Android
-   //   a. when video is taken from Gallery. Example, /storage/emulated/0/Movies/sample.mp4
-   //   b. in app directory - IN PROGRESS
   if (Platform.OS === 'android') {
+        // IMPORTANT requirements
+        // There are 2 types of videoPath - external(/storage/emulated/0/Movies/sample.mp4) and internal (/data/data/$applicationId/...)
+        // Access to media is required for external - please grant all permissions.
     return await SdkEditorModule.openVideoEditorPIP(videoPath);
   } else {
     return await SdkEditorModule.openVideoEditorPIP(videoUri);
@@ -61,9 +60,10 @@ async function openVideoEditorPIP() {
 }
 
 async function openVideoEditorTrimmer() {
-  initSDK();
+    initSDK();
 
-  // PLEASE GRANT ALL PERMISSIONS TO PROCEED
+    // PLEASE GRANT ALL PERMISSIONS TO PROCEED
+    // The implementation below is for demonstration purposes to show how to use vide for PIP mode
     await grantMediaPermissions()
 
     const videoOptions: ImageLibraryOptions = {
@@ -78,20 +78,18 @@ async function openVideoEditorTrimmer() {
 
      const result = await launchImageLibrary(videoOptions);
 
-     const videoPath = result.assets[0].originalPath
-     const videoUri = result.assets[0].uri
-     console.log('Open video editor in Trimmer mode with video: path = ' + videoPath + ', uri = ' + videoUri);
+    const videoPath = result.assets[0].originalPath
+    const videoUri = result.assets[0].uri
+    console.log('Open video editor in Trimmer mode with video: path = ' + videoPath + ', uri = ' + videoUri);
 
-     // IMPORTANT
-     // videoPath requirements
-     // 1. Android
-     //   a. when video is taken from Gallery. Example, /storage/emulated/0/Movies/sample.mp4
-     //   b. in app directory - IN PROGRESS
-  if (Platform.OS === 'android') {
-    return await SdkEditorModule.openVideoEditorTrimmer(videoPath);
-  } else {
-    return await SdkEditorModule.openVideoEditorTrimmer(videoUri);
-  }
+    if (Platform.OS === 'android') {
+        // IMPORTANT requirements
+        // There are 2 types of videoPath - external(/storage/emulated/0/Movies/sample.mp4) and internal (/data/data/$applicationId/...)
+        // Access to media is required for external - please grant all permissions.
+        return await SdkEditorModule.openVideoEditorTrimmer(videoPath);
+    } else {
+        return await SdkEditorModule.openVideoEditorTrimmer(videoUri);
+    }
 }
 
 async function openIosPhotoEditor() {
@@ -104,6 +102,8 @@ async function openAndroidPhotoEditor() {
   return await SdkEditorModule.openPhotoEditor();
 }
 
+// It is expected that the user grants all permissions.
+// We do not check status here for simplicity
 const grantMediaPermissions = async () => {
   if (Platform.OS === 'ios') {
     return

@@ -17,7 +17,6 @@ import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.facebook.react.bridge.*
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
-import com.google.android.exoplayer2.upstream.cache.CacheDataSink
 import java.io.*
 import java.util.*
 import com.banuba.sdk.pe.PhotoCreationActivity
@@ -354,7 +353,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
         inStream: InputStream, outStream: OutputStream
     ): Long {
         var size = 0L
-        val buffer = ByteArray(CacheDataSink.DEFAULT_BUFFER_SIZE)
+        val buffer = ByteArray(8192)
         var bytes = inStream.read(buffer)
         while (bytes >= 0) {
             outStream.write(buffer, 0, bytes)

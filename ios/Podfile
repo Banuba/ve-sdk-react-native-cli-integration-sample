@@ -10,7 +10,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/sdk-banuba/banuba-sdk-podspecs.git'
 inhibit_all_warnings!
 
-platform :ios, '14.0'
+platform :ios, '15.0'
 prepare_react_native_project!
 
 production = ENV["PRODUCTION"] == "1"
@@ -26,7 +26,7 @@ target 'vesdkreactnativecliintegrationsample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-    sdk_version = '1.34.0'
+    sdk_version = '1.35.0'
 
     # Video Editor
     pod 'BanubaARCloudSDK', sdk_version #optional
@@ -47,7 +47,7 @@ target 'vesdkreactnativecliintegrationsample' do
     pod 'VEPlaybackSDK', sdk_version
 
     # Photo Editor
-    pod 'BanubaPhotoEditorSDK', '1.1.1'
+    pod 'BanubaPhotoEditorSDK', '1.2.0'
 
   post_install do |installer|
     react_native_post_install(
@@ -57,7 +57,7 @@ target 'vesdkreactnativecliintegrationsample' do
     )
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
       end
     end
   end

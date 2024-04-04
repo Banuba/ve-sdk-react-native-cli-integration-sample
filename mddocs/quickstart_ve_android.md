@@ -164,7 +164,7 @@ Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegratio
 
 ```kotlin
     @ReactMethod
-    fun initVideoEditor(licenseToken: String, promise: Promise) {
+    fun initSDK(licenseToken: String, promise: Promise) {
         editorSDK = BanubaVideoEditor.initialize(licenseToken)
 
         if (editorSDK == null) {

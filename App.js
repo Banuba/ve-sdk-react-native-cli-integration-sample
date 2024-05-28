@@ -144,7 +144,7 @@ export default class App extends Component {
           message = 'Banuba Video Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba';
           break;
         case 'ERR_SDK_EDITOR_LICENSE_REVOKED':
-          message = 'License is revoked or expired. Please contact Banuba https://www.banuba.com/faq/kb-tickets/new';
+          message = 'License is revoked or expired. Please contact Banuba https://www.banuba.com/support';
           break;
         case 'ERR_MISSING_EXPORT_RESULT':
           message = 'Missing video export result!';

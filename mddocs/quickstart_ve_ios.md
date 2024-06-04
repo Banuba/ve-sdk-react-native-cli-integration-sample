@@ -26,9 +26,37 @@ Please make sure all these resources are provided in your project.
 **Video Editor SDK** needs only the [Localizable.strings](../ios/Localizable.strings) file.
 
 ## Configuration
-Add [BridgeHeader.h](../ios/BridgeHeader.h) and [SdkEditorModuleBridge.m](../ios/SdkEditorModuleBridge.m) files for communication between React Native and iOS 
-and [SdkEditorModule.swift](../ios/SdkEditorModule.swift) file to initialize the SDK dependencies. This class also allows you to customize many Video and Photo Editor SDK features i.e.
+
+> [!IMPORTANT]  
+> Check if the file YourProject-Bridging-Header.h is exist in your react native project by the path YourProject/ios.
+
+<details>
+<summary>I don't have YourProject-Bridging-Header.h in my React Native project</summary>
+<br>
+If you don't have the YourProject-Bridging-Header.h file then open your IOS project in the XCode. 
+Next create a new Swift file in your project by the path File -> New -> File:
+
+![Adding a new Swift file s_1](/assets/images/screenshot_1.png)
+![Adding a new Swift file s_2](/assets/images/screenshot_2.png)
+![Adding a new Swift file s_3](/assets/images/screenshot_3.png)
+
+Xcode suggest you to add a Bridging Header. Accept it:
+
+![Adding a new Swift file s_4](/assets/images/screenshot_4.png)
+</details>
+
+Open your IOS project in Xcode. Copy and paste the code from [BridgeHeader.h](../ios/BridgeHeader.h) to your Bridging-Header.h file
+and create the [SdkEditorModuleBridge.m](../ios/SdkEditorModuleBridge.m) file for communication between React Native and iOS. 
+Next create the [SdkEditorModule.swift](../ios/SdkEditorModule.swift) file to initialize the SDK dependencies. This class also allows you to customize many Video and Photo Editor SDK features i.e.
 min/max video durations, export flow, order of effects and others.
+<details>
+<summary>IHow to create a file in Xcode?</summary>
+<br>
+To create a files go to File -> New -> File in Xcode:
+
+![Adding a new Swift file s_1.1](/assets/images/screenshot_1.png)
+![Adding a new Swift file s_5](/assets/images/screenshot_5.png)
+</details>
 
 ## Launch
 

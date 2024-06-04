@@ -28,19 +28,19 @@ Please make sure all these resources are provided in your project.
 ## Configuration
 
 > [!IMPORTANT]  
-> Check if the file YourProject-Bridging-Header.h is exist in your react native project by the path YourProject/ios.
+> Check if the file YourProject-Bridging-Header.h is exist in your React Native project by the path YourProject/ios.
 
 <details>
 <summary>I don't have YourProject-Bridging-Header.h in my React Native project</summary>
 <br>
-If you don't have the YourProject-Bridging-Header.h file then open your IOS project in the XCode. 
-Next create a new Swift file in your project by the path File -> New -> File:
+If you don't have the YourProject-Bridging-Header.h file, then open your iOS project in XCode.
+Next, create a new Swift file in your project by following the path File -> New -> File:
 
 ![Adding a new Swift file s_1](/assets/images/screenshot_1.png)
 ![Adding a new Swift file s_2](/assets/images/screenshot_2.png)
 ![Adding a new Swift file s_3](/assets/images/screenshot_3.png)
 
-Xcode suggest you to add a Bridging Header. Accept it:
+Xcode will suggest you add a Bridging Header. Accept it:
 
 ![Adding a new Swift file s_4](/assets/images/screenshot_4.png)
 </details>
@@ -50,9 +50,9 @@ and create the [SdkEditorModuleBridge.m](../ios/SdkEditorModuleBridge.m) file fo
 Next create the [SdkEditorModule.swift](../ios/SdkEditorModule.swift) file to initialize the SDK dependencies. This class also allows you to customize many Video and Photo Editor SDK features i.e.
 min/max video durations, export flow, order of effects and others.
 <details>
-<summary>IHow to create a file in Xcode?</summary>
+<summary>How do I create a file in Xcode?</summary>
 <br>
-To create a files go to File -> New -> File in Xcode:
+To create files, go to File -> New -> File in Xcode:
 
 ![Adding a new Swift file s_1.1](/assets/images/screenshot_1.png)
 ![Adding a new Swift file s_5](/assets/images/screenshot_5.png)

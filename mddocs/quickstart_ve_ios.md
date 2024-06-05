@@ -36,13 +36,13 @@ Please make sure all these resources are provided in your project.
 If you don't have the YourProject-Bridging-Header.h file, then open your iOS project in XCode.
 Next, create a new Swift file in your project by following the path File -> New -> File:
 
-![Adding a new Swift file s_1](/assets/images/screenshot_1.png)
-![Adding a new Swift file s_2](/assets/images/screenshot_2.png)
-![Adding a new Swift file s_3](/assets/images/screenshot_3.png)
+![Adding a new Swift file s_1](./assets/images/screenshot_1.png)
+![Adding a new Swift file s_2](./assets/images/screenshot_2.png)
+![Adding a new Swift file s_3](./assets/images/screenshot_3.png)
 
 Xcode will suggest you add a Bridging Header. Accept it:
 
-![Adding a new Swift file s_4](/assets/images/screenshot_4.png)
+![Adding a new Swift file s_4](./assets/images/screenshot_4.png)
 </details>
 
 Open your IOS project in Xcode. Copy and paste the code from [BridgeHeader.h](../ios/BridgeHeader.h) to your Bridging-Header.h file
@@ -54,8 +54,8 @@ min/max video durations, export flow, order of effects and others.
 <br>
 To create files, go to File -> New -> File in Xcode:
 
-![Adding a new Swift file s_1.1](/assets/images/screenshot_1.png)
-![Adding a new Swift file s_5](/assets/images/screenshot_5.png)
+![Adding a new Swift file s_1.1](./assets/images/screenshot_1.png)
+![Adding a new Swift file s_5](./assets/images/screenshot_5.png)
 </details>
 
 ## Launch

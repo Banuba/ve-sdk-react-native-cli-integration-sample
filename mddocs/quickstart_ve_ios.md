@@ -26,9 +26,49 @@ Please make sure all these resources are provided in your project.
 **Video Editor SDK** needs only the [Localizable.strings](../ios/Localizable.strings) file.
 
 ## Configuration
-Add [BridgeHeader.h](../ios/BridgeHeader.h) and [SdkEditorModuleBridge.m](../ios/SdkEditorModuleBridge.m) files for communication between React Native and iOS 
+
+> [!IMPORTANT]  
+> Check if the file [YourProject-Bridging-Header.h](../ios/BridgeHeader.h) exists in your React Native project in the ```ios``` folder.
+
+Add [VE-Sample-Bridging-Header.h](../ios/BridgeHeader.h) and [SdkEditorModuleBridge.m](../ios/SdkEditorModuleBridge.m) files for communication between React Native and iOS
 and [SdkEditorModule.swift](../ios/SdkEditorModule.swift) file to initialize the SDK dependencies. This class also allows you to customize many Video and Photo Editor SDK features i.e.
 min/max video durations, export flow, order of effects and others.
+
+### Add YourProject-Bridging-Header.h file
+
+#### Create a new Bridging-Header.h file
+
+To create [YourProject-Bridging-Header.h](../ios/BridgeHeader.h), open your iOS project in Xcode and follow the steps below:
+
+1) Create a new empty Swift file in your project by following the path ```File -> New -> File```:<br><img src="./assets/images/screenshot_1.png" alt="Adding a new Swift file s_1" width="30%">
+2) Choose ```Swift file``` and click ```Next```:<br><img src="./assets/images/screenshot_2.png" alt="Adding a new Swift file s_2" width="30%">
+3) Click ``Create``:<br><img src="./assets/images/screenshot_3.png" alt="Adding a new Swift file s_3" width="30%">
+4) Xcode will suggest you to configure an Objective-C bridging Header. Click ```Create Bridging Header```:<br><img src="./assets/images/screenshot_4.png" alt="Adding a new Swift file s_4" width="30%">
+5) Copy [VE-Sample-Bridging-Header.h](../ios/BridgeHeader.h) to your ```YourProject-Bridging-Header.h```.
+
+#### Add to existing YourProject-Bridging-Header.h
+
+1) Copy [VE-Sample-Bridging-Header.h](../ios/BridgeHeader.h) to your ```YourProject-Bridging-Header.h```.
+
+### Add SdkEditorModule.swift file
+
+1) Create a new Swift file in your project by following the path ```File -> New -> File```:<br><img src="./assets/images/screenshot_1.png" alt="Adding a new Swift file s_1" width="30%">
+2) Choose ```Swift file``` and click ```Next```:<br><img src="./assets/images/screenshot_2.png" alt="Adding a new Swift file s_2" width="30%">
+3) Set the name ```SdkEditorModule``` and click ``Create``:<br><img src="./assets/images/screenshot_3.png" alt="Adding a new Swift file s_3" width="30%">
+4) Copy [SdkEditorModule.swift](../ios/SdkEditorModule.swift) to your ```SdkEditorModule```.
+
+### Add SdkEditorModuleBridge.m file
+
+#### Create a new SdkEditorModuleBridge.m file
+
+1) Create a new empty .m file in your project by following the path ```File -> New -> File```:<br><img src="./assets/images/screenshot_1.png" alt="Adding a new Swift file s_1" width="30%">
+2) Choose ```Objective-C file``` and click ```Next```:<br><img src="./assets/images/screenshot_5.png" alt="Adding a new Swift file s_5" width="30%">
+3) Set the name of the file and click ```Next```:<br><img src="./assets/images/screenshot_3.png" alt="Adding a new Swift file s_3" width="30%"><br>On the next view click ```Create```.
+4) Copy [SdkEditorModuleBridge.m](../ios/SdkEditorModuleBridge.m) to your ```SdkEditorModuleBridge.m```.
+
+#### Add to existing SdkEditorModuleBridge.m file
+
+1) Copy [SdkEditorModuleBridge.m](../ios/SdkEditorModuleBridge.m) to your ```SdkEditorModuleBridge.m```
 
 ## Launch
 

@@ -52,10 +52,10 @@ allprojects {
 
 Specify Photo Editor SDK dependencies in the app [gradle](../android/app/build.gradle#L170) file.
 ```groovy
-    def banubaPESdkVersion = '1.1.0'
+    def banubaPESdkVersion = '1.2.3'
     implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
 
-    def banubaSdkVersion = '1.35.0'
+    def banubaSdkVersion = '1.36.0'
     implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"

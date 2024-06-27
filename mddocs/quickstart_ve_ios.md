@@ -97,6 +97,6 @@ Process the result and pass it to [handler](../App.js#L53) on React Native side.
 
 ## Connect External Audio API
 Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  
-To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](../ios/AppDelegate.swift#L15)  
+To check out the simplest experience you can set ```true``` to [configEnableCustomAudioBrowser](../ios/AppDelegate.swift#L16)  
 > [!IMPORTANT]
 > Video Editor SDK can play only files stored on device.

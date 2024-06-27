@@ -233,7 +233,7 @@ to use audio from [Mubert](https://mubert.com/) in Video Editor.
 
 ### Connect External Audio API
 Video Editor SDK allows to implement your experience for providing audio tracks using [External Audio API](https://docs.banuba.com/ve-pe-sdk/docs/android/guide_audio_content#connect-external-api).  
-To check out the simplest experience on Flutter you can set ```true``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L62)
+To check out the simplest experience you can set ```true``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L33)
 
 :exclamation: Important  
 Video Editor SDK can play only audio tracks stored on the device.

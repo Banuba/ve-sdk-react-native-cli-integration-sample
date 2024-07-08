@@ -19,19 +19,19 @@ class CustomAudioBrowserViewControllerFactory: MusicEditorExternalViewController
   var audioBrowserModule: AudioBrowserModule?
 
   // Audio Browser selection view controller
-  func makeTrackSelectionViewController(selectedAudioItem: AudioItem?) -> TrackSelectionViewController? {
+  func makeTrackSelectionViewController(selectedAudioItem: AudioItem?, isAudioPartSelectionEnabled: Bool) -> TrackSelectionViewController? {
     let module = AudioBrowserModule(nibName: nil, bundle: nil)
     audioBrowserModule = module
     return module
   }
 
   // Effects selection view controller. Used at Music editor screen
-  func makeEffectSelectionViewController(selectedAudioItem: BanubaUtilities.AudioItem?) -> BanubaUtilities.EffectSelectionViewController? {
+  func makeEffectSelectionViewController(selectedAudioItem: AudioItem?) -> EffectSelectionViewController? {
     return nil
   }
 
   // Returns recorder countdown view for voice recorder screen
-  func makeRecorderCountdownAnimatableView() -> BanubaVideoEditorSDK.MusicEditorCountdownAnimatableView? {
+  func makeRecorderCountdownAnimatableView() -> MusicEditorCountdownAnimatableView? {
     return nil
   }
 }

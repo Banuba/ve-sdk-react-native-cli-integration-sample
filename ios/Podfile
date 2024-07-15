@@ -10,7 +10,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/sdk-banuba/banuba-sdk-podspecs.git'
 inhibit_all_warnings!
 
-platform :ios, '17.0'
+platform :ios, '15.0'
 prepare_react_native_project!
 
 production = ENV["PRODUCTION"] == "1"

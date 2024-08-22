@@ -19,6 +19,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   private var videoEditorSDK: BanubaVideoEditor?
   private var photoEditorSDK: BanubaPhotoEditor?
   
+  private var licenseToken: String = ""
+  
   static func requiresMainQueueSetup() -> Bool {
     return true
   }
@@ -42,6 +44,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
       configuration: config,
       externalViewControllerFactory: customViewControllerFactory
     )
+    
+    licenseToken = token
     
     if videoEditorSDK == nil {
       reject(Self.errEditorNotInitialized, nil, nil)
@@ -178,6 +182,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
           token: token,
           configuration: configuration
       )
+      
+      self.licenseToken = token
       
       if self.photoEditorSDK == nil {
         reject(Self.errEditorNotInitialized, nil, nil)
@@ -337,6 +343,7 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
     
     // Show mute audio button on Camera screen
     config.featureConfiguration.isMuteCameraAudioEnabled = true
+    config.recorderConfiguration.supportMultiRecords = false
     
     // Sets 3, 10 seconds timer for recording on Camera
     config.recorderConfiguration.timerConfiguration.options = [
@@ -478,6 +485,66 @@ extension SdkEditorModule: BanubaVideoEditorDelegate {
       self?.exportVideo()
     }
   }
+  
+  func videoEditor(_ videoEditor: BanubaVideoEditor, shouldProcessMediaUrls urls: [URL]) -> Bool {
+      guard let jpegURL = urls.first(where: { $0.pathExtension.lowercased() == "jpeg" }),
+            let imageData = try? Data(contentsOf: jpegURL),
+            !imageData.isEmpty,
+            let resultImage = UIImage(data: imageData) else {
+        return true
+      }
+    
+      print("Default image: \(jpegURL)")
+
+      videoEditor.dismissVideoEditor(animated: true) {
+        DispatchQueue.main.async { [weak self] in
+          guard let self else { return }
+          guard let presentedVC = RCTPresentedViewController() else {
+            return
+          }
+          // Calling clearSessionData() also removes any files stored in urls array
+          videoEditorSDK?.clearSessionData()
+          
+          let launchConfig = PhotoEditorLaunchConfig(
+            hostController: presentedVC,
+            entryPoint: .editorWithImage(resultImage)
+          )
+          checkLicenseAndOpenPhotoEditor(with: launchConfig)
+        }
+      }
+
+      return false
+    }
+  
+  private func checkLicenseAndOpenPhotoEditor(with launchConfig: PhotoEditorLaunchConfig) {
+      // Deallocate any active instances of both editors to free used resources
+      // and to prevent "You are trying to create the second instance of the singleton." crash
+      photoEditorSDK = nil
+      videoEditorSDK = nil
+      
+      let configuration = PhotoEditorConfig()
+      photoEditorSDK = BanubaPhotoEditor(
+          token: licenseToken,
+          configuration: configuration
+      )
+
+      guard let photoEditorSDK = photoEditorSDK else {
+          print("Banuba Photo Editor SDK is not initialized: license token is unknown or incorrect.\nPlease check your license token or contact Banuba")
+          return
+      }
+
+      photoEditorSDK.delegate = self
+
+      photoEditorSDK.getLicenseState(completion: { [weak self] isValid in
+          guard let self else { return }
+          if isValid {
+              print("✅ License is active, all good")
+              photoEditorSDK.presentPhotoEditor(withLaunchConfiguration: launchConfig, completion: nil)
+          } else {
+              print("❌ License is either revoked or expired")
+          }
+      })
+  }
 }
 
 // MARK: - BanubaPhotoEditorDelegate
@@ -501,9 +568,11 @@ extension SdkEditorModule: BanubaPhotoEditorDelegate {
       
       do {
         try image.pngData()?.write(to: photoUrl)
-        self?.currentResolve?([
-          "photoUri": photoUrl.absoluteString
-        ])
+        DispatchQueue.main.async { [self] in
+          self?.currentResolve?([
+            "photoUri": photoUrl.absoluteString
+          ])
+        }
       } catch {
         self?.currentReject?("", error.errorMessage, nil)
         print("Error during image writing to disk: \(error)")

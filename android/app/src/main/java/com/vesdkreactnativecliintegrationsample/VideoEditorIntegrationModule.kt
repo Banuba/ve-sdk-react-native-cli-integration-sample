@@ -119,6 +119,7 @@ private class SampleModule {
                     return if (pngs.isEmpty()) {
                         true
                     } else {
+                        Log.d("MediaNavigationProcessor", "Default image: ${pngs.first()}")
                         (activity as? VideoCreationActivity)?.closeWithResult(
                             ExportResult.Success(
                                 emptyList(),

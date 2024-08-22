@@ -493,6 +493,8 @@ extension SdkEditorModule: BanubaVideoEditorDelegate {
             let resultImage = UIImage(data: imageData) else {
         return true
       }
+    
+      print("Default image: \(jpegURL)")
 
       videoEditor.dismissVideoEditor(animated: true) {
         DispatchQueue.main.async { [weak self] in

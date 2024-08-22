@@ -52,7 +52,7 @@ export default class App extends Component {
 
   handleVideoExport(response) {
     console.log('Export completed successfully: video = ' + response?.videoUri + '; videoPreview = '
-        + response?.previewUri);
+        + response?.previewUri + '; photoUri = ' + response?.photoUri);
   }
 
   render() {
@@ -103,7 +103,7 @@ export default class App extends Component {
           <Button
             title="Open Video Editor - Default"
             onPress={async () => {
-                 openVideoEditor()
+                openVideoEditor()
                     .then(response => { this.handleVideoExport(response); })
                     .catch(e => { this.handleSdkError(e); });
             }}

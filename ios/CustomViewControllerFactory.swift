@@ -15,15 +15,22 @@ class CustomViewControllerFactory: ExternalViewControllerFactory {
 }
 
 class CustomAudioBrowserViewControllerFactory: MusicEditorExternalViewControllerFactory {
-
+  
   var audioBrowserModule: AudioBrowserModule?
 
   // Audio Browser selection view controller
-  func makeTrackSelectionViewController(selectedAudioItem: AudioItem?, isAudioPartSelectionEnabled: Bool) -> TrackSelectionViewController? {
+  func makeTrackSelectionViewController(selectedAudioItem: (any BanubaUtilities.AudioItem)?) -> (any BanubaUtilities.TrackSelectionViewController)? {
     let module = AudioBrowserModule(nibName: nil, bundle: nil)
     audioBrowserModule = module
     return module
   }
+  
+  
+//  func makeTrackSelectionViewController(selectedAudioItem: AudioItem?, isAudioPartSelectionEnabled: Bool) -> TrackSelectionViewController? {
+//    let module = AudioBrowserModule(nibName: nil, bundle: nil)
+//    audioBrowserModule = module
+//    return module
+//  }
 
   // Effects selection view controller. Used at Music editor screen
   func makeEffectSelectionViewController(selectedAudioItem: AudioItem?) -> EffectSelectionViewController? {

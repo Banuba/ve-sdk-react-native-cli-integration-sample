@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E767ABB3241D90A634CA0B8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6CDBD0550A1308C646539807 /* PrivacyInfo.xcprivacy */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		7837EBD728AF8D2700174DDB /* SdkEditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7837EBD628AF8D2700174DDB /* SdkEditorModule.swift */; };
 		7837EBD928AF8DCF00174DDB /* SdkEditorModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7837EBD828AF8DCF00174DDB /* SdkEditorModuleBridge.m */; };
@@ -32,6 +33,7 @@
 		3B4392A12AC88292D35C810B /* Pods-vesdkreactnativecliintegrationsample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vesdkreactnativecliintegrationsample.debug.xcconfig"; path = "Target Support Files/Pods-vesdkreactnativecliintegrationsample/Pods-vesdkreactnativecliintegrationsample.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-vesdkreactnativecliintegrationsample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vesdkreactnativecliintegrationsample.release.xcconfig"; path = "Target Support Files/Pods-vesdkreactnativecliintegrationsample/Pods-vesdkreactnativecliintegrationsample.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.debug.xcconfig"; path = "Target Support Files/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests/Pods-vesdkreactnativecliintegrationsample-vesdkreactnativecliintegrationsampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6CDBD0550A1308C646539807 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = vesdkreactnativecliintegrationsample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7837EBD428AF8C9700174DDB /* BridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeHeader.h; sourceTree = "<group>"; };
 		7837EBD628AF8D2700174DDB /* SdkEditorModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SdkEditorModule.swift; sourceTree = "<group>"; };
 		7837EBD828AF8DCF00174DDB /* SdkEditorModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SdkEditorModuleBridge.m; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				7837EBD628AF8D2700174DDB /* SdkEditorModule.swift */,
 				C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */,
 				C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */,
+				6CDBD0550A1308C646539807 /* PrivacyInfo.xcprivacy */,
 			);
 			name = vesdkreactnativecliintegrationsample;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7837EBE328AF925700174DDB /* luts in Resources */,
 				7837EBE128AF924600174DDB /* bundleEffects in Resources */,
+				0E767ABB3241D90A634CA0B8 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +333,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8W9QCBMQCU;
+				DEVELOPMENT_TEAM = T2387M7AF8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = vesdkreactnativecliintegrationsample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -343,6 +347,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.reactjs.native.example.vesdkreactnativecliintegrationsample1;
 				PRODUCT_NAME = vesdkreactnativecliintegrationsample;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = BridgeHeader.h;
@@ -359,7 +364,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8W9QCBMQCU;
+				DEVELOPMENT_TEAM = T2387M7AF8;
 				INFOPLIST_FILE = vesdkreactnativecliintegrationsample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -372,6 +377,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.reactjs.native.example.vesdkreactnativecliintegrationsample1;
 				PRODUCT_NAME = vesdkreactnativecliintegrationsample;
 				SWIFT_OBJC_BRIDGING_HEADER = BridgeHeader.h;
 				SWIFT_VERSION = 5.0;
@@ -383,6 +389,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -410,6 +417,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
@@ -437,6 +445,8 @@
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -455,13 +465,10 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-Wl",
-					"-ld_classic",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				USE_HERMES = true;
 			};
 			name = Debug;
@@ -470,6 +477,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -497,6 +505,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
@@ -517,6 +526,8 @@
 					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD = "";
+				LDPLUSPLUS = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -534,11 +545,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-Wl",
-					"-ld_classic",
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

@@ -39,9 +39,10 @@ Set Banuba license token [within the app](App.js#L13).
 4. Follow [Video Editor](mddocs/quickstart_ve_ios.md) and [Photo Editor](mddocs/quickstart_pe_ios.md) quickstart guides to quickly integrate Video and Photo Editor SDK into your React Native project on iOS.
 
 ## Dependencies
-|              | Version | 
+
+|              | Version |
 |--------------|:-------:|
 | Yarn         |  4.1.1  |
-| React Native | 0.73.5  |
+| React Native | 0.75.2  |
 | Android      |  6.0+   |
-| iOS          |  14.0+  |
+| iOS          |  15.0+  |

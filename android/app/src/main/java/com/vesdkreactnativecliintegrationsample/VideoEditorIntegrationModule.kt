@@ -3,7 +3,6 @@ package com.vesdkreactnativecliintegrationsample
 import android.content.Context
 import android.net.Uri
 import androidx.fragment.app.Fragment
-import com.banuba.android.sdk.ve.timeline.`object`.data.ObjectEditorConfig
 import com.banuba.sdk.arcloud.data.source.ArEffectsRepositoryProvider
 import com.banuba.sdk.arcloud.di.ArCloudKoinModule
 import com.banuba.sdk.audiobrowser.di.AudioBrowserKoinModule

@@ -31,8 +31,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   // Use “true” if you want users could restore the last video editing session.
   private let restoreLastVideoEditingSession: Bool = false
   
-  @objc (initSDK:resolver:rejecter:)
-  func initSDK(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
+  @objc (initVideoEditorSDK:resolver:rejecter:)
+  func initVideoEditorSDK(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
     guard videoEditorSDK == nil else { return }
     
     let config = createVideoEditorConfiguration()
@@ -168,8 +168,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   }
   
   // MARK: - Photo Editor
-  @objc (initPhotoEditor:resolver:rejecter:)
-  func initPhotoEditor(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
+  @objc (initPhotoEditorSDK:resolver:rejecter:)
+  func initPhotoEditorSDK(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
     DispatchQueue.main.async {
       guard self.photoEditorSDK == nil else { return }
       
@@ -392,6 +392,14 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
 // MARK: - Export flow
 extension SdkEditorModule {
   func exportVideo() {
+    guard let videoEditorSDK else { return }
+    let progressViewController = createProgressViewController()
+    progressViewController.cancelHandler = { videoEditorSDK.stopExport() }
+    guard let presentedVC = RCTPresentedViewController() else {
+      return
+    }
+    presentedVC.present(progressViewController, animated: true)
+    
     let manager = FileManager.default
     // File name
     let firstFileURL = manager.temporaryDirectory.appendingPathComponent("tmp1.mov")
@@ -417,16 +425,20 @@ extension SdkEditorModule {
     )
     
     // Export func
-    videoEditorSDK?.export(
+    videoEditorSDK.export(
       using: exportConfiguration,
-      exportProgress: nil
+      exportProgress: { [weak progressViewController] progress in
+        DispatchQueue.main.async {
+          progressViewController?.updateProgressView(with: Float(progress))
+        }
+      }
     ) { [weak self] (error, previewImageInfo) in
       let success = error == nil
       // Export Callback
       DispatchQueue.main.async {
         if success {
           // Result urls. You could interact with your own implementation.
-          
+          progressViewController.dismiss(animated: true)
           let previewImageData = previewImageInfo?.coverImage?.pngData()
           let previewImageUrl = FileManager.default.temporaryDirectory.appendingPathComponent("\(UUID().uuidString).png")
           try? previewImageData?.write(to: previewImageUrl)
@@ -457,6 +469,12 @@ extension SdkEditorModule {
         }
       }
     }
+  }
+  
+  func createProgressViewController() -> ProgressViewController {
+    let progressViewController = ProgressViewController.makeViewController()
+    progressViewController.message = "Exporting"
+    return progressViewController
   }
 }
 

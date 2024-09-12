@@ -13,32 +13,34 @@ const {SdkEditorModule} = NativeModules;
 // Set Banuba license token for Video and Photo Editor SDK
 const LICENSE_TOKEN = SET LICENSE TOKEN
 
-function initSDK() {
-  SdkEditorModule.initSDK(LICENSE_TOKEN);
+function initVideoEditorSDK() {
+  SdkEditorModule.initVideoEditorSDK(LICENSE_TOKEN);
+}
+
+function initPhotoEditorSDK() {
+  SdkEditorModule.initPhotoEditorSDK(LICENSE_TOKEN);
 }
 
 async function openVideoEditor() {
-  initSDK();
+  initVideoEditorSDK();
   return await SdkEditorModule.openVideoEditor();
 }
 
 async function openVideoEditorPIP() {
-  initSDK();
+  initVideoEditorSDK();
   return await SdkEditorModule.openVideoEditorPIP();
 }
 
 async function openVideoEditorTrimmer() {
-  initSDK();
+  initVideoEditorSDK();
   return await SdkEditorModule.openVideoEditorTrimmer();
 }
 
-async function openIosPhotoEditor() {
-  await SdkEditorModule.initPhotoEditor(LICENSE_TOKEN);
-  return await SdkEditorModule.openPhotoEditor();
-}
-
-async function openAndroidPhotoEditor() {
-  initSDK();
+async function openPhotoEditor() {
+  if (Platform.OS === 'android') {
+    SdkEditorModule.releaseVideoEditor();
+  }
+  SdkEditorModule.initPhotoEditorSDK(LICENSE_TOKEN);
   return await SdkEditorModule.openPhotoEditor();
 }
 
@@ -77,9 +79,9 @@ export default class App extends Component {
         message = '';
         console.log(
         'Banuba ' +
-         Platform.OS.toUpperCase() +
+          Platform.OS.toUpperCase() +
           ' Video Editor export video failed = ' +
-           e,
+            e,
           );
         break;
     }
@@ -104,15 +106,9 @@ export default class App extends Component {
             <TouchableOpacity
               style={[styles.button, styles.photoButton]}
               onPress={async () => {
-                if (Platform.OS === 'android') {
-                  openAndroidPhotoEditor()
+                  openPhotoEditor()
                     .then(response => console.log('Exported photo = ' + response?.photoUri))
                     .catch(e => this.handleSdkError(e));
-                } else {
-                  openIosPhotoEditor()
-                    .then(response => console.log('Exported photo = ' + response?.photoUri))
-                    .catch(e => this.handleSdkError(e));
-                }
               }}
             >
               <Text style={styles.buttonText}>Open Photo Editor</Text>

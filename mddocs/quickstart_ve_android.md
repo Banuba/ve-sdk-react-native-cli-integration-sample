@@ -56,14 +56,13 @@ allprojects {
 
 Next, specify a list of dependencies in [gradle](../android/app/build.gradle#L145) file.
 ```groovy
-    def banubaSdkVersion = '1.36.3'
+    def banubaSdkVersion = '1.37.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-flow-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-timeline-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
@@ -86,13 +85,11 @@ apply plugin: 'kotlin-parcelize'
 Video Editor SDK uses a lot of resources required for running in the app.  
 Please make sure all these resources exist in your project.
 
-1. [bnb-resources](../android/app/src/main/assets/bnb-resources)  Banuba AR and color filters. AR effects ```assets/bnb-resources/effects``` requires [Face AR](https://docs.banuba.com/face-ar-sdk-v1) product.
-
-2. [drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
+1. [drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
    [drawable-xxhdpi](../android/app/src/main/res/drawable-xxhdpi),
    [drawable-xxxhdpi](../android/app/src/main/res/drawable-xxxhdpi) are visual assets for color filter previews.
 
-3. [styles.xml](../android/app/src/main/res/values/styles.xml) includes implementation of ```VideoCreationTheme``` of Video Editor SDK.
+2. [styles.xml](../android/app/src/main/res/values/styles.xml) includes implementation of ```VideoCreationTheme``` of Video Editor SDK.
 
 ## Configuration
 
@@ -127,7 +124,7 @@ for initializing and customizing Video Editor SDK features.
 Video Editor SDK exports single video with auto quality by default. Auto quality is based on device hardware capabilities.
 
 Every exported media is passed to  [onActivityResult](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L49) method.
-Process the result and pass it to [handler](../App.js#L53) on React Native side.
+Process the result and pass it to [handler](../App.js#L56) on React Native side.
 
 ## Launch
 Create Kotlin class ```BanubaSdkReactPackage``` and add [SdkEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/BanubaSdkReactPackage.kt#L13) to the list of modules.
@@ -152,56 +149,59 @@ Next, add ```BanubaSdkReactPackage```  to the list of packages in [Application](
     }
 ```
 
-
 [Promises](https://reactnative.dev/docs/native-modules-android#promises) feature is used to make a bridge between React Native and Android.
 
-Invoke [initSDK](../App.js#L15) on React Native side to initialize Video Editor SDK with the license token.
+Invoke [initSDK](../App.js#L16) on React Native side to initialize Video Editor SDK with the license token.
 ```javascript
 SdkEditorModule.initSDK(LICENSE_TOKEN);
 ```
 
-Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L116) on Android side to initialize Video Editor SDK. 
+Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L121) on Android side to initialize Video Editor SDK. 
 
 ```kotlin
-    @ReactMethod
-    fun initSDK(licenseToken: String, promise: Promise) {
-        editorSDK = BanubaVideoEditor.initialize(licenseToken)
-
-        if (editorSDK == null) {
-            // Token you provided is not correct - empty or truncated
-            Log.e(TAG, "SDK is not initialized!")
-            promise.reject("ERR_SDK_NOT_INITIALIZED", "")
-        } else {
-            if (integrationModule == null) {
+@ReactMethod
+fun initVideoEditorSDK(licenseToken: String, promise: Promise) {
+    videoEditorSDK = BanubaVideoEditor.initialize(licenseToken)
+    
+    if (videoEditorSDK == null) {
+        // Token you provided is not correct - empty or truncated
+        Log.e(TAG, "SDK is not initialized!")
+        promise.reject(ERR_CODE_NOT_INITIALIZED, "")
+    } else {
+        if (integrationModule == null) {
             // Initialize video editor sdk dependencies
             integrationModule = VideoEditorIntegrationModule().apply {
                 initialize(reactApplicationContext.applicationContext)
             }
         }
         promise.resolve(null)
-   }
+    }
 }
 ```
 
-:exclamation: Important
-1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use video editor. Check your license token.
-2. It is highly recommended to [check license](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L318) if the license is active before starting Video Editor.
+> [!IMPORTANT]
+> 1. Instance ```videoEditorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use video editor. Check your license token.
+> 2. It is highly recommended to [check license](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L349) if the license is active before starting Video Editor.
 
-Finally, once the SDK in initialized you can invoke [openVideoEditor](../App.js#L19) message from React Native to Android
+Finally, once the SDK in initialized you can invoke [openVideoEditor](../App.js#L26) message from React Native to Android
 
 ```javascript
 await SdkEditorModule.openVideoEditor();
 ```
 
-and add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L138) on Android side to start Video Editor.
+and add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L154) on Android side to start Video Editor.
 
 ## Connect audio
 
 This is an optional section in the integration process. In this section you will know how to connect audio to Video Editor.
 
 ### Connect Soundstripe
-Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L62)
-and specify ```SoundstripeProvider``` in your [VideoEditorIntegrationModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L76)
+
+Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L32)
+and specify ```SoundstripeProvider``` in your [VideoEditorIntegrationModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L79)
+
+> [!IMPORTANT]
+> The feature is not activated by default. Please, contact Banuba representatives to know more about using this feature.
 
 ```kotlin
 single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider")){
@@ -213,10 +213,12 @@ to use audio from [Soundstripe](https://www.soundstripe.com/) in Video Editor.
 ### Connect Mubert
 
 Request API key from [Mubert](https://mubert.com/).  
-:exclamation:  Banuba is not responsible for providing Mubert API key.
 
-Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L62)
-and specify ```MubertApiConfig``` in your [VideoEditorIntegrationModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L76)
+> [!IMPORTANT]
+> Banuba is not responsible for providing Mubert API key.
+
+Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L32)
+and specify ```MubertApiConfig``` in your [VideoEditorIntegrationModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L79)
 ```kotlin
 single {
    MubertApiConfig(
@@ -231,11 +233,26 @@ single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider"))
 ```
 to use audio from [Mubert](https://mubert.com/) in Video Editor.
 
+### Connect Banuba FM
+
+Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L32)
+and specify ```BanubaMusicProvider``` in your [VideoEditorIntegrationModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L79)
+
+> [!IMPORTANT]
+> The feature is not activated by default. Please, contact Banuba representatives to know more about using this feature.
+
+```kotlin
+single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider")){
+   BanubaMusicProvider()
+}
+```
+to use audio from ```Banuba FM``` in Video Editor.
+
 ### Connect External Audio API
 Video Editor SDK allows to implement your experience for providing audio tracks using [External Audio API](https://docs.banuba.com/ve-pe-sdk/docs/android/guide_audio_content#connect-external-api).  
 To check out the simplest experience you can set ```true``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L33)
 
-:exclamation: Important  
-Video Editor SDK can play only audio tracks stored on the device.
+> [!IMPORTANT]
+> Video Editor SDK can play only audio tracks stored on the device.
 
 More information is available in our [audio content](https://docs.banuba.com/ve-pe-sdk/docs/android/guide_audio_content) guide.

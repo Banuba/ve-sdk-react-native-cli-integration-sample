@@ -20,27 +20,22 @@ let photoEditorSDK = BanubaPhotoEditor(
 ```
 Please note that the instance ```photoEditorSDK``` can be **nil** if the license token is incorrect.
 
-Next, to start the Photo Editor SDK from React Native use ```openIosPhotoEditor()``` method defined in [App.js](../App.js#L34).
+Next, to start the Photo Editor SDK from React Native use ```openIosPhotoEditor()``` method defined in [App.js](../App.js#L39).
 It will open the Photo Editor SDK from gallery screen.
 ```javascript
-async function openIosPhotoEditor() {
-  await SdkEditorModule.initPhotoEditor(LICENSE_TOKEN);
+async function openPhotoEditor() {
+  SdkEditorModule.initPhotoEditorSDK(LICENSE_TOKEN);
   return await SdkEditorModule.openPhotoEditor();
 }
-       
+
 <Button
-  title = "Open Photo Editor"
+  style={[styles.button, styles.photoButton]}
   onPress={async () => {
-		if (Platform.OS === 'ios') {
-			startIosPhotoEditor().then(response => {
-			  const exportedPhotoUri = response?.photoUri;
-			  // Handle received exported photo
-			}).catch(e => {
-			  // Handle error
-			})
-		} 
-     }
-  }
-/>
+      openPhotoEditor()
+        .then(response => console.log('Exported photo = ' + response?.photoUri))
+        .catch(e => this.handleSdkError(e));
+  }}
+>
+
  ```
-Export returns the [photoUri](../App.js#L92) path as a ```String``` value of local URL that leads to exported photo in ```.png``` format.
+Export returns the [photoUri](../App.js#L110) path as a ```String``` value of local URL that leads to exported photo in ```.png``` format.

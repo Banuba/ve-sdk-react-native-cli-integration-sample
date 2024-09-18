@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your React Native proje
 - [Resources](#resources)
 - [Configuration](#configuration)
 - [Launch](#launch)
+- [Face AR Effects](#face-ar-effects)
 - [Connect External Audio API](#connect-external-audio-api)
 
 
@@ -94,6 +95,19 @@ Video Editor SDK exports single video with auto quality by default. Auto quality
 
 Process the result and pass it to [handler](../App.js#L56) on React Native side.
 
+## Face AR Effects
+
+[Banuba Face AR SDK product](https://www.banuba.com/facear-sdk/face-filters) is used on camera and editor screens for applying various AR effects while making video content.
+Any Face AR effect is a folder that includes a number of files required for Face AR SDK to play this effect.
+
+> [!INFO]
+> Make sure preview.png file is included in effect folder. You can use this file as a preview for AR effect.
+
+There are 2 options for adding and managing AR effects:
+
+1. [bundleEffects](../ios/vesdkreactnativecliintegrationsample/bundleEffects/) folder - use bundleEffects folder
+2. Use [AR Cloud](https://www.banuba.com/faq/what-is-ar-cloud) for storing effects on a server.
+
 ## Connect audio
 
 This is an optional section in the integration process. In this section you will know how to connect audio to Video Editor.
@@ -131,7 +145,7 @@ BanubaAudioBrowser.setMubertKeys(
 
 to use audio from [Mubert](https://mubert.com/) in Video Editor.
 
-### Connect Banuba FM
+### Connect Banuba Music
 
 Set ```false``` to [configEnableCustomAudioBrowser](../ios/AppDelegate.swift#L16)
 and specify ```BanubaMusicProvider``` in your [SdkEditorModule](../ios/SdkEditorModule.swift#L340)
@@ -143,7 +157,7 @@ and specify ```BanubaMusicProvider``` in your [SdkEditorModule](../ios/SdkEditor
 AudioBrowserConfig.shared.musicSource = .banubaMusic
 ```
 
-to use audio from ```Banuba FM``` in Video Editor.
+to use audio from ```Banuba Music``` in Video Editor.
 
 ## Connect External Audio API
 Video Editor SDK allows to implement your experience of providing audio tracks for your users - custom Audio Browser.  

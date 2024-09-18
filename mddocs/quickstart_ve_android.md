@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your React Native proje
 - [Resources](#Resources)
 - [Configuration](#Configuration)
 - [Launch](#Launch)
+- [Face AR Effects](#Face-AR-Effects)
 - [Connect audio](#Connect-audio)
 
 ## Installation
@@ -191,6 +192,20 @@ await SdkEditorModule.openVideoEditor();
 
 and add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L154) on Android side to start Video Editor.
 
+## Face AR Effects
+
+[Banuba Face AR SDK product](https://www.banuba.com/facear-sdk/face-filters) is used on camera and editor screens for applying various AR effects while making video content.
+Any Face AR effect is a folder that includes a number of files required for Face AR SDK to play this effect.
+
+> [!INFO]
+> Make sure preview.png file is included in effect folder. You can use this file as a preview for AR effect.
+
+There are 3 options for adding and managing AR effects:
+
+1. Store all effects in by the path [assets/bnb-resources/effects](../android/app/src/main/assets/bnb-resources/effects/) folder in the app.
+2. Store color effects in [assets/bnb-resources/luts](../android/app/src/main/assets/bnb-resources/luts) folder in the app.
+3. Use [AR Cloud](https://www.banuba.com/faq/what-is-ar-cloud) for storing effects on a server.
+
 ## Connect audio
 
 This is an optional section in the integration process. In this section you will know how to connect audio to Video Editor.
@@ -233,7 +248,7 @@ single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider"))
 ```
 to use audio from [Mubert](https://mubert.com/) in Video Editor.
 
-### Connect Banuba FM
+### Connect Banuba Music
 
 Set ```false``` to [CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L32)
 and specify ```BanubaMusicProvider``` in your [VideoEditorIntegrationModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/VideoEditorIntegrationModule.kt#L79)
@@ -246,7 +261,7 @@ single<ContentFeatureProvider<TrackData, Fragment>>(named("musicTrackProvider"))
    BanubaMusicProvider()
 }
 ```
-to use audio from ```Banuba FM``` in Video Editor.
+to use audio from ```Banuba Music``` in Video Editor.
 
 ### Connect External Audio API
 Video Editor SDK allows to implement your experience for providing audio tracks using [External Audio API](https://docs.banuba.com/ve-pe-sdk/docs/android/guide_audio_content#connect-external-api).  

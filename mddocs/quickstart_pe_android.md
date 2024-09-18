@@ -29,14 +29,6 @@ allprojects {
             }
         }
         maven {
-            name = "ARCloudPackages"
-            url = uri("https://maven.pkg.github.com/Banuba/banuba-ar")
-            credentials {
-                username = "Banuba"
-                password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
-            }
-        }
-        maven {
             name "GitHubPackagesEffectPlayer"
             url "https://maven.pkg.github.com/sdk-banuba/banuba-sdk-android"
             credentials {
@@ -50,12 +42,12 @@ allprojects {
 }
 ```
 
-Specify Photo Editor SDK dependencies in the app [gradle](../android/app/build.gradle#L170) file.
+Specify Photo Editor SDK dependencies in the app [gradle](../android/app/build.gradle#L165) file.
 ```groovy
-    def banubaPESdkVersion = '1.2.5'
+    def banubaPESdkVersion = '1.2.7'
     implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
 
-    def banubaSdkVersion = '1.36.3'
+    def banubaSdkVersion = '1.37.0'
     implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
@@ -93,19 +85,18 @@ Next, add ```BanubaSdkReactPackage```  to the list of packages in [Application](
 }
 ```
 
-
 [Promises](https://reactnative.dev/docs/native-modules-android#promises) feature is used to make a bridge between React Native and Android.
 
-Invoke [initSDK](../App.js#L15) on React Native side to initialize SDK with the license token.
+Invoke [initSDK](../App.js#L16) on React Native side to initialize SDK with the license token.
 ```javascript
 SdkEditorModule.initSDK(LICENSE_TOKEN);
 ```
 
-Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L116) on Android side to initialize Video Editor SDK.
+Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L140) on Android side to initialize Video Editor SDK.
 
-:exclamation: Important
-1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
-2. It is highly recommended to [check license](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L318) if the license is active before starting Photo Editor.
+> [!IMPORTANT]
+> 1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
+> 2. It is highly recommended to [check license](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L183) if the license is active before starting Photo Editor.
 
 Finally, once the SDK in initialized you can invoke [openPhotoEditor](../App.js#L39) message from React Native to Android
 

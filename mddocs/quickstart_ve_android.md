@@ -155,19 +155,19 @@ Next, add ```BanubaSdkReactPackage```  to the list of packages in [Application](
 
 [Promises](https://reactnative.dev/docs/native-modules-android#promises) feature is used to make a bridge between React Native and Android.
 
-Invoke [initSDK](../App.js#L15) on React Native side to initialize Video Editor SDK with the license token.
+Invoke [initVideoEditorSDK](../App.js#L15) on React Native side to initialize Video Editor SDK with the license token.
 ```javascript
-SdkEditorModule.initSDK(LICENSE_TOKEN);
+SdkEditorModule.initVideoEditorSDK(LICENSE_TOKEN);
 ```
 
 Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L116) on Android side to initialize Video Editor SDK. 
 
 ```kotlin
     @ReactMethod
-    fun initSDK(licenseToken: String, promise: Promise) {
-        editorSDK = BanubaVideoEditor.initialize(licenseToken)
+    fun initVideoEditorSDK(licenseToken: String, promise: Promise) {
+        videoEditorSDK = BanubaVideoEditor.initialize(licenseToken)
 
-        if (editorSDK == null) {
+        if (videoEditorSDK == null) {
             // Token you provided is not correct - empty or truncated
             Log.e(TAG, "SDK is not initialized!")
             promise.reject("ERR_SDK_NOT_INITIALIZED", "")
@@ -184,7 +184,7 @@ Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegratio
 ```
 
 :exclamation: Important
-1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use video editor. Check your license token.
+1. Instance ```videoEditorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use video editor. Check your license token.
 2. It is highly recommended to [check license](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L318) if the license is active before starting Video Editor.
 
 Finally, once the SDK in initialized you can invoke [openVideoEditor](../App.js#L19) message from React Native to Android

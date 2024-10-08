@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.app.Activity
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.banuba.android.sdk.ve.timeline.`object`.data.ObjectEditorConfig
 import com.banuba.sdk.arcloud.data.source.ArEffectsRepositoryProvider
 import com.banuba.sdk.arcloud.di.ArCloudKoinModule
 import com.banuba.sdk.audiobrowser.di.AudioBrowserKoinModule

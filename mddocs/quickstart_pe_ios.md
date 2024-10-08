@@ -24,7 +24,7 @@ Next, to start the Photo Editor SDK from React Native use ```openIosPhotoEditor(
 It will open the Photo Editor SDK from gallery screen.
 ```javascript
 async function openIosPhotoEditor() {
-  await SdkEditorModule.initPhotoEditor(LICENSE_TOKEN);
+  await SdkEditorModule.initPhotoEditorSDK(LICENSE_TOKEN);
   return await SdkEditorModule.openPhotoEditor();
 }
        

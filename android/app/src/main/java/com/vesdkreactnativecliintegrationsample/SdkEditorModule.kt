@@ -13,6 +13,7 @@ import com.banuba.sdk.core.ext.getFilePath
 import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.core.license.BanubaVideoEditor
+import com.banuba.sdk.pe.BanubaPhotoEditor
 import com.banuba.sdk.core.license.LicenseStateCallback
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.facebook.react.bridge.*
@@ -22,6 +23,10 @@ import java.io.*
 import java.util.*
 import com.banuba.sdk.pe.PhotoCreationActivity
 import com.banuba.sdk.pe.PhotoExportResultContract
+import com.banuba.sdk.core.EditorUtilityManager
+import com.banuba.sdk.ve.ext.VideoEditorUtils.getKoin
+import org.koin.core.context.stopKoin
+import org.koin.core.error.InstanceCreationException
 
 class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -42,7 +47,9 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
     private var resultPromise: Promise? = null
 
-    private var editorSDK: BanubaVideoEditor? = null
+    private var videoEditorSDK: BanubaVideoEditor? = null
+    private var photoEditorSDK: BanubaPhotoEditor? = null
+
     private var integrationModule: VideoEditorIntegrationModule? = null
 
     private val videoEditorResultListener = object : ActivityEventListener {
@@ -124,10 +131,10 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
     override fun getName(): String = "SdkEditorModule"
 
     @ReactMethod
-    fun initSDK(licenseToken: String, promise: Promise) {
-        editorSDK = BanubaVideoEditor.initialize(licenseToken)
+    fun initVideoEditorSDK(licenseToken: String, promise: Promise) {
+        videoEditorSDK = BanubaVideoEditor.initialize(licenseToken)
 
-        if (editorSDK == null) {
+        if (videoEditorSDK == null) {
             // Token you provided is not correct - empty or truncated
             Log.e(TAG, "SDK is not initialized!")
             promise.reject(ERR_CODE_NOT_INITIALIZED, "")
@@ -142,12 +149,24 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
         }
     }
 
+    @ReactMethod
+    fun initPhotoEditorSDK(licenseToken: String, promise: Promise) {
+        photoEditorSDK = BanubaPhotoEditor.initialize(licenseToken)
+        if (photoEditorSDK == null) {
+            // Token you provided is not correct - empty or truncated
+            Log.e(TAG, "SDK is not initialized!")
+            promise.reject(ERR_CODE_NOT_INITIALIZED, "")
+        } else {
+            promise.resolve(null)
+        }
+    }
+
     /**
      * Open Video Editor SDK
      */
     @ReactMethod
     fun openVideoEditor(promise: Promise) {
-        checkLicense(callback = { isValid ->
+        checkLicenseVideoEditor(callback = { isValid ->
             if (isValid) {
                 // ✅ The license is active
                 val hostActivity = currentActivity
@@ -171,32 +190,29 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
     }
 
     /**
-     * Open Video Editor SDK
+     * Open Photo Editor SDK
      */
     @ReactMethod
     fun openPhotoEditor(promise: Promise) {
-        checkLicense(callback = { isValid ->
-            if (isValid) {
-                // ✅ The license is active
-                val hostActivity = currentActivity
-                if (hostActivity == null) {
-                    promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
-                } else {
-                    this.resultPromise = promise
-                    hostActivity.startActivityForResult(
-                        PhotoCreationActivity.startFromGallery(hostActivity.applicationContext), OPEN_PHOTO_EDITOR_REQUEST_CODE
-                    )
-                }
+        if (photoEditorSDK == null) {
+            Log.e(TAG, "Cannot check license state. Please initialize Photo Editor SDK")
+            promise.reject(ERR_CODE_LICENSE_REVOKED, "")
+        } else {
+            val hostActivity = currentActivity
+            if (hostActivity == null) {
+                promise.reject(ERR_CODE_NO_HOST_CONTROLLER, "")
             } else {
-                // ❌ Use of SDK is restricted: the license is revoked or expired
-                promise.reject(ERR_CODE_LICENSE_REVOKED, "")
+                this.resultPromise = promise
+                hostActivity.startActivityForResult(
+                    PhotoCreationActivity.startFromGallery(hostActivity.applicationContext), OPEN_PHOTO_EDITOR_REQUEST_CODE
+                )
             }
-        }, onError = { promise.reject(ERR_CODE_NOT_INITIALIZED, "") })
+        } 
     }
 
     @ReactMethod
     fun openVideoEditorPIP(promise: Promise) {
-        checkLicense(callback = { isValid ->
+        checkLicenseVideoEditor(callback = { isValid ->
             if (isValid) {
                 // ✅ The license is active
                 val hostActivity = currentActivity
@@ -228,7 +244,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
     @ReactMethod
     fun openVideoEditorTrimmer(promise: Promise) {
-        checkLicense(callback = { isValid ->
+        checkLicenseVideoEditor(callback = { isValid ->
             if (isValid) {
                 // ✅ The license is active
                 val hostActivity = currentActivity
@@ -256,6 +272,27 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                 promise.reject(ERR_CODE_LICENSE_REVOKED, "")
             }
         }, onError = { promise.reject(ERR_CODE_NOT_INITIALIZED, "") })
+    }
+
+    @ReactMethod
+    fun releaseVideoEditor(promise: Promise) {
+        Log.d(TAG, "Release Video Editor SDK")
+        if (integrationModule != null) {
+            val utilityManager = try {
+                // EditorUtilityManager is NULL when the token is expired or revoked.
+                // This dependency is not explicitly created in DI.
+                getKoin().getOrNull<EditorUtilityManager>()
+            } catch (e: InstanceCreationException) {
+                Log.w(TAG, "EditorUtilityManager was not initialized!", e)
+                promise.reject("EditorUtilityManager was not initialized!", e)
+                null
+            }
+            utilityManager?.release()
+            stopKoin()
+            integrationModule = null
+        } 
+        videoEditorSDK = null
+        promise.resolve(null)
     }
 
     /**
@@ -322,14 +359,14 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
         }
     }
 
-    private fun checkLicense(callback: LicenseStateCallback, onError: () -> Unit) {
-        if (editorSDK == null) {
+    private fun checkLicenseVideoEditor(callback: LicenseStateCallback, onError: () -> Unit) {
+        if (videoEditorSDK == null) {
             Log.e(TAG, "Cannot check license state. Please initialize Video Editor SDK")
             onError()
         } else {
             // Checking the license might take around 1 sec in the worst case.
             // Please optimize use if this method in your application for the best user experience
-            editorSDK?.getLicenseState(callback)
+            videoEditorSDK?.getLicenseState(callback)
         }
     }
 

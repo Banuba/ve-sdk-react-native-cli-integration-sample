@@ -72,9 +72,9 @@ To create [YourProject-Bridging-Header.h](../ios/BridgeHeader.h), open your iOS 
 
 ## Launch
 
-Invoke [initSDK](../App.js#L15) on React Native side to initialize Video Editor SDK with the license token.
+Invoke [initVideoEditorSDK](../App.js#L15) on React Native side to initialize Video Editor SDK with the license token.
 ```javascript
-SdkEditorModule.initSDK(LICENSE_TOKEN);
+SdkEditorModule.initVideoEditorSDK(LICENSE_TOKEN);
 ```
 
 Add [ReactMethod](../ios/SdkEditorModule.swift#L35) on iOS side to initialize Video Editor SDK.

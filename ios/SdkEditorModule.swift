@@ -33,8 +33,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   // Use “true” if you want users could restore the last video editing session.
   private let restoreLastVideoEditingSession: Bool = false
   
-  @objc (initSDK:resolver:rejecter:)
-  func initSDK(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
+  @objc (initVideoEditorSDK:resolver:rejecter:)
+  func initVideoEditorSDK(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
     guard videoEditorSDK == nil else { return }
     
     let config = createVideoEditorConfiguration()
@@ -172,8 +172,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   }
   
   // MARK: - Photo Editor
-  @objc (initPhotoEditor:resolver:rejecter:)
-  func initPhotoEditor(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
+  @objc (initPhotoEditorSDK:resolver:rejecter:)
+  func initPhotoEditorSDK(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
     DispatchQueue.main.async {
       guard self.photoEditorSDK == nil else { return }
       

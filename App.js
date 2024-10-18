@@ -6,7 +6,8 @@ import {
   View,
   Platform,
   NativeModules,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 const {SdkEditorModule} = NativeModules;
 
@@ -53,9 +54,20 @@ export default class App extends Component {
     };
   }
 
+  showBackgroundExportResult(message) {
+    Alert.alert(
+      'Background export result',
+      message,                
+      [{ text: 'OK' }]        
+    );
+  }
+
   handleVideoExport(response) {
-    console.log('Export completed successfully: video = ' + response?.videoUri + '; videoPreview = '
-        + response?.previewUri);
+    const message = `Export completed successfully: video = ${response?.videoUri}; videoPreview = ${response?.previewUri}`;
+  
+    console.log(message);
+
+    this.showBackgroundExportResult(message)
   }
 
   handleSdkError(e) {
@@ -73,6 +85,9 @@ export default class App extends Component {
         message = 'Missing video export result!';
       case 'ERR_CODE_NO_HOST_CONTROLLER':
         message = "Host Activity or ViewController does not exist!";
+      case 'ERR_FAILED_BACKGROUND_EXPORT':
+        message = "Failed to export video in the background";
+        this.showBackgroundExportResult(message);
       case 'ERR_VIDEO_EXPORT_CANCEL':
         message = "Video export is canceled";
       default:

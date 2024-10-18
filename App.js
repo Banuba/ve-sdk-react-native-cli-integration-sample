@@ -75,6 +75,8 @@ export default class App extends Component {
         message = "Host Activity or ViewController does not exist!";
       case 'ERR_VIDEO_EXPORT_CANCEL':
         message = "Video export is canceled";
+      case 'ERR_FAILED_BACKGROUND_EXPORT':
+        message = "Failed to export video in the background";
       default:
         message = '';
         console.log(

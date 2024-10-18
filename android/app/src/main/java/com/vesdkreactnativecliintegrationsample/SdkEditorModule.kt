@@ -84,14 +84,13 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                     }
 
                     resultCode == Activity.RESULT_CANCELED -> {
-                        val exportNotificationManager = getKoin().get<ExportNotificationManager>() as? EmptyExportNotificationManger
-
+                        val exportNotificationManager = getKoin().get<ExportNotificationManager>() as? BackgroundExportNotificationManger
+                    
                         if (exportNotificationManager != null) {
-                            if (exportNotificationManager.isExportInProgress()) {
-                                exportNotificationManager.setResultPromise(resultPromise)
-                            } else {
-                                resultPromise?.reject("ERR_VIDEO_EXPORT_CANCEL", "")
-                            }
+                            exportNotificationManager.setResultPromise(resultPromise)
+                        } else {
+                            // For Foreground export 
+                            resultPromise?.reject("ERR_VIDEO_EXPORT_CANCEL", "")
                         }                   
                     }
                 }

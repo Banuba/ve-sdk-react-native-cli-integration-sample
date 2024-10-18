@@ -10,7 +10,7 @@ import com.facebook.react.bridge.ReactApplicationContext
 import android.util.Log
 
 
-class EmptyExportNotificationManger() : ExportNotificationManager {
+class BackgroundExportNotificationManger() : ExportNotificationManager {
 
     companion object {
         const val TAG = "ExportNotificationManger"
@@ -29,6 +29,9 @@ class EmptyExportNotificationManger() : ExportNotificationManager {
 
     fun setResultPromise(promise: Promise?) {
         resultPromise = promise
+        if (!isExportInProgress){
+            resultPromise?.reject("ERR_VIDEO_EXPORT_CANCEL", "")
+        }
     }
 
     override fun showExportStartedNotification(){
@@ -50,7 +53,7 @@ class EmptyExportNotificationManger() : ExportNotificationManager {
     }
     override fun showFailedExportExportNotification(){
         isExportInProgress = false
-        Log.d(TAG, "Failed background export")
+        Log.w(TAG, "Failed background export")
         resultPromise?.reject(ERR_FAILED_BACKGROUND_EXPORT, "")
     }
 }

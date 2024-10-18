@@ -102,7 +102,7 @@ private class SampleModule {
         }
 
         single<ExportNotificationManager> {
-            EmptyExportNotificationManger()
+            BackgroundExportNotificationManger()
         }
     }
 }

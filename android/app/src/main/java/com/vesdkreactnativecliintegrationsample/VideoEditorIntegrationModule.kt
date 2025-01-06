@@ -22,6 +22,10 @@ import org.koin.core.context.startKoin
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+import com.banuba.sdk.export.data.BackgroundExportFlowManager
+import com.banuba.sdk.export.data.ExportFlowManager
+import com.banuba.sdk.export.data.ExportNotificationManager
+
 class VideoEditorIntegrationModule {
 
     companion object {
@@ -81,6 +85,24 @@ private class SampleModule {
                 // Default implementation that supports Mubert and Local audio stored on the device
                 AudioBrowserMusicProvider()
             }
+        }
+
+        single<ExportFlowManager> {
+            BackgroundExportFlowManager(
+                exportDataProvider = get(),
+                exportSessionHelper = get(),
+                exportNotificationManager = get(),
+                exportDir = get(named("exportDir")),
+                shouldClearSessionOnFinish = true,
+                publishManager = get(),
+                errorParser = get(),
+                exportBundleProvider = get(),
+                eventConverter = get()
+            )
+        }
+
+        single<ExportNotificationManager> {
+            BackgroundExportNotificationManger()
         }
     }
 }

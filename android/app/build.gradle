@@ -126,6 +126,14 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
+    packagingOptions {
+        pickFirst '**/libbanuba-ve-yuv.so'
+
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
 }
 
 dependencies {

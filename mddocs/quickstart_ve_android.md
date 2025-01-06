@@ -16,7 +16,7 @@ Once complete you will be able to launch video editor in your React Native proje
 ## Installation
 GitHub Packages is used for downloading SDK modules.
 
-First, add repositories to [gradle](../android/build.gradle#L30) file in ```allprojects``` section.
+Add repositories to [gradle](../android/build.gradle#L30) file in ```allprojects``` section.
 
 ```groovy
 ...
@@ -55,7 +55,21 @@ allprojects {
 }
 ```
 
-Next, specify a list of dependencies in [gradle](../android/app/build.gradle#L145) file.
+Specify the following ```packaging options``` in your [build gradle](../android/app/build.gradle#L130-L136) file:
+
+```groovy
+android {
+...
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+...
+}
+```
+
+Specify a list of dependencies in [gradle](../android/app/build.gradle#L145) file.
 ```groovy
     def banubaSdkVersion = '1.39.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"

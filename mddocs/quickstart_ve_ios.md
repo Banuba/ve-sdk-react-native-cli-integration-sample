@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your React Native proje
 - [Resources](#resources)
 - [Configuration](#configuration)
 - [Launch](#launch)
+- [Editor V2](#editor-v2)
 - [Face AR Effects](#face-ar-effects)
 - [Connect External Audio API](#connect-external-audio-api)
 
@@ -94,6 +95,23 @@ and add [ReactMethod](../ios/SdkEditorModule.swift#L56) on iOS side to start Vid
 Video Editor SDK exports single video with auto quality by default. Auto quality is based on device hardware capabilities.
 
 Process the result and pass it to [handler](../App.js#L56) on React Native side.
+
+## Editor V2
+
+To keep up with the latest developments and best practices, our team has completely redesigned the Video Editor SDK to be as convenient and enjoyable as possible.
+
+### Integration
+
+[Init the Video Editor](../ios/SdkEditorModule.swift#39) with argument [.useEditorV2: true] to enable Editor UI V2:
+
+```swift
+  videoEditorSDK = BanubaVideoEditor(
+    token: token,
+    arguments: [.useEditorV2 : true],
+    configuration: config,
+    externalViewControllerFactory: customViewControllerFactory
+  )
+```
 
 ## Face AR Effects
 

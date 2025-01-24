@@ -1,7 +1,6 @@
 import React
 import BanubaVideoEditorSDK
-import VideoEditor
-import VEExportSDK
+import BanubaVideoEditorCore
 import AVKit
 import BanubaAudioBrowserSDK
 import BanubaPhotoEditorSDK
@@ -39,6 +38,8 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
 
     videoEditorSDK = BanubaVideoEditor(
       token: token,
+      // set argument .useEditorV2 to true to enable Editor V2
+      arguments: [.useEditorV2 : true],
       configuration: config,
       externalViewControllerFactory: customViewControllerFactory
     )
@@ -124,7 +125,9 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
       let tmpURL = fileManager.temporaryDirectory.appendingPathComponent("sample_video.mp4")
       try? fileManager.removeItem(at: tmpURL)
       try? fileManager.copyItem(at: trimmerVideoURL, to: tmpURL)
-      
+
+      // Editor V2 is not available from Trimmer screen. Editor screen will be opened
+
       let trimmerLaunchConfig = VideoEditorLaunchConfig(
         entryPoint: .trimmer,
         hostController: presentedVC,

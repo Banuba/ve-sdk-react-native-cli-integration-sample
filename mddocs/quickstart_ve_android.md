@@ -10,6 +10,7 @@ Once complete you will be able to launch video editor in your React Native proje
 - [Resources](#Resources)
 - [Configuration](#Configuration)
 - [Launch](#Launch)
+- [Editor V2](#editor-v2)
 - [Face AR Effects](#Face-AR-Effects)
 - [Connect audio](#Connect-audio)
 
@@ -71,7 +72,7 @@ android {
 
 Specify a list of dependencies in [gradle](../android/app/build.gradle#L145) file.
 ```groovy
-    def banubaSdkVersion = '1.39.0'
+    def banubaSdkVersion = '1.40.0'
     implementation "com.banuba.sdk:ffmpeg:5.1.3"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -205,6 +206,20 @@ await SdkEditorModule.openVideoEditor();
 ```
 
 and add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L154) on Android side to start Video Editor.
+
+## Editor V2
+
+To keep up with the latest developments and best practices, our team has completely redesigned the Video Editor SDK to be as convenient and enjoyable as possible.
+
+### Integration
+
+Create ```Bundle``` with Editor UI V2 configuration and pass [extras](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#54) to any [Video Editor start method](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#172).
+
+```kotlin
+ val extras = bundleOf(
+    "EXTRA_USE_EDITOR_V2" to true
+ )
+```
 
 ## Face AR Effects
 

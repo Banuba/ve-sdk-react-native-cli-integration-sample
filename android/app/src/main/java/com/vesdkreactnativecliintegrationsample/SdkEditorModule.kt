@@ -7,6 +7,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.export.data.ExportResult
@@ -49,6 +50,10 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
     private var videoEditorSDK: BanubaVideoEditor? = null
     private var photoEditorSDK: BanubaPhotoEditor? = null
     private var integrationModule: VideoEditorIntegrationModule? = null
+    // Bundle for enabling Editor V2
+    private val extras = bundleOf(
+        "EXTRA_USE_EDITOR_V2" to true
+    )
 
     private val videoEditorResultListener = object : ActivityEventListener {
         override fun onActivityResult(
@@ -164,7 +169,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                     val intent = VideoCreationActivity.startFromCamera(
                         hostActivity,
                         PipConfig(video = Uri.EMPTY, openPipSettings = false),
-                        null,
+                        extras = extras,
                         null
                     )
                     hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
@@ -217,7 +222,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                     val intent = VideoCreationActivity.startFromCamera(
                         hostActivity,
                         PipConfig(video = sampleVideoFile.toUri(), openPipSettings = false),
-                        null,
+                        extras = extras,
                         null
                     )
                     hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
@@ -246,6 +251,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                     val sampleVideoFile = prepareMediaFile(assets, filesStorage, sampleVideoFileName)
 
                     this.resultPromise = promise
+                   // Editor V2 is not available from Trimmer screen
                     val intent = VideoCreationActivity.startFromTrimmer(
                         hostActivity,
                         arrayOf(sampleVideoFile.toUri()),

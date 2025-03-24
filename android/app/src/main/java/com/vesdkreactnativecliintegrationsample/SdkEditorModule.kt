@@ -27,6 +27,7 @@ import com.banuba.sdk.core.EditorUtilityManager
 import com.banuba.sdk.ve.ext.VideoEditorUtils.getKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.error.InstanceCreationException
+import com.banuba.sdk.export.data.ExportNotificationManager
 
 class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -87,7 +88,16 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                         }
                     }
 
-                    resultCode == Activity.RESULT_CANCELED -> resultPromise?.reject("ERR_VIDEO_EXPORT_CANCEL", "")
+                    resultCode == Activity.RESULT_CANCELED -> {
+                        val exportNotificationManager = getKoin().get<ExportNotificationManager>() as? BackgroundExportNotificationManger
+                    
+                        if (exportNotificationManager != null) {
+                            exportNotificationManager.setResultPromise(resultPromise)
+                        } else {
+                            // For Foreground export 
+                            resultPromise?.reject("ERR_VIDEO_EXPORT_CANCEL", "")
+                        }                   
+                    }
                 }
                 resultPromise = null
             } else if (requestCode == OPEN_PHOTO_EDITOR_REQUEST_CODE) {

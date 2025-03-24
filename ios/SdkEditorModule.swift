@@ -396,13 +396,6 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
 extension SdkEditorModule {
   func exportVideo() {
     guard let videoEditorSDK else { return }
-    let progressViewController = createProgressViewController()
-    progressViewController.cancelHandler = { videoEditorSDK.stopExport() }
-    guard let presentedVC = RCTPresentedViewController() else {
-      return
-    }
-    presentedVC.present(progressViewController, animated: true)
-    
     let manager = FileManager.default
     // File name
     let firstFileURL = manager.temporaryDirectory.appendingPathComponent("tmp1.mov")
@@ -430,18 +423,13 @@ extension SdkEditorModule {
     // Export func
     videoEditorSDK.export(
       using: exportConfiguration,
-      exportProgress: { [weak progressViewController] progress in
-        DispatchQueue.main.async {
-          progressViewController?.updateProgressView(with: Float(progress))
-        }
-      }
+      exportProgress: nil
     ) { [weak self] (error, previewImageInfo) in
       let success = error == nil
       // Export Callback
       DispatchQueue.main.async {
         if success {
           // Result urls. You could interact with your own implementation.
-          progressViewController.dismiss(animated: true)
           let previewImageData = previewImageInfo?.coverImage?.pngData()
           let previewImageUrl = FileManager.default.temporaryDirectory.appendingPathComponent("\(UUID().uuidString).png")
           try? previewImageData?.write(to: previewImageUrl)
@@ -460,7 +448,7 @@ extension SdkEditorModule {
            NOT REQUIRED FOR INTEGRATION
            Added for playing exported video file.
            */
-          self?.demoPlayExportedVideo(videoURL: firstFileURL)
+//          self?.demoPlayExportedVideo(videoURL: firstFileURL)
         } else {
           self?.currentReject?("ERR_MISSING_EXPORT_RESULT", error?.errorMessage, nil)
           // clear video editor session data and remove strong reference to video editor sdk instance
@@ -472,12 +460,6 @@ extension SdkEditorModule {
         }
       }
     }
-  }
-  
-  func createProgressViewController() -> ProgressViewController {
-    let progressViewController = ProgressViewController.makeViewController()
-    progressViewController.message = "Exporting"
-    return progressViewController
   }
 }
 

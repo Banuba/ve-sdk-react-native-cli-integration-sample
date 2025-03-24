@@ -169,8 +169,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                     val intent = VideoCreationActivity.startFromCamera(
                         hostActivity,
                         PipConfig(video = Uri.EMPTY, openPipSettings = false),
-                        extras = extras,
-                        null
+                        extras = extras
                     )
                     hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
                 }
@@ -222,8 +221,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                     val intent = VideoCreationActivity.startFromCamera(
                         hostActivity,
                         PipConfig(video = sampleVideoFile.toUri(), openPipSettings = false),
-                        extras = extras,
-                        null
+                        extras = extras
                     )
                     hostActivity.startActivityForResult(intent, OPEN_VIDEO_EDITOR_REQUEST_CODE)
                 }

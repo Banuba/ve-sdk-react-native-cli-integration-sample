@@ -4,13 +4,13 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 buildscript {
     ext {
-        ext.kotlin_version = '1.8.22'
-        buildToolsVersion = "34.0.0"
-        minSdkVersion = 23
-        compileSdkVersion = 34
+        ext.kotlin_version = '2.0.21'
+        buildToolsVersion = "35.0.0"
+        minSdkVersion = 24
+        compileSdkVersion = 35
         targetSdkVersion = 34
 
-        ndkVersion = "25.1.8937393"
+        ndkVersion = "26.3.11579264"
     }
     repositories {
         google()

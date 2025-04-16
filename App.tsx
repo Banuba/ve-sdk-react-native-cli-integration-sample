@@ -8,10 +8,10 @@ import {
   NativeModules,
   TouchableOpacity
 } from 'react-native';
-const {SdkEditorModule} = NativeModules;
+const { SdkEditorModule } = NativeModules;
 
 // Set Banuba license token for Video and Photo Editor SDK
-const LICENSE_TOKEN = SET LICENSE TOKEN
+const LICENSE_TOKEN = SET YOUR LICENSE TOKEN
 
 function initVideoEditorSDK() {
   SdkEditorModule.initVideoEditorSDK(LICENSE_TOKEN);
@@ -45,7 +45,7 @@ async function openPhotoEditor() {
 }
 
 export default class App extends Component {
-  
+
   constructor() {
     super();
     this.state = {
@@ -55,7 +55,7 @@ export default class App extends Component {
 
   handleVideoExport(response) {
     console.log('Export completed successfully: video = ' + response?.videoUri + '; videoPreview = '
-        + response?.previewUri);
+      + response?.previewUri);
   }
 
   handleSdkError(e) {
@@ -78,11 +78,11 @@ export default class App extends Component {
       default:
         message = '';
         console.log(
-        'Banuba ' +
+          'Banuba ' +
           Platform.OS.toUpperCase() +
           ' Video Editor export video failed = ' +
-            e,
-          );
+          e,
+        );
         break;
     }
     this.setState({ errorText: message });
@@ -106,9 +106,9 @@ export default class App extends Component {
             <TouchableOpacity
               style={[styles.button, styles.photoButton]}
               onPress={async () => {
-                  openPhotoEditor()
-                    .then(response => console.log('Exported photo = ' + response?.photoUri))
-                    .catch(e => this.handleSdkError(e));
+                openPhotoEditor()
+                  .then(response => console.log('Exported photo = ' + response?.photoUri))
+                  .catch(e => this.handleSdkError(e));
               }}
             >
               <Text style={styles.buttonText}>Open Photo Editor</Text>

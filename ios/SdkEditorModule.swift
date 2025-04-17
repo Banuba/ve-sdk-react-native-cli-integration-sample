@@ -12,9 +12,7 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   
   static let errEditorNotInitialized = "ERR_SDK_NOT_INITIALIZED"
   static let errEditorLicenseRevoked = "ERR_SDK_EDITOR_LICENSE_REVOKED"
-  
-  private let customViewControllerFactory = CustomViewControllerFactory()
-  
+    
   private var videoEditorSDK: BanubaVideoEditor?
   private var photoEditorSDK: BanubaPhotoEditor?
   
@@ -41,7 +39,7 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
       // set argument .useEditorV2 to true to enable Editor V2
       arguments: [.useEditorV2 : true],
       configuration: config,
-      externalViewControllerFactory: customViewControllerFactory
+      externalViewControllerFactory: CustomViewControllerFactory.shared
     )
     
     if videoEditorSDK == nil {
@@ -312,7 +310,9 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   }
   
   private func getAudioBrowserModule() -> AudioBrowserModule {
-    return (customViewControllerFactory.musicEditorFactory as! CustomAudioBrowserViewControllerFactory).audioBrowserModule!
+    return (
+      CustomViewControllerFactory.shared.musicEditorFactory as! CustomAudioBrowserViewControllerFactory
+    ).audioBrowserModule!
   }
   
   /*

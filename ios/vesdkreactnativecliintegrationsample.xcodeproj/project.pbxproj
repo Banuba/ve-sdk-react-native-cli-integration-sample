@@ -21,9 +21,11 @@
 		C2A69180294C9D1C005DFA75 /* CustomViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */; };
 		C2A69183294CA0AB005DFA75 /* sample_audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2A69182294CA0AB005DFA75 /* sample_audio.mp3 */; };
 		C2B80BDF294DFBFA006D11FA /* sample_video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C2B80BDE294DFBFA006D11FA /* sample_video.mp4 */; };
+		EE7248262997BD1539D1A2E7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 01D969DFDA31B0B91358B947 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01D969DFDA31B0B91358B947 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = vesdkreactnativecliintegrationsample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* vesdkreactnativecliintegrationsample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vesdkreactnativecliintegrationsample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = vesdkreactnativecliintegrationsample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = vesdkreactnativecliintegrationsample/Info.plist; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				7837EBD628AF8D2700174DDB /* SdkEditorModule.swift */,
 				C2A6917C294C9CE6005DFA75 /* AudioBrowserModule.swift */,
 				C2A6917F294C9D1C005DFA75 /* CustomViewControllerFactory.swift */,
+				01D969DFDA31B0B91358B947 /* PrivacyInfo.xcprivacy */,
 			);
 			name = vesdkreactnativecliintegrationsample;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				7837EBDF28AF921F00174DDB /* SplashScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				7837EBE328AF925700174DDB /* luts in Resources */,
+				EE7248262997BD1539D1A2E7 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

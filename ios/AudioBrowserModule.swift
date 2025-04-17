@@ -18,8 +18,11 @@ class AudioBrowserModule: UIViewController, TrackSelectionViewController, RCTBri
   }
 
   override func viewDidLoad() {
-    let delegate = UIApplication.shared.delegate as! AppDelegate
     // Show custom audio browser screen implemented in JS
-    self.view = RCTRootView(bridge: delegate.bridge!, moduleName: AudioBrowserModule.moduleName(), initialProperties: nil)
+    self.view = RCTRootView(
+      bridge: AppDelegate.sharedBridge!,
+      moduleName: AudioBrowserModule.moduleName(),
+      initialProperties: nil
+    )
   }
 }

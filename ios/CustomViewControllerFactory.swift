@@ -6,6 +6,8 @@ import Foundation
 // Factory is used to override visual representation of some video editor features.
 class CustomViewControllerFactory: ExternalViewControllerFactory {
 
+  static let shared = CustomViewControllerFactory()
+
   // Override to use custom audio browser experience. Set nil to use default implementation
   var musicEditorFactory: MusicEditorExternalViewControllerFactory? = AppDelegate.configEnableCustomAudioBrowser ? CustomAudioBrowserViewControllerFactory() : nil
 

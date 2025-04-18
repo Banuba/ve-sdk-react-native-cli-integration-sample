@@ -19,10 +19,9 @@ class AudioBrowserModule: UIViewController, TrackSelectionViewController, RCTBri
 
   override func viewDidLoad() {
     // Show custom audio browser screen implemented in JS
-    self.view = RCTRootView(
-      bridge: AppDelegate.sharedBridge!,
-      moduleName: AudioBrowserModule.moduleName(),
-      initialProperties: nil
-    )
+
+    let factory = (UIApplication.shared.delegate as! AppDelegate).reactNativeFactory
+
+    self.view = factory?.rootViewFactory.view(withModuleName: AudioBrowserModule.moduleName())
   }
 }

@@ -42,6 +42,6 @@ Set Banuba license token [within the app](App.js#L13).
 |              | Version | 
 |--------------|:-------:|
 | Yarn         |  4.1.1  |
-| React Native | 0.73.5  |
-| Android      |  6.0+   |
-| iOS          |  14.0+  |
+| React Native | 0.79.1  |
+| Android      |  8.0+   |
+| iOS          |  15.0+  |

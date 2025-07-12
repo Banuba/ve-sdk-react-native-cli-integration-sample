@@ -8,7 +8,7 @@ Once complete you will be able to launch photo editor in your React Native proje
 
 ## Installation
 
-Add iOS Photo Editor SDK dependency ```pod 'BanubaPhotoEditorSDK', '1.2.8'``` to your [Podfile](../ios/Podfile).
+Add iOS Photo Editor SDK dependency ```pod 'BanubaPhotoEditorSDK', '1.2.9'``` to your [Podfile](../ios/Podfile).
 
 ## Launch
 First, initialize the Photo Editor SDK using the license token in ```SdkEditorModule``` on iOS.

@@ -28,7 +28,7 @@ target 'vesdkreactnativecliintegrationsample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-    sdk_version = '1.44.0'
+    sdk_version = '1.45.1'
 
     pod 'BanubaVideoEditorSDK', sdk_version
     pod 'BanubaSDKSimple', sdk_version
@@ -37,7 +37,7 @@ target 'vesdkreactnativecliintegrationsample' do
     pod 'BanubaAudioBrowserSDK', sdk_version # optional
 
     # Photo Editor
-    pod 'BanubaPhotoEditorSDK', '1.2.8'
+    pod 'BanubaPhotoEditorSDK', '1.2.9'
 
   post_install do |installer|
     # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202

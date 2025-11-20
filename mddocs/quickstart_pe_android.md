@@ -21,20 +21,8 @@ allprojects {
         ...
 
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Banuba/banuba-ve-sdk")
-            credentials {
-                username = "Banuba"
-                password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
-            }
-        }
-        maven {
-            name "GitHubPackagesEffectPlayer"
-            url "https://maven.pkg.github.com/sdk-banuba/banuba-sdk-android"
-            credentials {
-                username = "sdk-banuba"
-                password = "\u0067\u0068\u0070\u005f\u004a\u0067\u0044\u0052\u0079\u0049\u0032\u006d\u0032\u004e\u0055\u0059\u006f\u0033\u0033\u006b\u0072\u0034\u0049\u0069\u0039\u0049\u006f\u006d\u0077\u0034\u0052\u0057\u0043\u0064\u0030\u0052\u0078\u006d\u0045\u0069"
-            }
+            name = "nexus"
+            url = uri("https://nexus.banuba.net/repository/maven-releases")
         }
 
         ...
@@ -44,10 +32,10 @@ allprojects {
 
 Specify Photo Editor SDK dependencies in the app [gradle](../android/app/build.gradle#L165) file.
 ```groovy
-    def banubaPESdkVersion = '1.2.20'
+    def banubaPESdkVersion = '1.2.24'
     implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
 
-    def banubaSdkVersion = '1.48.0.1'
+    def banubaSdkVersion = '1.48.5'
     implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"

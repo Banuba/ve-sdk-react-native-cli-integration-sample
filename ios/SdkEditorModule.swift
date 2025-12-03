@@ -252,6 +252,7 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
       audioBrowserModule.trackSelectionDelegate?.trackSelectionViewController(
         viewController: audioBrowserModule,
         didSelectFile: audioURL!,
+        remoteURL: nil,
         isEditable: true,
         title: trackName,
         additionalTitle: additionTitle,
@@ -377,6 +378,7 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
       uuid: UUID(),
       id: nil,
       url: wavFile,
+      remoteURL: nil,
       coverURL: nil,
       timeRange: mediaTrackTimeRange,
       isEditable: true,

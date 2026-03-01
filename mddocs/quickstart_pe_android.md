@@ -123,7 +123,7 @@ After SDK initialization, invoke [openPhotoEditor](../App.js#L39) from React Nat
 ```javascript
 await SdkEditorModule.openPhotoEditor();
 ```
-On the Android side, implement the [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L87) that starts the Photo Editor.
+On the Android side, implement the [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L87) to start Photo Editor.
 
 ```kotlin
   @ReactMethod

@@ -1,95 +1,153 @@
-# Android Photo Editor SDK quickstart
+# Photo Editor Quickstart on Android
 
-This guide demonstrates how to quickly integrate Android Photo Editor SDK into your React Native project.
-The main part of an integration and customization is implemented in ```android``` directory
-in your React Native project using native Android development process.
-
-Once complete you will be able to launch photo editor in your React Native project.
+This guide walks you through integrating the Android Photo Editor SDK into your React Native project. Integration and customization are performed in the `android` directory using native Android development practices.
 
 - [Installation](#Installation)
 - [Launch](#Launch)
 
 ## Installation
-GitHub Packages is used for downloading SDK modules.
-First, add repositories to [gradle](../android/build.gradle#L30) file in ```allprojects``` section.
+Add the Banuba repository to your project using **either** Groovy **or** Kotlin DSL:
+
+**Groovy** (in project's [build.gradle](../android/build.gradle#L31))
 
 ```groovy
 ...
 
 allprojects {
     repositories {
-        ...
-
-        maven {
-            name = "nexus"
-            url = uri("https://nexus.banuba.net/repository/maven-releases")
-        }
-
-        ...
+       ...
+       maven {
+          name = "nexus"
+          url = uri("https://nexus.banuba.net/repository/maven-releases")
+       }
     }
 }
 ```
+or
 
-Specify Photo Editor SDK dependencies in the app [gradle](../android/app/build.gradle#L165) file.
-```groovy
-    def banubaPESdkVersion = '1.2.25'
-    implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
-
-    def banubaSdkVersion = '1.49.0'
-    implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
-    implementation "com.banuba.sdk:effect-player-adapter:${banubaSdkVersion}"
+**Kotlin** (settings.gradle.kts)
+```kotlin
+...
+dependencyResolutionManagement {
+   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+   repositories {
+      ...
+      maven {
+         name = "nexus"
+         url = uri("https://nexus.banuba.net/repository/maven-releases")
+      }
+   }
+}
 ```
 
-Additionally, make sure the following plugins are in your app [gradle](../android/app/build.gradle#L2) file.
+Add dependencies to your app's [gradle](../android/app/build.gradle#L155)
 ```groovy
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
+    dependencies {
+        def banubaPESdkVersion = '1.3.2'
+        implementation "com.banuba.sdk:pe-sdk:${banubaPESdkVersion}"
+
+        def banubaSdkVersion = '1.49.5'
+        implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:ve-gallery-sdk:${banubaSdkVersion}"
+        implementation "com.banuba.sdk:effect-player-adapter:${banubaSdkVersion}"
+        }
+```
+
+Ensure these plugins are in your app's [gradle](../android/app/build.gradle#L1).
+```groovy
+   plugins {
+        id "com.android.application"
+        id "kotlin-android"
+        id "kotlin-parcelize"
+}
 ```
 
 ## Launch
 
-Create [BanubaSdkReactPackage](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/BanubaSdkReactPackage.kt) and add [SdkEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt) to the list of modules.
-```kotlin
+Create [SdkEditorModule](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt) for communicating with the SDK.
+
+
+Create ```BanubaSdkReactPackage``` class add add ```SdkEditorModule```  to the list of modules.
+```diff
  class BanubaSdkReactPackage : ReactPackage {
 
-    override fun createNativeModules(reactContext: ReactApplicationContext): MutableList<NativeModule> {
-        val modules = mutableListOf<NativeModule>()
-        modules.add(SdkEditorModule(reactContext))
-        return modules
+    class BanubaSdkReactPackage : ReactPackage {
+        override fun createNativeModules(reactContext: ReactApplicationContext): MutableList<NativeModule> {
+            val modules = mutableListOf<NativeModule>()
+ +           modules.add(SdkEditorModule(reactContext))
+            return modules
+        }
+        override fun createViewManagers(reactContext: ReactApplicationContext): MutableList<ViewManager<View, ReactShadowNode<*>>> =
+            mutableListOf()
     }
-    ...
 }
 ```
 
-Next, add ```BanubaSdkReactPackage```  to the list of packages in [Application](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.kt#L23) class
-```kotlin
-    override fun getPackages(): MutableList<ReactPackage> {
-    val packages = PackageList(this).packages
-    packages.add(BanubaSdkReactPackage())
-    return packages
+Add  ```BanubaSdkReactPackage``` package [in the application](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/MainApplication.kt#L23)
+```diff
+    class MainApplication : Application(), ReactApplication {
+
+
+    override val reactNativeHost: ReactNativeHost =
+        object : DefaultReactNativeHost(this) {
+            override fun getPackages(): List<ReactPackage> = PackageList(this).packages.apply {
++                add(BanubaSdkReactPackage())
+            }
+
+            ...
+        }
+
+    override val reactHost: ReactHost
+        get() = getDefaultReactHost(applicationContext, reactNativeHost)
+
+    override fun onCreate() {
+        super.onCreate()
+        ...
+    }
 }
 ```
 
-[Promises](https://reactnative.dev/docs/native-modules-android#promises) feature is used to make a bridge between React Native and Android.
+The [Promises](https://reactnative.dev/docs/native-modules-android#promises) pattern bridges React Native with Android native modules.
 
-Invoke [initSDK](../App.js#L16) on React Native side to initialize SDK with the license token.
+### Init SDK
+On the React Native side, call [initSDK](../App.js#L16) to initialize the SDK with your license token:
 ```javascript
 SdkEditorModule.initSDK(LICENSE_TOKEN);
 ```
+On the Android side, implement the [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L140) that initializes the Video Editor SDK.
 
-Add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L140) on Android side to initialize Video Editor SDK.
-
-> [!IMPORTANT]
-> 1. Instance ```editorSDK``` is ```null``` if the license token is incorrect. In this case you cannot use photo editor. Check your license token.
-> 2. It is highly recommended to [check license](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L183) if the license is active before starting Photo Editor.
-
-Finally, once the SDK in initialized you can invoke [openPhotoEditor](../App.js#L39) message from React Native to Android
+### Start
+After SDK initialization, invoke [openPhotoEditor](../App.js#L39) from React Native to launch the photo editor on Android:
 
 ```javascript
 await SdkEditorModule.openPhotoEditor();
 ```
+On the Android side, implement the [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L87) that starts the Photo Editor.
 
-and add [ReactMethod](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L166) on Android side to start Photo Editor.
+```kotlin
+  @ReactMethod
+fun openPhotoEditor(promise: Promise) {
+    if (photoEditorSDK == null) {
+       // THE SDK is not initialized or token is invalod
+    } else {
+        val hostActivity = currentActivity
+        if (hostActivity == null) {
+            // Activity is not connected
+        } else {
+            this.resultPromise = promise
+            hostActivity.startActivityForResult(
+                PhotoCreationActivity.startFromGallery(hostActivity.applicationContext), OPEN_PHOTO_EDITOR_REQUEST_CODE
+            )
+        }
+    }
+}
+```
+
+> [!IMPORTANT]
+> 1. Returns ```null```l if the license token is invalid – verify your token
+> 2. [Check license activation](../android/app/src/main/java/com/vesdkreactnativecliintegrationsample/SdkEditorModule.kt#L353) before starting the editor.
+
+
+## Documentation
+Explore the full capabilities of our [Photo Editor SDK](https://docs.banuba.com/ve-pe-sdk/docs/android/requirements-pe)

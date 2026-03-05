@@ -79,32 +79,6 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
     }
   }
   
-  @objc func openVideoEditorPIP(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
-    self.currentResolve = resolve
-    self.currentReject = reject
-    
-    prepareAudioBrowser()
-    DispatchQueue.main.async {
-      guard let presentedVC = RCTPresentedViewController() else {
-        return
-      }
-      
-      // sample_pip_video.mp4 file is hardcoded for demonstrating how to open video editor sdk in the simplest case.
-      // Please provide valid video URL to open Video Editor in PIP.
-      let pipVideoURL = Bundle.main.url(forResource: "sample_video", withExtension: "mp4")
-      
-      let pipLaunchConfig = VideoEditorLaunchConfig(
-        entryPoint: .pip,
-        hostController: presentedVC,
-        pipVideoItem: pipVideoURL,
-        musicTrack: nil,
-        animated: true
-      )
-      
-      self.checkLicenseStateAndStart(with: pipLaunchConfig, rejecter: reject)
-    }
-  }
-  
   @objc func openVideoEditorTrimmer(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
     self.currentResolve = resolve
     self.currentReject = reject
@@ -338,9 +312,6 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   private func createVideoEditorConfiguration() -> VideoEditorConfig {
     var config = VideoEditorConfig()
     // Do customization here
-    
-    // Show mute audio button on Camera screen
-    config.featureConfiguration.isMuteCameraAudioEnabled = true
     
     // Sets 3, 10 seconds timer for recording on Camera
     config.recorderConfiguration.timerConfiguration.options = [

@@ -128,9 +128,15 @@ export default class App extends Component {
             <TouchableOpacity
               style={styles.button}
               onPress={async () => {
-                openVideoEditorPIP()
-                  .then(response => this.handleVideoExport(response))
-                  .catch(e => this.handleSdkError(e));
+                if (Platform.OS === 'android') {
+                    openVideoEditorPIP()
+                        .then(response => this.handleVideoExport(response))
+                        .catch(e => this.handleSdkError(e));
+                } else {
+                    openVideoEditor()
+                        .then(response => this.handleVideoExport(response))
+                        .catch(e => this.handleSdkError(e));
+                }
               }}
             >
               <Text style={styles.buttonText}>Open Video Editor - PIP</Text>

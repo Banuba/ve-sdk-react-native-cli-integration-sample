@@ -63,7 +63,7 @@ android {
 
 Add dependencies to your app's [gradle](../android/app/build.gradle#L155)
 ```groovy
-    def banubaSdkVersion = '1.49.5'
+    def banubaSdkVersion = '1.50.0'
     implementation "com.banuba.sdk:ffmpeg:5.3.0"
     implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
     implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
@@ -90,16 +90,6 @@ Ensure these plugins are in your app's [gradle](../android/app/build.gradle#L1).
 }
 ```
 
-## Resources
-Video Editor SDK uses a lot of resources required for running in the app.  
-Please make sure all these resources exist in your project.
-
-1. [drawable-xhdpi](../android/app/src/main/res/drawable-xhdpi),
-   [drawable-xxhdpi](../android/app/src/main/res/drawable-xxhdpi),
-   [drawable-xxxhdpi](../android/app/src/main/res/drawable-xxxhdpi) are visual assets for color filter previews.
-
-2. [styles.xml](../android/app/src/main/res/values/styles.xml) includes implementation of ```VideoCreationTheme``` of Video Editor SDK.
-
 ## AndroidManifest Updates
 
 Add the following to your [AndroidManifest.xml](../android/app/src/main/AndroidManifest.xml#L47):
@@ -112,6 +102,10 @@ Add the following to your [AndroidManifest.xml](../android/app/src/main/AndroidM
     android:windowSoftInputMode="adjustResize"
     tools:replace="android:theme" />
 ```  
+
+ **Important**  
+ Add [CustomIntegrationAppTheme](../android/app/src/main/res/values/styles.xml#L12) styles resource file.
+
 2. **Network permissions** (optional)– only required if using [Giphy](https://giphy.com/) stickers or downloading AR effects from the cloud.
 ```xml
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

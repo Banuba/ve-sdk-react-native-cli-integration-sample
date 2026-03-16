@@ -143,26 +143,6 @@ AudioBrowserConfig.shared.musicSource = .soundstripe
 
 to use audio from [Soundstripe](https://www.soundstripe.com/) in Video Editor.
 
-### Connect Mubert
-
-Request API key from [Mubert](https://mubert.com/).  
-
-> [!IMPORTANT]
-> Banuba is not responsible for providing Mubert API key.
-
-Set ```false``` to [configEnableCustomAudioBrowser](../ios/AppDelegate.swift#L16)
-and specify ```MubertApiConfig``` in your [SdkEditorModule](../ios/SdkEditorModule.swift#L340)
-
-```swift
-AudioBrowserConfig.shared.musicSource = .mubert
-BanubaAudioBrowser.setMubertKeys(
-  license: "SET MUBERT API LICENSE",
-  token: "SET MUBERT API TOKEN"
-)
-```
-
-to use audio from [Mubert](https://mubert.com/) in Video Editor.
-
 ### Connect Banuba Music
 
 Set ```false``` to [configEnableCustomAudioBrowser](../ios/AppDelegate.swift#L16)

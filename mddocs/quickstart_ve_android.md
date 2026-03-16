@@ -173,7 +173,7 @@ class VideoEditorIntegrationModule {
             if (VideoEditorIntegrationModule.CONFIG_ENABLE_CUSTOM_AUDIO_BROWSER) {
                 AudioBrowserContentProvider()
             } else {
-                // Default implementation that supports Mubert and Local audio stored on the device
+                // Default implementation that supports Local audio stored on the device
                 AudioBrowserMusicProvider()
             }
         }

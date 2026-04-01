@@ -7,7 +7,6 @@ of React Native project using native iOS development process.
 Once complete you will be able to launch video editor in your React Native project.
 
 - [Installation](#installation)
-- [Resources](#resources)
 - [Configuration](#configuration)
 - [Launch](#launch)
 - [Editor V2](#editor-v2)
@@ -17,12 +16,6 @@ Once complete you will be able to launch video editor in your React Native proje
 
 ## Installation
 Add iOS Video Editor SDK dependencies to your [Podfile](../ios/Podfile).
-
-## Resources
-**Video Editor SDK** uses a lot of resources required for running.  
-Please make sure all these resources are provided in your project.
-1. [luts](../ios/vesdkreactnativecliintegrationsample/luts) to use Lut effects shown in the Effects tab.
-2. [Localizable.strings](../ios/Localizable.strings) file with English localization.
 
 **Video Editor SDK** needs only the [Localizable.strings](../ios/Localizable.strings) file.
 

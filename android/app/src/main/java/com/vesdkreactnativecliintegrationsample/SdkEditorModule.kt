@@ -12,7 +12,7 @@ import com.banuba.sdk.cameraui.data.PipConfig
 import com.banuba.sdk.core.data.TrackData
 import com.banuba.sdk.export.data.ExportResult
 import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
-import com.banuba.sdk.core.license.BanubaVideoEditor
+import com.banuba.sdk.core.license.EditorSdk
 import com.banuba.sdk.core.license.LicenseStateCallback
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.banuba.sdk.pe.BanubaPhotoEditor
@@ -47,7 +47,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
     private var resultPromise: Promise? = null
 
-    private var videoEditorSDK: BanubaVideoEditor? = null
+    private var videoEditorSDK: EditorSdk? = null
     private var photoEditorSDK: BanubaPhotoEditor? = null
     private var integrationModule: VideoEditorIntegrationModule? = null
     // Bundle for enabling Editor V2
@@ -124,7 +124,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
     @ReactMethod
     fun initVideoEditorSDK(licenseToken: String, promise: Promise) {
-        videoEditorSDK = BanubaVideoEditor.initialize(licenseToken)
+        videoEditorSDK = EditorSdk.initialize(licenseToken)
         
         if (videoEditorSDK == null) {
             // Token you provided is not correct - empty or truncated

@@ -30,25 +30,27 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   
   @objc (initVideoEditorSDK:resolver:rejecter:)
   func initVideoEditorSDK(_ token: String, _ resolve: @escaping RCTPromiseResolveBlock, _ reject: @escaping RCTPromiseRejectBlock) {
-    guard videoEditorSDK == nil else { return }
-    
-    let config = createVideoEditorConfiguration()
+    DispatchQueue.main.async { [weak self] in
+      guard let self, self.videoEditorSDK == nil else { return }
 
-    videoEditorSDK = BanubaVideoEditor(
-      token: token,
-      // set argument .useEditorV2 to true to enable Editor V2
-      arguments: [.useEditorV2 : true],
-      configuration: config,
-      externalViewControllerFactory: CustomViewControllerFactory.shared
-    )
-    
-    if videoEditorSDK == nil {
-      reject(Self.errEditorNotInitialized, nil, nil)
-      return
+      let config = self.createVideoEditorConfiguration()
+
+      self.videoEditorSDK = BanubaVideoEditor(
+        token: token,
+        // set argument .useEditorV2 to true to enable Editor V2
+        arguments: [.useEditorV2 : true],
+        configuration: config,
+        externalViewControllerFactory: CustomViewControllerFactory.shared
+      )
+
+      if self.videoEditorSDK == nil {
+        reject(Self.errEditorNotInitialized, nil, nil)
+        return
+      }
+
+      // Set delegate
+      self.videoEditorSDK?.delegate = self
     }
-    
-    // Set delegate
-    videoEditorSDK?.delegate = self
   }
   
   // Export callback
@@ -120,26 +122,31 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
     
     // Checking the license might take around 1 sec in the worst case.
     // Please optimize use if this method in your application for the best user experience
-    videoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
-      guard let self else { return }
-      if isValid {
-        print("✅ License is active, all good")
-        DispatchQueue.main.async {
-          self.videoEditorSDK?.presentVideoEditor(
-            withLaunchConfiguration: config,
-            completion: nil
-          )
+    // getLicenseState is @MainActor-isolated as of Video Editor SDK 1.55.0.
+    DispatchQueue.main.async { [weak self] in
+      self?.videoEditorSDK?.getLicenseState(completion: { [weak self] isValid in
+        guard let self else { return }
+        if isValid {
+          print("✅ License is active, all good")
+          DispatchQueue.main.async {
+            self.videoEditorSDK?.presentVideoEditor(
+              withLaunchConfiguration: config,
+              completion: nil
+            )
+          }
+        } else {
+          // clear video editor session data and remove strong reference to video editor sdk instance
+          if self.restoreLastVideoEditingSession == false {
+            DispatchQueue.main.async {
+              self.videoEditorSDK?.clearSessionData()
+            }
+          }
+          self.videoEditorSDK = nil
+          print("❌ License is either revoked or expired")
+          reject(Self.errEditorLicenseRevoked, nil, nil)
         }
-      } else {
-        // clear video editor session data and remove strong reference to video editor sdk instance
-        if restoreLastVideoEditingSession == false {
-          self.videoEditorSDK?.clearSessionData()
-        }
-        self.videoEditorSDK = nil
-        print("❌ License is either revoked or expired")
-        reject(Self.errEditorLicenseRevoked, nil, nil)
-      }
-    })
+      })
+    }
   }
   
   // MARK: - Photo Editor
@@ -277,13 +284,12 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
   // Prepares Audio Browser
   private func prepareAudioBrowser() {
     if (!AppDelegate.configEnableCustomAudioBrowser) {
-      BanubaAudioBrowser.setMubertKeys(
-        license: AppDelegate.mubertApiLicense,
-        token: AppDelegate.mubertApiKey
-      )
+      // Mubert and .allSources were removed from the audio browser in SDK 1.54.1
+      AudioBrowserConfig.shared.musicSource = .localStorageWithMyFiles
     }
   }
-  
+
+  @MainActor
   private func getAudioBrowserModule() -> AudioBrowserModule {
     return (
       CustomViewControllerFactory.shared.musicEditorFactory as! CustomAudioBrowserViewControllerFactory
@@ -367,6 +373,7 @@ class SdkEditorModule: NSObject, RCTBridgeModule {
 
 // MARK: - Export flow
 extension SdkEditorModule {
+  @MainActor
   func exportVideo() {
     guard let videoEditorSDK else { return }
     let progressViewController = createProgressViewController()
@@ -447,6 +454,7 @@ extension SdkEditorModule {
     }
   }
   
+  @MainActor
   func createProgressViewController() -> ProgressViewController {
     let progressViewController = ProgressViewController.makeViewController()
     progressViewController.message = "Exporting"

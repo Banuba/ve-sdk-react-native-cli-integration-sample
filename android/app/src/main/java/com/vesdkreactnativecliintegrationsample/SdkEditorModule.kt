@@ -15,7 +15,6 @@ import com.banuba.sdk.export.utils.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.core.license.EditorSdk
 import com.banuba.sdk.core.license.LicenseStateCallback
 import com.banuba.sdk.ve.flow.VideoCreationActivity
-import com.banuba.sdk.pe.BanubaPhotoEditor
 import com.facebook.react.bridge.*
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
@@ -48,7 +47,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
     private var resultPromise: Promise? = null
 
     private var videoEditorSDK: EditorSdk? = null
-    private var photoEditorSDK: BanubaPhotoEditor? = null
+    private var photoEditorSDK: EditorSdk? = null
     private var integrationModule: VideoEditorIntegrationModule? = null
     // Bundle for enabling Editor V2
     private val extras = bundleOf(
@@ -143,7 +142,7 @@ class SdkEditorModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
     @ReactMethod
     fun initPhotoEditorSDK(licenseToken: String, promise: Promise) {
-        photoEditorSDK = BanubaPhotoEditor.initialize(licenseToken)
+        photoEditorSDK = EditorSdk.initialize(licenseToken)
         if (photoEditorSDK == null) {
             // Token you provided is not correct - empty or truncated
             Log.e(TAG, "SDK is not initialized!")

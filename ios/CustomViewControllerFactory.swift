@@ -18,6 +18,8 @@ class CustomViewControllerFactory: ExternalViewControllerFactory {
 
 class CustomAudioBrowserViewControllerFactory: MusicEditorExternalViewControllerFactory {
 
+  nonisolated init() {}
+
   var audioBrowserModule: AudioBrowserModule?
 
   // Audio Browser selection view controller
